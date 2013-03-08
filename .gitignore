@@ -1,0 +1,15 @@
+# Exclude these files from versioning
+
+## Temporary Files:
+*~
+*.autosave
+*.backup
+*.bak
+*.old
+*.tmp
+.~lock.*
+
+## IDE Project Files
+*.kate-swp
+/nbproject/
+/.idea/

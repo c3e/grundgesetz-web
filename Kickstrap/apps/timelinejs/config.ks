@@ -1,1 +1,1 @@
-storyjs-embed.js
+js/storyjs-embed.js

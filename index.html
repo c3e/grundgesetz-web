@@ -87,7 +87,8 @@
 
     <h2>Zeitleiste</h2>
 
-    <p>TODO Timeline einbinden</p>
+    <div id="timeline-embed"></div>
+    <script type="text/javascript" src="js/storyjs-embed.js"></script>
   
     <hr id="artikel" />
 
@@ -131,12 +132,6 @@
 </div>
 
 
-
-
-
-
-
-
   <!--! KICKSTRAP FOOTER -->
    <div class="hidden"><h1>No Stylesheet Loaded</h1><p><strong>Could not load Kickstrap.</strong>There are <a href="http://getkickstrap.com/docs/1.2/troubleshooting/#lessjs-errors">several common reasons for this error.</a></p></div>
   <div id="push"></div></div> <!-- sf-wrapper -->
@@ -144,11 +139,20 @@
   <footer class="container" id="footer">
     <a href="http://die-foobar.de/" title="foobar e.&nbsp;V."><img src="img/foobar.png" alt="Logo foobar e.&nbsp;V." style="height: 20px;" /></a>
     <a href="http://getkickstrap.com/" title="Kickstrap"><img src="Kickstrap/img/badge.png" alt="Logo von Kickstrap" /></a>
+    <a href="http://timeline.verite.co/" title="http://timeline.verite.co/">TimelineJS</a>
+    <a href="http://code.google.com/p/google-diff-match-patch/" title="http://code.google.com/p/google-diff-match-patch/">google-diff-match-patch</a>
+    <a href="https://github.com/davist11/jQuery-One-Page-Nav" title="https://github.com/davist11/jQuery-One-Page-Nav">jQuery-One-Page-Nav</a>
   </footer>
 
     <script src="Kickstrap/js/jquery-1.8.3.min.js"></script>
     <script id="appList" src="Kickstrap/js/kickstrap.min.js"></script>
     <script>
+        var timeline_config = {
+            width: "100%",
+            height: "100%",
+            source: 'grundgesetz_meta.json'
+        }
+    
         ks.ready(function() {
             $('.nav').onePageNav({
                 currentClass: 'active',

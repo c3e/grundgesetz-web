@@ -138,7 +138,11 @@
     <script id="appList" src="Kickstrap/js/kickstrap.min.js"></script>
     <script>
         ks.ready(function() {
-            // TODO Nothing to do here...
+            $('.nav').onePageNav({
+                currentClass: 'active',
+                changeHash: true,
+                scrollSpeed: 1200
+            });
         });
     </script>
 </body>

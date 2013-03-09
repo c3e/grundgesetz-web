@@ -9,7 +9,6 @@
   <title>Grundgesetz für die Bundesrepublik Deutschland</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-  <!-- You can also compile style.less to use regular css. Your apps will still work. -->
   <style type="text/css">.hidden{margin:20px;border:5px solid #a24c4c;background-color:red;padding:10px;width:400px;color:white;font-family:helvetica,sans-serif}</style>
   <link rel="stylesheet/less" type="text/css" href="kickstrap.less">
   <script src="Kickstrap/js/less-1.3.3.min.js"></script>
@@ -28,16 +27,17 @@
 <nav class="navbar navbar-fixed-top">
   <nav class="navbar-inner">
     <section class="container">
-      <a class="brand" href="#">DocPatch</a>
+      <a class="brand" href="/">Grundgesetz für die Bundesrepublik Deutschland</a>
       <nav class="nav-collapse">
         <ul class="nav">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="docpatch.html">Über</a></li>
-          <li><a href="zeitleiste.html">Zeitleiste</a></li>
+          <li class="active"><a href="#hauptseite"><i class="icon-home"></i> Hauptseite</a></li>
+          <li><a href="#zeitleiste"><i class="icon-time"></i> Zeitleiste</a></li>
+          <li><a href="#artikel"><i class="icon-file"></i> Artikel</a></li>
+          <li><a href="#download"><i class="icon-download"></i> Herunterladen</a></li>
+          <li><a href="#docpatch"><i class="icon-user"></i> Über uns</a></li>
+          <li><a href="#impressum">Impressum</a></li>
         </ul>
       </nav>
-
-
     </section>
   </nav>
 </nav>
@@ -54,7 +54,7 @@
     <p>   
       Dieses Projekt ist Teil der Open-Data-Bewegung und unterliegt der Open Definition. Unser Ziel ist, öffentliche Daten leicht zugänglich zu machen; unser Weg ist, freie Software und freie Formate für unsere Arbeit zu verwenden; unesre Idee ist, das Grundgesetz für die Bundesrepublik Deutschland als das Beispiel für öffentliche Daten wie Verfassungen und Gesetzestexte zu von unfreien Formaten zu "befreien" und in einer umfassenden Gänze zu erschließen. 
     </p>
-    <p><a href="docpatch.html" class="btn btn-primary btn-large">Mehr...</a></p>
+    <p><a href="#docpatch" class="btn btn-primary btn-large">Weiterlesen »</a></p>
   </div>
 </div>
 
@@ -64,7 +64,7 @@
   <div id="push"></div></div> <!-- sf-wrapper -->
   
   <footer class="container" id="footer">
-    <a href="http://die-foobar.de/" title="foobar e.&nbsp;V."><img src="img/foobar.png" alt="Logo foobar e.&nbsp;V." style="height: 25px;" /></a>
+    <a href="http://die-foobar.de/" title="foobar e.&nbsp;V."><img src="img/foobar.png" alt="Logo foobar e.&nbsp;V." style="height: 20px;" /></a>
     <a href="http://getkickstrap.com/" title="Kickstrap"><img src="Kickstrap/img/badge.png" alt="Logo von Kickstrap" /></a>
   </footer>
   
@@ -72,11 +72,7 @@
   <script id="appList" src="Kickstrap/js/kickstrap.min.js"></script>
   <script>
    ks.ready(function() {
-      // JavaScript placed here will run only once Kickstrap has loaded successfully.
-      $.pnotify({
-         title: 'Hello World',
-         text: 'To edit this message, find me at the bottom of this HTML file.'
-      });
+      // TODO Nothing to do here...
    });
   </script>
 </body>

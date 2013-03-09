@@ -30,39 +30,28 @@
       <a class="brand" href="#">DocPatch</a>
       <nav class="nav-collapse">
         <ul class="nav">
-          <li class="active"><a href="#">Home</a></li>
+          <li><a href="index.html">Home</a></li>
           <li><a href="docpatch.html">Über</a></li>
-          <li><a href="zeitleiste.html">Zeitleiste</a></li>
+          <li class="active"><a href="zeitleiste.html">Zeitleiste</a></li>
         </ul>
       </nav>
-
-
     </section>
   </nav>
 </nav>
 
-
-
-
-<div class="container">
-  <div class="hero-unit">
-    <h1>DocPatch</h1>
-    <p>
-      Wir versionieren das Grundgesetz.
-    </p>
-    <p>   
-      Dieses Projekt ist Teil der Open-Data-Bewegung und unterliegt der Open Definition. Unser Ziel ist, öffentliche Daten leicht zugänglich zu machen; unser Weg ist, freie Software und freie Formate für unsere Arbeit zu verwenden; unesre Idee ist, das Grundgesetz für die Bundesrepublik Deutschland als das Beispiel für öffentliche Daten wie Verfassungen und Gesetzestexte zu von unfreien Formaten zu "befreien" und in einer umfassenden Gänze zu erschließen. 
-    </p>
-    <p><a href="docpatch.html" class="btn btn-primary btn-large">Mehr...</a></p>
-  </div>
-</div>
-
-
-
-
-
-
-
+<section class="container">
+  <!-- BEGIN Timeline Embed -->
+  <div id="timeline-embed"></div>
+  <script type="text/javascript">
+    var timeline_config = {
+     width: "100%",
+     height: "100%",
+     source: 'grundgesetz_meta.json'
+    }
+  </script>
+  <script type="text/javascript" src="Kickstrap/apps/timelinejs/config.ks"></script>
+  <!-- END Timeline Embed-->
+</section>
 
 
 

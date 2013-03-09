@@ -34,14 +34,14 @@
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-share"></i> Entdecken <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a href="#zeitleiste" title="Zeitleiste [Z]" accesskey="z"><i class="icon-time"></i> Zeitleiste</a></li>
-              <li><a href="#artikel" title="Artikel [A]" accesskey="a"><i class="icon-file"></i> Artikel</a></li>
-              <li><a href="#herunterladen" title="Herunterladen [D]" accesskey="d"><i class="icon-download"></i> Herunterladen</a></li>
+              <li><a href="#zeitleiste" title="Alle Revisionen im Überblick [Z]" accesskey="z"><i class="icon-time"></i> Zeitleiste</a></li>
+              <li><a href="#artikel" title="Einzelne Artikel miteinander vergleichen [A]" accesskey="a"><i class="icon-file"></i> Artikel</a></li>
+              <li><a href="#herunterladen" title="Alle Revisionen und Formate zum Download [D]" accesskey="d"><i class="icon-download"></i> Herunterladen</a></li>
             </ul>
           </li>
-          <li><a href="#mitmachen" title="Mitmachen [M]" accesskey="m"><i class="icon-wrench"></i> Mitmachen</a></li>
-          <li><a href="#docpatch" title="Über uns [U]" accesskey="u"><i class="icon-user"></i> Über uns</a></li>
-          <li><a href="#kontakt" title="Kontakt [K]" accesskey="k"><i class="icon-envelope"></i> Kontakt</a></li>
+          <li><a href="#mitmachen" title="Hilf uns [M]" accesskey="m"><i class="icon-wrench"></i> Mitmachen</a></li>
+          <li><a href="#docpatch" title="Was DocPatch ist und wer dahinter steht [U]" accesskey="u"><i class="icon-user"></i> Über uns</a></li>
+          <li><a href="#kontakt" title="Impressum [K]" accesskey="k"><i class="icon-envelope"></i> Kontakt</a></li>
         </ul>
       </nav>
     </section>
@@ -83,40 +83,63 @@
     </div>
   </div>
   
-    <hr id="zeitleiste" />
+    <div id="zeitleiste" class="page-header">
+        <h1><i class="icon-time"></i> Zeitleiste <small>Alle Revisionen im Überblick</small></h1>
+    </div>
 
-    <h2>Zeitleiste</h2>
-
-    <div id="timeline-embed"></div>
-    <script type="text/javascript" src="js/storyjs-embed.js"></script>
+    <!--<div id="timeline-embed"></div>
+    <script type="text/javascript" src="js/storyjs-embed.js"></script>-->
   
-    <hr id="artikel" />
-
-    <h2>Artikel</h2>
+    <div id="artikel" class="page-header">
+        <h1><i class="icon-file"></i> Artikel <small>Einzelne Artikel miteinander vergleichen</small></h1>
+    </div>
 
     <p>TODO Diffs</p>
   
-    <hr id="herunterladen" />
+    <div id="herunterladen" class="page-header">
+        <h1><i class="icon-download"></i> Herunterladen <small>Alle Revisionen und Formate zum Download</small></h1>
+    </div>
+    
+    <form class="form-horizontal" method="get">
+    
+        <div class="control-group">
+            <label class="control-label" for="revision">Revision</label>
+            <div class="controls">
+                <select name="revision" id="revision" class="span3"></select>
+            </div>
+        </div>
 
-    <h2>Herunterladen</h2>
-
-    <p>TODO, vll. Formular: Version und Format auswählen</p>
+        <div class="control-group">
+            <label class="control-label" for="format">Format</label>
+            <div class="controls">
+                <select name="format" id="format" class="span3"></select>
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <div class="controls">
+                <div class="alert alert-info" style="display: none;"></div>
+                <button type="submit" class="btn btn-large btn-success"><i class="icon-download icon-large"></i> Download</button>
+            </div>
+        </div>
+    
+    </form>
   
-    <hr id="mitmachen" />
-
-    <h2>Mitmachen</h2>
+    <div id="mitmachen" class="page-header">
+        <h1><i class="icon-wrench"></i> Mitmachen <small>Hilf uns</small></h1>
+    </div>
 
     <p>TODO Repos, Tools</p>
   
-    <hr id="docpatch" />
-
-    <h2>Über uns</h2>
+    <div id="docpatch" class="page-header">
+        <h1><i class="icon-user"></i> Über uns <small>Was DocPatch ist und wer dahinter steht</small></h1>
+    </div>
 
     <p>TODO</p>
   
-    <hr id="kontakt" />
-
-    <h2>Kontakt</h2>
+    <div id="kontakt" class="page-header">
+        <h1><i class="icon-envelope"></i> Kontakt <small>Impressum</small></h1>
+    </div>
     
     <p>Inhaltlich für die Seite verantwortlich:</p>
     
@@ -158,6 +181,42 @@
                 currentClass: 'active',
                 changeHash: true,
                 scrollSpeed: 1200
+            });
+            
+            $.ajax({
+                url: "grundgesetz-dev/etc/meta.json",
+                dataType: "json"
+            }).done(function(meta) {
+                $.each(meta, function() {
+                    $('#revision').append('<option value="' + this.id + '">' + this.id + '. ' + this.title + ' (' + this.announced + ')</option>');
+                });
+            });
+            
+            var formats = [
+                {
+                    "title": "PDF",
+                    "ext": "pdf"
+                },
+                {
+                    "title": "eBook (EPUB)",
+                    "ext": "epub"
+                },
+                {
+                    "title": "HTML",
+                    "ext": "html"
+                },
+                {
+                    "title": "Open Document Format (ODT)",
+                    "ext": "odt"
+                },
+                {
+                    "title": "Plain text",
+                    "ext": "txt"
+                }
+            ];
+            
+            $.each(formats, function() {
+                $('#format').append('<option value="' + this.ext + '">' + this.title + '</option>');
             });
         });
     </script>

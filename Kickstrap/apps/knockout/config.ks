@@ -1,1 +1,1 @@
-//knockout.min.js, //view.model.js
+knockout.min.js, view.model.js

@@ -1,1 +1,1 @@
-//consoletools.js, //newbox.js
+consoletools.js, newbox.js

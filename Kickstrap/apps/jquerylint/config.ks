@@ -1,1 +1,1 @@
-//jquery.lint.min.js
+jquery.lint.min.js

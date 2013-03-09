@@ -1,1 +1,1 @@
-//firebuglite.js
+firebuglite.js

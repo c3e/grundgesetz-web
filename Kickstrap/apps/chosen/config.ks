@@ -1,1 +1,1 @@
-//chosen.jquery.js, //chosen.css
+chosen.jquery.js, chosen.css

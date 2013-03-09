@@ -9,7 +9,6 @@
   <title>Grundgesetz für die Bundesrepublik Deutschland</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-  <!-- You can also compile style.less to use regular css. Your apps will still work. -->
   <style type="text/css">.hidden{margin:20px;border:5px solid #a24c4c;background-color:red;padding:10px;width:400px;color:white;font-family:helvetica,sans-serif}</style>
   <link rel="stylesheet/less" type="text/css" href="kickstrap.less">
   <script src="Kickstrap/js/less-1.3.3.min.js"></script>
@@ -25,7 +24,6 @@
 <!--! END KICKSTRAP HEADER --> 
 
 
-
 <nav class="navbar navbar-fixed-top">
   <nav class="navbar-inner">
     <section class="container">
@@ -33,18 +31,22 @@
       <nav class="nav-collapse">
         <ul class="nav">
           <li><a href="#hauptseite"><i class="icon-home"></i> Hauptseite</a></li>
-          <li><a href="#zeitleiste"><i class="icon-time"></i> Zeitleiste</a></li>
-          <li><a href="#artikel"><i class="icon-file"></i> Artikel</a></li>
-          <li><a href="#herunterladen"><i class="icon-download"></i> Herunterladen</a></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-share"></i> Entdecken <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="#zeitleiste"><i class="icon-time"></i> Zeitleiste</a></li>
+              <li><a href="#artikel"><i class="icon-file"></i> Artikel</a></li>
+              <li><a href="#herunterladen"><i class="icon-download"></i> Herunterladen</a></li>
+            </ul>
+          </li>
+          <li><a href="#mitmachen"><i class="icon-wrench"></i> Mitmachen</a></li>
           <li><a href="#docpatch"><i class="icon-user"></i> Über uns</a></li>
-          <li><a href="#impressum">Impressum</a></li>
+          <li><a href="#kontakt"><i class="icon-envelope"></i> Kontakt</a></li>
         </ul>
       </nav>
     </section>
   </nav>
 </nav>
-
-
 
 
 <div class="container">
@@ -56,65 +58,54 @@
     <p>   
       Dieses Projekt ist Teil der Open-Data-Bewegung und unterliegt der Open Definition. Unser Ziel ist, öffentliche Daten leicht zugänglich zu machen; unser Weg ist, freie Software und freie Formate für unsere Arbeit zu verwenden; unsere Idee ist, das Grundgesetz für die Bundesrepublik Deutschland als das Beispiel für öffentliche Daten wie Verfassungen und Gesetzestexte von unfreien Formaten zu "befreien" und in einer umfassenden Gänze zu erschließen. 
     </p>
-    <p><a href="#" class="btn btn-primary btn-large">Mehr...</a></p>
+    <p><a href="#docpatch" class="btn btn-primary btn-large">Weiterlesen &raquo;</a></p>
+  </div>
+
+  <div class="row">
+    <div class="span4">
+      <h2>Entdecken</h2>
+      <p>Schau dir die Veränderungen des Grundgesetzes in Verbindung mit wichtigen Ereignissen der deutschen Geschichte an.</p>
+      <div class="btn-group" data-toggle="buttons-checkbox">
+        <button type="button" class="btn"><i class="icon-time"></i> Zeitleiste &raquo;</button>
+        <button type="button" class="btn"><i class="icon-file"></i> Artikel &raquo;</button>
+        <button type="button" class="btn"><i class="icon-download"></i> Herunterladen &raquo;</button>
+      </div>
+    </div>
+    <div class="span4">
+      <h2>Mitmachen</h2>
+      <p>Informiere dich, wie du dich an DocPatch beteiligen kannst.</p>
+      <p><a class="btn" href="#mitmachen">Hilf mit &raquo;</a></p>
+    </div>
+    <div class="span4">
+      <h2>Über uns</h2>
+      <p>Erfahre mehr über uns, unsere Idee und unsere Ziele.</p>
+      <p><a class="btn" href="#docpatch">Das ist DocPatch &raquo;</a></p>
+    </div>
   </div>
 
     <h2 id="zeitleiste">Zeitleiste</h2>
 
-    <p>TODO</p>
+    <p>TODO Timeline einbinden</p>
 
     <h2 id="artikel">Artikel</h2>
 
-    <p>TODO</p>
+    <p>TODO Diffs</p>
 
     <h2 id="herunterladen">Herunterladen</h2>
 
-    <p>TODO</p>
+    <p>TODO, vll. Formular: Version und Format auswählen</p>
+
+    <h2 id="mitmachen">Mitmachen</h2>
+
+    <p>TODO Repos, Tools</p>
 
     <h2 id="docpatch">Über uns</h2>
 
     <p>TODO</p>
 
-    <h2 id="impressum">Impressum</h2>
+    <h2 id="kontakt">Kontakt</h2>
 
-    <p>TODO</p>
-</div>
-
-
-  <div class="row">
-    <div class="span4">
-      <h2>Zeitleiste</h2>
-      <p>Schau dir die Veränderungen des Grundgesetzes in Verbindung mit wichtigen Ereignissen der deutschen Geschichte an.</p>
-      <p><a class="btn" href="timeline.html">View details &raquo;</a></p>
-    </div>
-    <div class="span4">
-      <h2>Herunterladen</h2>
-      <p>Lade dir einzelne Versionen des Grundgesetzes in verschiedenen Dateiformaten herunter.</p>
-      <p><a class="btn" href="download.html">View details &raquo;</a></p>
-      </div>
-    <div class="span4">
-      <h2>Über uns</h2>
-      <p>Erfahre mehr über uns, unsere Idee und unsere Ziele.</p>
-      <p><a class="btn" href="about.html">View details &raquo;</a></p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="span4">
-      <h2>Tools</h2>
-      <p>Sammlung weiterer nützlicher und spaßiger Funktionen. Lies das Grundgesetz doch mal in 13375P34K!</p>
-      <p><a class="btn" href="tools.html">View details &raquo;</a></p>
-    </div>
-    <div class="span4">
-      <h2>Artikel</h2>
-      <p>Verfolge die Veränderungen einzelner Artikel im Verlauf der Geschichte des Grundgesetzes an.</p>
-      <p><a class="btn" href="artikel.html">View details &raquo;</a></p>
-    </div>
-    <div class="span4">
-      <h2>Mitmachen</h2>
-      <p>Informiere dich, wie du dich an DocPatch beteiligen kannst.</p>
-      <p><a class="btn" href="contribute.html">View details &raquo;</a></p>
-    </div>
-  </div>
+    <p>TODO Impressum, Kontaktdaten von der foobar</p>
 </div>
 
 

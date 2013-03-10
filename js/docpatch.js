@@ -6,6 +6,14 @@ ks.ready(function() {
         scrollOffset: -100
     });
     
+    createStoryJS({
+        type: 'timeline',
+        width: '100%',
+        height: '600',
+        source: 'grundgesetz_meta.json',
+        lang: 'de'
+    });
+    
     $.ajax({
         url: "grundgesetz-dev/etc/meta.json",
         dataType: "json"

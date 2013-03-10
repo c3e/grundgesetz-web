@@ -109,7 +109,7 @@
         <h1><i class="icon-download"></i> Herunterladen <small>Alle Revisionen und Formate zum Download</small></h1>
     </div>
     
-    <form class="form-horizontal" method="get">
+    <form id="download" class="form-horizontal" method="get">
     
         <div class="control-group">
             <label class="control-label" for="revision">Revision</label>
@@ -127,7 +127,6 @@
         
         <div class="control-group">
             <div class="controls">
-                <div class="alert alert-info" style="display: none;"></div>
                 <button type="submit" class="btn btn-large btn-success"><i class="icon-download icon-large"></i> Download</button>
             </div>
         </div>
@@ -197,7 +196,7 @@
                 dataType: "json"
             }).done(function(meta) {
                 $.each(meta, function() {
-                    $('#revision').append('<option value="' + this.id + '">' + this.id + '. ' + this.title + ' (' + this.announced + ')</option>');
+                    $('#revision').append('<option value="' + this.id + '_' + this.announced + '">' + this.id + '. ' + this.title + ' (' + this.announced + ')</option>');
                 });
             });
             
@@ -226,6 +225,18 @@
             
             $.each(formats, function() {
                 $('#format').append('<option value="' + this.ext + '">' + this.title + '</option>');
+            });
+            
+            $('#download').attr(
+                'action',
+                'grundgesetz-dev/out/brd_grundgesetz_' + $('#revision').val() + '.' + $('#format').val()
+            );
+            
+            $('#revision, #format').change(function() {
+                $('#download').attr(
+                    'action',
+                    'grundgesetz-dev/out/brd_grundgesetz_' + $('#revision').val() + '.' + $('#format').val()
+                );
             });
         });
     </script>

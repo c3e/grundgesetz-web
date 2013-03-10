@@ -64,37 +64,22 @@ ks.ready(function() {
             "timeline": {
                 "headline":"Grundgesetz für die Bundesrepublik Deutschland",
                 "type":"default",
-                "text":"People say stuff",
-                "startDate":"1949,05,23",
-                "date": [
-                    {
-                        "startDate":"1949,05,23",
-                        "endDate":"1949,05,23",
-                        "headline":"Sh*t Politicians Say",
-                        "text":"<p>In true political fashion, his character rattles off common jargon heard from people running for office.</p>",
-                        "asset":
-                        {
-                            "media":"http://youtu.be/u4XpeU9erbg",
-                            "credit":"",
-                            "caption":""
-                        }
-                    }
-                ]
+                "text":"Bundesverfassung",
+                "startDate":"1949,5,23",
+                "date": []
             }
         };
         
         $.each(data, function() {
             var announced = new Date(this.announced);
-            //console.log(announced.format('yyyy-MM-dd'));
-            //console.log($.datepicker.formatDate('yyyy,m,d', new Date(this.announced)));
-            //console.log($.datepicker.formatDate('yy-mm-dd', new Date(this.announced)));
+
             timelineData.timeline.date.push({
-                "startDate": announced.toString('yyyy,m,d'),
-                "endDate": announced.toString('yyyy,m,d'),
+                "startDate": $.datepicker.formatDate('yy,m,d', announced),
+                "endDate": $.datepicker.formatDate('yy,m,d', announced),
                 "headline": this.title,
-                "text":"<p>In true political fashion, his character rattles off common jargon heard from people running for office.</p>",
+                "text":"<p>Lorem Ipsum Dolor.</p>",
                 "asset": {
-                    "media":"http://youtu.be/u4XpeU9erbg",
+                    "media":"",
                     "credit":"",
                     "caption":""
                 }

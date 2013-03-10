@@ -6,16 +6,6 @@ ks.ready(function() {
         scrollOffset: -100
     });
     
-    createStoryJS({
-        type: 'timeline',
-        width: '100%',
-        height: '600',
-        source: 'grundgesetz_meta.json',
-        lang: 'de',
-        css: 'Kickstrap/apps/timelinejs/css/timeline.css',
-        js: 'Kickstrap/apps/timelinejs/js/timeline-min.js'
-    });
-    
     $.ajax({
         url: "grundgesetz-dev/etc/meta.json",
         dataType: "json"
@@ -69,5 +59,56 @@ ks.ready(function() {
             'href',
             'grundgesetz-dev/out/brd_grundgesetz_' + $('#revision option:first').val() + '.pdf'
         );
+        
+        var timelineData = {
+            "timeline": {
+                "headline":"Grundgesetz für die Bundesrepublik Deutschland",
+                "type":"default",
+                "text":"People say stuff",
+                "startDate":"1949,05,23",
+                "date": [
+                    {
+                        "startDate":"1949,05,23",
+                        "endDate":"1949,05,23",
+                        "headline":"Sh*t Politicians Say",
+                        "text":"<p>In true political fashion, his character rattles off common jargon heard from people running for office.</p>",
+                        "asset":
+                        {
+                            "media":"http://youtu.be/u4XpeU9erbg",
+                            "credit":"",
+                            "caption":""
+                        }
+                    }
+                ]
+            }
+        };
+        
+        $.each(data, function() {
+            var announced = new Date(this.announced);
+            //console.log(announced.format('yyyy-MM-dd'));
+            //console.log($.datepicker.formatDate('yyyy,m,d', new Date(this.announced)));
+            //console.log($.datepicker.formatDate('yy-mm-dd', new Date(this.announced)));
+            timelineData.timeline.date.push({
+                "startDate": announced.toString('yyyy,m,d'),
+                "endDate": announced.toString('yyyy,m,d'),
+                "headline": this.title,
+                "text":"<p>In true political fashion, his character rattles off common jargon heard from people running for office.</p>",
+                "asset": {
+                    "media":"http://youtu.be/u4XpeU9erbg",
+                    "credit":"",
+                    "caption":""
+                }
+            });
+        });
+    
+        createStoryJS({
+            type: 'timeline',
+            width: '100%',
+            height: '600',
+            source: timelineData,
+            lang: 'de',
+            css: 'Kickstrap/apps/timelinejs/css/timeline.css',
+            js: 'Kickstrap/apps/timelinejs/js/timeline-min.js'
+        });
     });
 });

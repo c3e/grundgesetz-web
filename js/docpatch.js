@@ -11,7 +11,9 @@ ks.ready(function() {
         width: '100%',
         height: '600',
         source: 'grundgesetz_meta.json',
-        lang: 'de'
+        lang: 'de',
+        css: 'Kickstrap/apps/timelinejs/css/timeline.css',
+        js: 'Kickstrap/apps/timelinejs/js/timeline-min.js'
     });
     
     $.ajax({
@@ -65,7 +67,7 @@ ks.ready(function() {
         
         $('#latest').attr(
             'href',
-             'grundgesetz-dev/out/brd_grundgesetz_' + $('#revision option:first').val() + '.pdf'
+            'grundgesetz-dev/out/brd_grundgesetz_' + $('#revision option:first').val() + '.pdf'
         );
     });
 });

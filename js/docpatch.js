@@ -1,8 +1,9 @@
 ks.ready(function() {
-    $('.nav').onePageNav({
+    $('.navbar').onePageNav({
         currentClass: 'active',
         changeHash: true,
-        scrollSpeed: 1200
+        scrollSpeed: 750,
+        scrollOffset: -100
     });
     
     $.ajax({
@@ -53,5 +54,10 @@ ks.ready(function() {
                 'grundgesetz-dev/out/brd_grundgesetz_' + $('#revision').val() + '.' + $('#format').val()
             );
         });
+        
+        $('#latest').attr(
+            'href',
+             'grundgesetz-dev/out/brd_grundgesetz_' + $('#revision option:first').val() + '.pdf'
+        );
     });
 });

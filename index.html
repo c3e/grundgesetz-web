@@ -1,8 +1,8 @@
 <!doctype html>
-<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en-gb"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en-gb"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en-gb"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en-gb"> <!--<![endif]-->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="de"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="de"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="de"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="de"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -14,6 +14,7 @@
     <script src="Kickstrap/js/less-1.3.3.min.js"></script>
     <!--[if IE]><script src="Kickstrap/js/html5shiv.js"></script><![endif]-->
 </head>
+
 <body data-spy="scroll" data-target=".navbar">
 
 
@@ -52,6 +53,15 @@
     <div id="hauptseite" class="hero-unit">
         <h1>Entdecke unsere Verfassung</h1>
         <p>Diese Webseite ermöglicht das Nachvollziehen aller Veränderungen am Grundgesetz für die Bundesrepublik Deutschland seit seinem Inkrafttreten im Jahr 1949. Es enthält den vollständigen Gesetztestext zuzüglich vieler Informationen, die damit in Verbindung stehen. Somit steht ein umfassendes Werk zur Verfügung, die Entwicklung der deutschen Verfassung transparenter zu machen.</p>
+        <div class="btn-group btn-success pull-right">
+            <a id="latest" class="btn btn-large btn-success" href="#" title="Aktuelle Revision im PDF-Format herunterladen"><i class="icon-download"></i> Aktuelle Revision (PDF)</a>
+            <button class="btn btn-large dropdown-toggle btn-success" data-toggle="dropdown">
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="#herunterladen" title="Alle Revisionen und Formate zum Download">Alle Revisionen und Formate</a></li>
+            </ul>
+        </div>
         <p><a href="#docpatch" title="Was DocPatch ist und wer dahinter steht" class="btn btn-primary btn-large">Weiterlesen &raquo;</a></p>
     </div>
 
@@ -76,8 +86,10 @@
             <p><a class="btn" href="#docpatch" title="Was DocPatch ist und wer dahinter steht">Das ist DocPatch &raquo;</a></p>
         </div>
     </div>
+    
+    <hr id="zeitleiste" />
   
-    <div id="zeitleiste" class="page-header">
+    <div class="page-header">
         <h1><i class="icon-time"></i> Zeitleiste <small>Alle Revisionen im Überblick</small></h1>
     </div>
 
@@ -92,14 +104,18 @@
     </script>
 
     <script type="text/javascript" src="js/storyjs-embed.js"></script>
+    
+    <hr id="artikel" />
   
-    <div id="artikel" class="page-header">
+    <div class="page-header">
         <h1><i class="icon-file"></i> Artikel <small>Einzelne Artikel miteinander vergleichen</small></h1>
     </div>
 
     <p>TODO Diffs</p>
+    
+    <hr id="herunterladen" />
   
-    <div id="herunterladen" class="page-header">
+    <div class="page-header">
         <h1><i class="icon-download"></i> Herunterladen <small>Alle Revisionen und Formate zum Download</small></h1>
     </div>
     
@@ -126,20 +142,28 @@
         </div>
     
     </form>
+    
+    <hr id="mitmachen" />
   
-    <div id="mitmachen" class="page-header">
+    <div class="page-header">
         <h1><i class="icon-wrench"></i> Mitmachen <small>Hilf mit</small></h1>
     </div>
 
     <p>Wir sind ständig auf der Suche nach Menschen und Maschinen, die uns tatkräftig unterstützen möchten &ndash; sei es durch kreative Mithilfe, Spenden von Dienst- oder Sachleistungen. Melde Dich, wenn Du Dich für die &bdquo;Befreiung Deiner Grundrechte&rdquo; interessierst.
     
     <p>Hast Du eine tolle Idee, was wir unbedingt umsetzen sollten? Hast Du einen Fehler gefunden? Hast Du Vorschläge, wie wir etwas besser machen können? Wir benutzen den <a href="https://github.com/bheisig/grundgesetz-dev/issues" title="https://github.com/bheisig/grundgesetz-dev/issues">GitHub-eigenen Issue Tracker</a> für jegliche Anfragen solcher Art.</p>
+    
+    <hr id="docpatch" />
   
-    <div id="docpatch" class="page-header">
+    <div class="page-header">
         <h1><i class="icon-user"></i> Über uns <small>Was DocPatch ist und wer dahinter steht</small></h1>
     </div>
 
-    <p>TODO</p>
+    <p>Dieses Projekt ist Teil der Open-Data-Bewegung und unterliegt der <a href="http://opendefinition.org/okd/" title="http://opendefinition.org/okd/">Open Definition</a>. Unser <strong>Ziel</strong> ist, öffentliche Daten leicht zugänglich zu machen; unser <strong>Weg</strong> ist, freie Software und freie Formate für unsere Arbeit zu verwenden; unsere <strong>Idee</strong> ist, das Grundgesetz für die Bundesrepublik Deutschland als <em>das</em> Beispiel für öffentliche Daten wie Verfassungen und Gesetzestexte von unfreien Formaten zu "befreien" und umfassend zu erschließen.</p>
+    <p>Gesetzestexte sind wie Software: der &bdquo;Quelltext&rdquo; ist gut strukturiert mit einfacher Syntax und Änderungen sind auch nichts anderes als Patches, um Fehler zu beseitigen oder neuen Anforderungen zu genügen. Das jedenfalls dachten wir uns vor einiger Zeit. Wie wäre es, ein Gesetz wie ein Stück Software zu behandeln, zu versionieren und zu patchen? Softwareentwickler benutzen dafür Versionskontrollsysteme wie <a href="http://git-scm.com/" title="http://git-scm.com/"><code>git</code></a>. Damit kann man nachvollziehen, wer wann was und warum geändert hat. Als Syntax nahmen wir das leicht verständliche und weit verbreitete <a href="http://daringfireball.net/projects/markdown/" title="http://daringfireball.net/projects/markdown/"><code>markdown</code></a>, das sich wie einfacher Text liest. Um die Gesetzestexte in schöne Formate konvertieren zu können, entschieden wir uns für das mächtige <a href="http://johnmacfarlane.net/pandoc/index.html" title="http://johnmacfarlane.net/pandoc/index.html"><code>pandoc</code></a>, das unser verwendetes <code>markdown</code> mit sinnvoller Syntax anreichert. Die Patches haben wir dem kleinen, aber feinen Tool <a href="http://savannah.nongnu.org/projects/quilt" title="http://savannah.nongnu.org/projects/quilt"><code>quilt</code></a> erstellt. Den letzten Schliff gaben wir dem Projekt mit der selbst geschriebenen Software <a href="https://github.com/bheisig/DocPatch" title="https://github.com/bheisig/DocPatch"><code>DocPatch</code></a>.</p>
+    <p>Wir beschränken uns nicht auf den reinen Text und die Änderungen, sondern gehen einen Schritt weiter: Mit Hilfe von weiteren strukturierten Daten (&bdquo;Metadaten&rdquo;) stellen wir den Text als solches und alle Änderungen in einen größeren Kontext: Wann wurde eine Änderung verabschiedet? Wer hat sie initiiert, wer unterschrieben? Das sind alles Fragen, die wir versuchen zu beantworten.</p>
+    
+    <hr />
 
 </div>
 
@@ -154,7 +178,7 @@
     <footer class="container" id="footer">
         <div class="row-fluid">
             <div class="span4">
-                <p>Der Hackerspace foobar ist Heimat des <a href="http://chaospott.de/" title="http://chaospott.de/">Chaospott Essen</a>, ein Erfa-Kreis des <a href="http://ccc.de/" title="http://ccc.de/">Chaos Computer Clubs e.&nbsp;V.</a></p>
+                <p>Wer mit uns in Kontakt treten möchte, möge sich bitte direkt an <a href="http://benjamin.heisig.name/" title="http://benjamin.heisig.name/">Benjamin Heisig</a> wenden oder indirekt die üblichen Kommunikationskanäle der foobar bemühen:</p>
                 
                 <a href="http://die-foobar.de/" title="foobar e.&nbsp;V."><img src="img/foobar.png" alt="Logo foobar e.&nbsp;V." class="pull-right"></a>
     
@@ -167,6 +191,8 @@
                     Telefon: +49 201 75915275<br />
                     Twitter: <a href="https://twitter.com/foobareV">@foobareV</a>
                 </address>
+                
+                <p>Der Hackerspace foobar ist Heimat des <a href="http://chaospott.de/" title="http://chaospott.de/">Chaospott Essen</a>, ein Erfa-Kreis des <a href="http://ccc.de/" title="http://ccc.de/">Chaos Computer Clubs e.&nbsp;V.</a></p>
             </div>
 
             <div class="span4">
@@ -183,7 +209,8 @@
             </div>
 
             <div class="span4">
-                <p><strong>Bitte beachten:</strong> Diese Webseite stellt keine offizielle Quelle für Gesetzestexte dar. Es wird kein Anspruch auf Korrektheit erhoben. Als amtliche Werke unterliegen deutsche Gesetze nicht dem Urheberrecht. <a href="#mitmachen" title="Mitmachen">Bitte hilf mit</a>, dieses Angebot weiter zu verbessern.</p>
+                <p><strong>Bitte beachten:</strong> Diese Webseite stellt keine offizielle Quelle für Gesetzestexte dar. Es wird kein Anspruch auf Korrektheit erhoben. Als amtliche Werke unterliegen deutsche Gesetze nicht dem Urheberrecht. Die <a href="https://github.com/bheisig/grundgesetz-dev#quellen" title="https://github.com/bheisig/grundgesetz-dev#quellen">Quellen</a> sind auf der Projektseite nachzulesen.</p>
+                <p><a href="#mitmachen" title="Mitmachen">Bitte hilf mit</a>, dieses Angebot weiter zu verbessern.</p>
             </div>
         </div>
     </footer>

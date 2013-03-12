@@ -18,11 +18,13 @@
 <body style="padding-top: 6em;" data-spy="scroll" data-target=".navbar">
 
 
-<div id="sf-wrapper"> <!-- Sticky Footer Wrapper -->
-  <!-- Prompt IE 6/7 users to install Chrome Frame. Remove this if you support IE 7-.
-       chromium.org/developers/how-tos/chrome-frame-getting-started -->
-  <!--[if lt IE 8]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
-<!--! END KICKSTRAP HEADER --> 
+<div id="sf-wrapper">
+    <!-- Sticky Footer Wrapper -->
+    <!-- Prompt IE 6/7 users to install Chrome Frame. Remove this if you support IE 7-.
+        chromium.org/developers/how-tos/chrome-frame-getting-started -->
+    <!--[if lt IE 8]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+    <!--! END KICKSTRAP HEADER -->
+
 
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -37,10 +39,10 @@
             <a class="brand" href="/">Grundgesetz für die Bundesrepublik Deutschland</a>
             
             <nav class="nav-collapse collapse">
-                <ul class="nav">
+                <ul id="topnav" class="nav">
                     <li><a href="#hauptseite" title="Hauptseite [H]" accesskey="h"><i class="icon-home"></i> Hauptseite</a></li>
                     <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-share"></i> Entdecken <b class="caret"></b></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-share"></i> Entdecken <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="#zeitleiste" title="Alle Revisionen im Überblick [Z]" accesskey="z"><i class="icon-time"></i> Zeitleiste</a></li>
                             <li><a href="#artikel" title="Einzelne Artikel miteinander vergleichen [A]" accesskey="a"><i class="icon-file"></i> Artikel</a></li>
@@ -50,6 +52,8 @@
                     <li><a href="#mitmachen" title="Hilf mit [M]" accesskey="m"><i class="icon-wrench"></i> Mitmachen</a></li>
                     <li><a href="#docpatch" title="Was DocPatch ist und wer dahinter steht [U]" accesskey="u"><i class="icon-user"></i> Über uns</a></li>
                 </ul>
+
+                <a id="latest" class="btn btn-success pull-right" href="#" title="Aktuelle Revision im PDF-Format herunterladen"><i class="icon-download"></i> Neuste Revision (PDF)</a>
             </nav>
         </section>
     </nav>
@@ -59,16 +63,9 @@
 <div class="container">
     <div id="hauptseite" class="hero-unit">
         <h1>Entdecke unsere Verfassung</h1>
+
         <p>Diese Webseite ermöglicht das Nachvollziehen aller Veränderungen am Grundgesetz für die Bundesrepublik Deutschland seit seinem Inkrafttreten im Jahr 1949. Es enthält den vollständigen Gesetztestext zuzüglich vieler Informationen, die damit in Verbindung stehen. Somit steht ein umfassendes Werk zur Verfügung, die Entwicklung der deutschen Verfassung transparenter zu machen.</p>
-        <div class="btn-group btn-success pull-right">
-            <a id="latest" class="btn btn-large btn-success" href="#" title="Aktuelle Revision im PDF-Format herunterladen"><i class="icon-download"></i> Aktuelle Revision (PDF)</a>
-            <button class="btn btn-large dropdown-toggle btn-success" data-toggle="dropdown">
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-                <li><a href="#herunterladen" title="Alle Revisionen und Formate zum Download">Alle Revisionen und Formate</a></li>
-            </ul>
-        </div>
+
         <p><a href="#docpatch" title="Was DocPatch ist und wer dahinter steht" class="btn btn-primary btn-large">Weiterlesen &raquo;</a></p>
     </div>
 

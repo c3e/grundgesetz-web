@@ -1,7 +1,7 @@
 ks.ready(function() {
-    $('.navbar').onePageNav({
-        currentClass: 'active',
-        changeHash: true,
+    $('#topnav').onePageNav({
+        currentClass: 'current',
+        changeHash: false,
         scrollSpeed: 750,
         scrollOffset: -100
     });

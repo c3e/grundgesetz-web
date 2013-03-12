@@ -79,23 +79,24 @@ ks.ready(function() {
                 "startDate": $.datepicker.formatDate('yy,m,d', announced),
                 "endDate": $.datepicker.formatDate('yy,m,d', announced),
                 "headline": this.title,
-                "text":"<p>Blindtext.</p>",
+                "text": "<table><tr><th>Angekündigt:</th><td>"+$.datepicker.formatDate('d.m.yy', announced)+"</td></tr></table>",
                 "asset": {
-                    "media":"",
-                    "credit":"",
-                    "caption":""
+                    "media": "",
+                    "credit": "",
+                    "caption": ""
                 }
             });
         });
     
         createStoryJS({
-            type: 'timeline',
-            width: '100%',
-            height: '600',
+            type: "timeline",
+            width: "100%",
+            height: "600",
             source: timelineData,
-            lang: 'de',
-            css: 'Kickstrap/apps/timelinejs/css/timeline.css',
-            js: 'Kickstrap/apps/timelinejs/js/timeline-min.js'
+            lang: "de",
+            css: "Kickstrap/apps/timelinejs/css/timeline.css",
+            js: "Kickstrap/apps/timelinejs/js/timeline-min.js",
+            font: "DroidSerif-DroidSans"
         });
         
         $('#comparerevisions').click(function() {

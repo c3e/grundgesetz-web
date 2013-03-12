@@ -97,5 +97,43 @@ ks.ready(function() {
             css: 'Kickstrap/apps/timelinejs/css/timeline.css',
             js: 'Kickstrap/apps/timelinejs/js/timeline-min.js'
         });
+        
+        $('#comparerevisions').click(function() {
+            var dmp = new diff_match_patch();
+            var firstText = '';
+            var secondText = '';
+            
+            var firstRevision = $('#firstrevision').val();
+            if (firstRevision != '-1') {
+                $.ajax({
+                    url: 'grundgesetz-dev/out/brd_grundgesetz_' + firstRevision + '.txt',
+                    dataType: 'text',
+                    async: false
+                }).done(function(text) {
+                    firstText = text;
+                });
+            }
+            
+            var secondRevision = $('#secondrevision').val();
+            if (secondRevision != '-1') {
+                $.ajax({
+                    url: 'grundgesetz-dev/out/brd_grundgesetz_' + secondRevision + '.txt',
+                    dataType: 'text',
+                    async: false
+                }).done(function(text) {
+                    secondText = text;
+                });
+            }
+
+            dmp.Diff_Timeout = 1.0;
+            dmp.Diff_EditCost = 4.0;
+
+            var d = dmp.diff_main(firstText, secondText);
+            //dmp.diff_cleanupSemantic(d);
+            //dmp.diff_cleanupEfficiency(d);
+            var comparisionOutput = dmp.diff_prettyHtml(d);
+            
+            $('#comparisionoutput').html(comparisionOutput);
+        });
     });
 });

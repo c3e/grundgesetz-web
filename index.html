@@ -15,7 +15,7 @@
     <!--[if IE]><script src="Kickstrap/js/html5shiv.js"></script><![endif]-->
 </head>
 
-<body style="padding-top: 40px;" data-spy="scroll" data-target=".navbar">
+<body style="padding-top: 6em;" data-spy="scroll" data-target=".navbar">
 
 
 <div id="sf-wrapper"> <!-- Sticky Footer Wrapper -->
@@ -25,11 +25,18 @@
 <!--! END KICKSTRAP HEADER --> 
 
 
-<nav class="navbar navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top">
     <nav class="navbar-inner">
         <section class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+
             <a class="brand" href="/">Grundgesetz für die Bundesrepublik Deutschland</a>
-            <nav class="nav-collapse">
+            
+            <nav class="nav-collapse collapse">
                 <ul class="nav">
                     <li><a href="#hauptseite" title="Hauptseite [H]" accesskey="h"><i class="icon-home"></i> Hauptseite</a></li>
                     <li class="dropdown">
@@ -159,54 +166,56 @@
 
 
     <!--! KICKSTRAP FOOTER -->
-    <div class="hidden">
-        <h1>No Stylesheet Loaded</h1>
-        <p><strong>Could not load Kickstrap.</strong>There are <a href="http://getkickstrap.com/docs/1.2/troubleshooting/#lessjs-errors">several common reasons for this error.</a></p>
-        <div id="push"></div>
-    </div> <!-- sf-wrapper -->
-  
-    <footer class="container" id="footer">
-        <div class="row-fluid">
-            <div class="span4">
-                <p>Wer mit uns in Kontakt treten möchte, möge sich bitte direkt an <a href="http://benjamin.heisig.name/" title="http://benjamin.heisig.name/">Benjamin Heisig</a> wenden oder indirekt die üblichen Kommunikationskanäle der foobar bemühen:</p>
-                
-                <a href="http://die-foobar.de/" title="foobar e.&nbsp;V."><img src="img/foobar.png" alt="Logo foobar e.&nbsp;V." class="pull-right"></a>
-    
-                <address>
-                    <strong>foobar e.&nbsp;V.</strong><br />
-                    Sibyllastr. 9<br />
-                    45136 Essen<br />
-                    E-Mail: <a href="mailto:mail@die-foobar.de" title="mail@die-foobar.de">mail@die-foobar.de</a><br />
-                    Webseite: <a href="http://die-foobar.de/" title="http://die-foobar.de/">die-foobar.de</a><br />
-                    Telefon: +49 201 75915275<br />
-                    Twitter: <a href="https://twitter.com/foobareV">@foobareV</a>
-                </address>
-                
-                <p>Der Hackerspace foobar ist Heimat des <a href="http://chaospott.de/" title="http://chaospott.de/">Chaospott Essen</a>, ein Erfa-Kreis des <a href="http://ccc.de/" title="http://ccc.de/">Chaos Computer Club e.&nbsp;V.</a></p>
-            </div>
+<div class="hidden">
+    <h1>No Stylesheet Loaded</h1>
+    <p><strong>Could not load Kickstrap.</strong>There are <a href="http://getkickstrap.com/docs/1.2/troubleshooting/#lessjs-errors">several common reasons for this error.</a></p>
+    <div id="push"></div>
+</div> <!-- sf-wrapper -->
 
-            <div class="span4">
-                <p>Der <a href="https://github.com/bheisig/docpatch-web" title="https://github.com/bheisig/docpatch-web">Quellcode dieser Webseite</a> steht unter der <a href="http://www.gnu.org/licenses/agpl-3.0" title="http://www.gnu.org/licenses/agpl-3.0">GNU Affero General Public License, Version 3 (AGPLv3)</a>.</p>
-                
-                <p>Diese Webseite wäre ohne den Einsatz von folgender Open Source Software nicht möglich gewesen:</p>
-                
-                <ul>
-                    <li><a href="http://getkickstrap.com/" title="Kickstrap"><img src="Kickstrap/img/badge.png" alt="Logo von Kickstrap" /></a></li>
-                    <li><a href="http://timeline.verite.co/" title="http://timeline.verite.co/">TimelineJS</a></li>
-                    <li><a href="http://code.google.com/p/google-diff-match-patch/" title="http://code.google.com/p/google-diff-match-patch/">google-diff-match-patch</a></li>
-                    <li><a href="https://github.com/davist11/jQuery-One-Page-Nav" title="https://github.com/davist11/jQuery-One-Page-Nav">jQuery-One-Page-Nav</a></li>
-                </ul>
-            </div>
 
-            <div class="span4">
-                <p><strong>Bitte beachten:</strong> Diese Webseite stellt keine offizielle Quelle für Gesetzestexte dar. Es wird kein Anspruch auf Korrektheit erhoben. Als amtliche Werke unterliegen deutsche Gesetze nicht dem Urheberrecht. Die <a href="https://github.com/bheisig/grundgesetz-dev#quellen" title="https://github.com/bheisig/grundgesetz-dev#quellen">Quellen</a> sind auf der Projektseite nachzulesen.</p>
-                <p><a href="#mitmachen" title="Mitmachen">Bitte hilf mit</a>, dieses Angebot weiter zu verbessern.</p>
-            </div>
+<footer class="container" id="footer">
+    <div class="row-fluid">
+        <div class="span4">
+            <p>Wer mit uns in Kontakt treten möchte, möge sich bitte direkt an <a href="http://benjamin.heisig.name/" title="http://benjamin.heisig.name/">Benjamin Heisig</a> wenden oder indirekt die üblichen Kommunikationskanäle der foobar bemühen:</p>
+            
+            <a href="http://die-foobar.de/" title="foobar e.&nbsp;V."><img src="img/foobar.png" alt="Logo foobar e.&nbsp;V." class="pull-right"></a>
+
+            <address>
+                <strong>foobar e.&nbsp;V.</strong><br />
+                Sibyllastr. 9<br />
+                45136 Essen<br />
+                E-Mail: <a href="mailto:mail@die-foobar.de" title="mail@die-foobar.de">mail@die-foobar.de</a><br />
+                Webseite: <a href="http://die-foobar.de/" title="http://die-foobar.de/">die-foobar.de</a><br />
+                Telefon: +49 201 75915275<br />
+                Twitter: <a href="https://twitter.com/foobareV">@foobareV</a>
+            </address>
+            
+            <p>Der Hackerspace foobar ist Heimat des <a href="http://chaospott.de/" title="http://chaospott.de/">Chaospott Essen</a>, ein Erfa-Kreis des <a href="http://ccc.de/" title="http://ccc.de/">Chaos Computer Club e.&nbsp;V.</a></p>
         </div>
-    </footer>
 
-    <script src="Kickstrap/js/jquery-1.8.3.min.js"></script>
-    <script id="appList" src="Kickstrap/js/kickstrap.min.js"></script>
-    <script src="js/docpatch.js"></script>
+        <div class="span4">
+            <p>Der <a href="https://github.com/bheisig/docpatch-web" title="https://github.com/bheisig/docpatch-web">Quellcode dieser Webseite</a> steht unter der <a href="http://www.gnu.org/licenses/agpl-3.0" title="http://www.gnu.org/licenses/agpl-3.0">GNU Affero General Public License, Version 3 (AGPLv3)</a>.</p>
+            
+            <p>Diese Webseite wäre ohne den Einsatz von folgender Open Source Software nicht möglich gewesen:</p>
+            
+            <ul>
+                <li><a href="http://getkickstrap.com/" title="Kickstrap"><img src="Kickstrap/img/badge.png" alt="Logo von Kickstrap" /></a></li>
+                <li><a href="http://timeline.verite.co/" title="http://timeline.verite.co/">TimelineJS</a></li>
+                <li><a href="http://code.google.com/p/google-diff-match-patch/" title="http://code.google.com/p/google-diff-match-patch/">google-diff-match-patch</a></li>
+                <li><a href="https://github.com/davist11/jQuery-One-Page-Nav" title="https://github.com/davist11/jQuery-One-Page-Nav">jQuery-One-Page-Nav</a></li>
+            </ul>
+        </div>
+
+        <div class="span4">
+            <p><strong>Bitte beachten:</strong> Diese Webseite stellt keine offizielle Quelle für Gesetzestexte dar. Es wird kein Anspruch auf Korrektheit erhoben. Als amtliche Werke unterliegen deutsche Gesetze nicht dem Urheberrecht. Die <a href="https://github.com/bheisig/grundgesetz-dev#quellen" title="https://github.com/bheisig/grundgesetz-dev#quellen">Quellen</a> sind auf der Projektseite nachzulesen.</p>
+            <p><a href="#mitmachen" title="Mitmachen">Bitte hilf mit</a>, dieses Angebot weiter zu verbessern.</p>
+        </div>
+    </div>
+</footer>
+
+<script src="Kickstrap/js/jquery-1.8.3.min.js"></script>
+<script id="appList" src="Kickstrap/js/kickstrap.min.js"></script>
+<script src="js/docpatch.js"></script>
+
 </body>
 </html>

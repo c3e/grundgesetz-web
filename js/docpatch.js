@@ -13,7 +13,7 @@ ks.ready(function() {
         var meta = data.revisions.reverse();
 
         $.each(meta, function() {
-            $('#revision').append('<option value="' + this.id + '_' + this.announced + '">' + this.id + '. ' + this.title + ' (' + this.announced + ')</option>');
+            $('#revision, #firstrevision, #secondrevision').append('<option value="' + this.id + '_' + this.announced + '">' + this.id + '. ' + this.title + ' (' + this.announced + ')</option>');
         });
     
         var formats = [
@@ -34,7 +34,7 @@ ks.ready(function() {
                 "ext": "odt"
             },
             {
-                "title": "Plain text",
+                "title": "Plain text (txt)",
                 "ext": "txt"
             }
         ];

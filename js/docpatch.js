@@ -10,7 +10,7 @@ ks.ready(function() {
         url: "grundgesetz-dev/etc/meta.json",
         dataType: "json"
     }).done(function(data) {
-        var meta = data.reverse();
+        var meta = data.revisions.reverse();
 
         $.each(meta, function() {
             $('#revision').append('<option value="' + this.id + '_' + this.announced + '">' + this.id + '. ' + this.title + ' (' + this.announced + ')</option>');
@@ -62,22 +62,24 @@ ks.ready(function() {
         
         var timelineData = {
             "timeline": {
-                "headline":"Grundgesetz für die Bundesrepublik Deutschland",
-                "type":"default",
-                "text":"Bundesverfassung",
-                "startDate":"1949,5,23",
+                "headline": data.title,
+                "type": "default",
+                "text": data.subject,
+                "startDate": "1949,5,23",
                 "date": []
             }
         };
         
-        $.each(data, function() {
+        var revisions = data.revisions;
+        
+        $.each(revisions, function() {
             var announced = new Date(this.announced);
 
             timelineData.timeline.date.push({
                 "startDate": $.datepicker.formatDate('yy,m,d', announced),
                 "endDate": $.datepicker.formatDate('yy,m,d', announced),
                 "headline": this.title,
-                "text":"<p>Lorem Ipsum Dolor.</p>",
+                "text":"<p>Blindtext.</p>",
                 "asset": {
                     "media":"",
                     "credit":"",

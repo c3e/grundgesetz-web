@@ -96,7 +96,7 @@ ks.ready(function() {
             lang: "de",
             css: "Kickstrap/apps/timelinejs/css/timeline.css",
             js: "Kickstrap/apps/timelinejs/js/timeline-min.js",
-            font: "DroidSerif-DroidSans"
+            //font: "DroidSerif-DroidSans"
         });
         
         $('#comparerevisions').click(function() {

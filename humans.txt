@@ -1,0 +1,12 @@
+/* the humans responsible & colophon */
+/* humanstxt.org */
+
+/* TEAM */
+  Owner and maintainer: foobar e. V.
+  Contact: http://die-foorbar.de/
+  From: Essen, Germany
+
+/* SITE */
+  Language: German
+  Doctype: HTML5 and CSS3
+  Tools: Kickstrap, GNU/Linux

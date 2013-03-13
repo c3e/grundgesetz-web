@@ -111,35 +111,41 @@
             <h1><i class="icon-file"></i> Vergleichen <small>Revisionen miteinander vergleichen</small></h1>
         </div>
 
-        <div class="row">
-            <div class="span5">
-                <form class="form-horizontal" action="#">
-                    <div class="control-group">
-                        <label class="control-label" for="firstrevision">1. Revision</label>
-                        <div class="controls">
-                            <select name="firstrevision" id="firstrevision" class="span3" style="background: #ffe6e6;">
-                                <option value="-1">Bitte Revision wählen &raquo;</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <label class="control-label" for="secondrevision">2. Revision</label>
-                        <div class="controls">
-                            <select name="secondrevision" id="secondrevision" class="span3" style="background: #e6ffe6;">
-                                <option value="-1">Bitte Revision wählen &raquo;</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <div class="controls">
-                            <button id="comparerevisions" type="button" class="btn btn-large btn-primary"><i class="icon-random"></i> vergleichen</button>
-                        </div>
-                    </div>
-                </form>
+        <form class="form-horizontal" action="#">
+            <div class="control-group">
+                <label class="control-label" for="firstrevision">1. Revision</label>
+                <div class="controls">
+                    <select name="firstrevision" id="firstrevision" class="span3 highlightfirstrevision">
+                        <option value="-1">Bitte Revision wählen &raquo;</option>
+                    </select>
+                </div>
             </div>
-            <div class="span7 hugetext" id="comparisionoutput"></div>
+
+            <div class="control-group">
+                <label class="control-label" for="secondrevision">2. Revision</label>
+                <div class="controls">
+                    <select name="secondrevision" id="secondrevision" class="span3 highlightsecondrevision">
+                        <option value="-1">Bitte Revision wählen &raquo;</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="controls">
+                    <button id="comparerevisions" type="button" class="btn btn-large btn-primary"><i class="icon-random"></i> vergleichen</button>
+                </div>
+            </div>
+        </form>
+        
+        <div id="compareModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="compareModalLabel" aria-hidden="true">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 id="compareModalLabel"></h3>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Schließen</button>
+            </div>
         </div>
     </section>
     

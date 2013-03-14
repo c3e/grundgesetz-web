@@ -28,13 +28,13 @@ Upload everything and have fun! :-)
 
 ##  ToDo
 
+*   Zeitleiste
+    *   Meta-Daten ergänzen
+    *   Historischen Kontext recherchieren und ergänzen
 *   Historie einzelner Artikel betrachten
 *   Vergleichen
     *   Nur Änderungen anzeigen; gesamter Text ist verwirrend und zu viel
 *   Herunterladen
     *   Weitere Formate hinzufügen
-*   Layout
-    *   Anker-Offset setzen
-    *   scrollTo() wirft Fehlermeldung
 *   Deployment
     *   Less kompilieren

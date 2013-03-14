@@ -1,4 +1,7 @@
 ks.ready(function() {
+    var prefix = 'brd_grundgesetz_';
+    var repoDir = 'grundgesetz-dev';
+    
     $('#topnav').onePageNav({
         currentClass: 'current',
         changeHash: false,
@@ -7,7 +10,7 @@ ks.ready(function() {
     });
     
     $.ajax({
-        url: "grundgesetz-dev/etc/meta.json",
+        url: repoDir + "/etc/meta.json",
         dataType: "json"
     }).done(function(data) {
         var meta = data.revisions.reverse();
@@ -49,19 +52,19 @@ ks.ready(function() {
         
         $('#download').attr(
             'action',
-            'grundgesetz-dev/out/brd_grundgesetz_' + $('#revision').val() + '.' + $('#format').val()
+            repoDir + '/out/' + prefix + $('#revision').val() + '.' + $('#format').val()
         );
         
         $('#revision, #format').change(function() {
             $('#download').attr(
                 'action',
-                'grundgesetz-dev/out/brd_grundgesetz_' + $('#revision').val() + '.' + $('#format').val()
+                repoDir + '/out/' + prefix + $('#revision').val() + '.' + $('#format').val()
             );
         });
         
         $('#latest').attr(
             'href',
-            'grundgesetz-dev/out/brd_grundgesetz_' + $('#revision option:first').val() + '.pdf'
+            repoDir + '/out/' + prefix + $('#revision option:first').val() + '.pdf'
         );
         
         $('#latest').attr(
@@ -116,8 +119,8 @@ ks.ready(function() {
             var firstRevision = $('#firstrevision').val();
             if (firstRevision != '-1') {
                 $.ajax({
-                    url: 'grundgesetz-dev/out/brd_grundgesetz_' + firstRevision + '.txt',
-                    dataType: 'text',
+                    url: repoDir + "/out/" + prefix + firstRevision + ".txt",
+                    dataType: "text",
                     async: false
                 }).done(function(text) {
                     firstText = text;
@@ -127,8 +130,8 @@ ks.ready(function() {
             var secondRevision = $('#secondrevision').val();
             if (secondRevision != '-1') {
                 $.ajax({
-                    url: 'grundgesetz-dev/out/brd_grundgesetz_' + secondRevision + '.txt',
-                    dataType: 'text',
+                    url: repoDir + "/out/" + prefix + secondRevision + ".txt",
+                    dataType: "text",
                     async: false
                 }).done(function(text) {
                     secondText = text;

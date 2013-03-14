@@ -29,14 +29,12 @@ Upload everything and have fun! :-)
 ##  ToDo
 
 *   Historie einzelner Artikel betrachten
-*   Anderes Wort für "Revision" => "Fassung"?
-*   Vergleich:
-    *   "alte" und "neue" Revision
-    *   Nur Änderungen anzeigen; gesamter Text ist verwirrend zu viel
+*   Vergleichen
+    *   Nur Änderungen anzeigen; gesamter Text ist verwirrend und zu viel
 *   Herunterladen
-    *   Zu lange Titel
-    *   Datum präsenter anzeigen, weil wichtig
-    *   Tooltips nutzen
+    *   Weitere Formate hinzufügen
 *   Layout
     *   Anker-Offset setzen
-    *   scrollTo() funktioniert nicht
+    *   scrollTo() wirft Fehlermeldung
+*   Deployment
+    *   Less kompilieren

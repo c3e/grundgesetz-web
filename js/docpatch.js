@@ -11,9 +11,13 @@ ks.ready(function() {
         dataType: "json"
     }).done(function(data) {
         var meta = data.revisions.reverse();
+        var announced;
 
         $.each(meta, function() {
-            $('#revision, #firstrevision, #secondrevision').append('<option value="' + this.id + '_' + this.announced + '">' + this.id + '. ' + this.title + ' (' + this.announced + ')</option>');
+            announced = $.datepicker.formatDate('dd.mm.yy', new Date(this.announced));
+            
+            $('#revision, #firstrevision, #secondrevision')
+                .append('<option value="' + this.id + '_' + announced + '">' + (this.id + 1) + '. vom ' + announced + ': ' + this.title + ')</option>');
         });
     
         var formats = [
@@ -62,7 +66,7 @@ ks.ready(function() {
         
         $('#latest').attr(
             'title',
-            'Aktuelle Revision "' + meta[0].title + '" vom ' + $.datepicker.formatDate('dd.mm.yy', new Date(meta[0].announced)) + ' PDF-Format herunterladen'
+            (meta[0].id + 1) + '. Fassung "' + meta[0].title + '" vom ' + $.datepicker.formatDate('dd.mm.yy', new Date(meta[0].announced)) + ' PDF-Format herunterladen'
         );
         
         var timelineData = {

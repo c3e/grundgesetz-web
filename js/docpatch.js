@@ -139,7 +139,7 @@ ks.ready(function() {
             //dmp.diff_cleanupEfficiency(d);
             var comparisionOutput = dmp.diff_prettyHtml(d);
             
-            $('#compareModalLabel').html('Revision &bdquo;<span class="highlightfirstrevision">' + $('#firstrevision').find(':selected').text() + '</span>&rdquo; verglichen mit Revision &bdquo;<span class="highlightsecondrevision">' + $('#secondrevision').find(':selected').text() + '</span>&rdquo;');
+            $('#compareModalLabel').html('Fassung &bdquo;<span class="highlightfirstrevision">' + $('#firstrevision').find(':selected').text() + '</span>&rdquo; verglichen mit Fassung &bdquo;<span class="highlightsecondrevision">' + $('#secondrevision').find(':selected').text() + '</span>&rdquo;');
             $('#compareModal .modal-body').html(comparisionOutput);
             
             $('#compareModal').modal();

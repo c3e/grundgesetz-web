@@ -53,16 +53,16 @@
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-share"></i> Entdecken <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#zeitleiste" title="Alle Revisionen im Überblick [Z]" accesskey="z"><i class="icon-time"></i> Zeitleiste</a></li>
-                            <li><a href="#vergleichen" title="Revisionen miteinander vergleichen [R]" accesskey="r"><i class="icon-file"></i> Vergleichen</a></li>
-                            <li><a href="#herunterladen" title="Alle Revisionen und Formate zum Download [D]" accesskey="d"><i class="icon-download"></i> Herunterladen</a></li>
+                            <li><a href="#zeitleiste" title="Alle Fassungen im Überblick [Z]" accesskey="z"><i class="icon-time"></i> Zeitleiste</a></li>
+                            <li><a href="#vergleichen" title="Fassungen miteinander vergleichen [R]" accesskey="r"><i class="icon-file"></i> Vergleichen</a></li>
+                            <li><a href="#herunterladen" title="Alle Fassungen und Formate zum Download [D]" accesskey="d"><i class="icon-download"></i> Herunterladen</a></li>
                         </ul>
                     </li>
                     <li><a href="#mitmachen" title="Hilf mit! [M]" accesskey="m"><i class="icon-wrench"></i> Mitmachen</a></li>
                     <li><a href="#docpatch" title="Was DocPatch ist und wer dahinter steht [U]" accesskey="u"><i class="icon-group"></i> Über uns</a></li>
                 </ul>
 
-                <a id="latest" class="btn btn-success pull-right" href="#"><i class="icon-download"></i> Neuste Revision (PDF)</a>
+                <a id="latest" class="btn btn-success pull-right" href="#"><i class="icon-download"></i> Neuste Fassung (PDF)</a>
             </nav>
         </section>
     </nav>
@@ -82,9 +82,9 @@
         <div class="span4">
             <h2>Entdecken</h2>
             <p>Schau dir die Veränderungen des Grundgesetzes in Verbindung mit wichtigen Ereignissen der deutschen Geschichte an.</p>
-            <a class="btn" href="#zeitleiste" title="Alle Revisionen im Überblick"><i class="icon-time"></i> Zeitleiste &raquo;</a>
-            <a class="btn" href="#vergleichen" title="Revisionen miteinander vergleichen"><i class="icon-file"></i> Vergleichen &raquo;</a>
-            <a class="btn" href="#herunterladen" title="Alle Revisionen und Formate zum Download"><i class="icon-download"></i> Herunterladen &raquo;</a>
+            <a class="btn" href="#zeitleiste" title="Alle Fassungen im Überblick"><i class="icon-time"></i> Zeitleiste &raquo;</a>
+            <a class="btn" href="#vergleichen" title="Fassungen miteinander vergleichen"><i class="icon-file"></i> Vergleichen &raquo;</a>
+            <a class="btn" href="#herunterladen" title="Alle Fassungen und Formate zum Download"><i class="icon-download"></i> Herunterladen &raquo;</a>
         </div>
         <div class="span4">
             <h2>Mitmachen</h2>
@@ -100,7 +100,7 @@
     
     <section id="zeitleiste">
         <div class="page-header">
-            <h1><i class="icon-time"></i> Zeitleiste <small>Alle Revisionen im Überblick</small></h1>
+            <h1><i class="icon-time"></i> Zeitleiste <small>Alle Fassungen im Überblick</small></h1>
         </div>
 
         <div id="timeline-embed"></div>
@@ -108,24 +108,24 @@
     
     <section id="vergleichen">
         <div class="page-header">
-            <h1><i class="icon-file"></i> Vergleichen <small>Revisionen miteinander vergleichen</small></h1>
+            <h1><i class="icon-file"></i> Vergleichen <small>Fassungen miteinander vergleichen</small></h1>
         </div>
 
         <form class="form-horizontal" action="#">
             <div class="control-group">
-                <label class="control-label" for="firstrevision">1. Revision</label>
+                <label class="control-label" for="firstrevision">1. Fassung</label>
                 <div class="controls">
                     <select name="firstrevision" id="firstrevision" class="span3 highlightfirstrevision">
-                        <option value="-1">Bitte Revision wählen &raquo;</option>
+                        <option value="-1">Bitte Fassung wählen &raquo;</option>
                     </select>
                 </div>
             </div>
 
             <div class="control-group">
-                <label class="control-label" for="secondrevision">2. Revision</label>
+                <label class="control-label" for="secondrevision">2. Fassung</label>
                 <div class="controls">
                     <select name="secondrevision" id="secondrevision" class="span3 highlightsecondrevision">
-                        <option value="-1">Bitte Revision wählen &raquo;</option>
+                        <option value="-1">Bitte Fassung wählen &raquo;</option>
                     </select>
                 </div>
             </div>
@@ -151,12 +151,12 @@
     
     <section id="herunterladen">
         <div class="page-header">
-            <h1><i class="icon-download"></i> Herunterladen <small>Alle Revisionen und Formate zum Download</small></h1>
+            <h1><i class="icon-download"></i> Herunterladen <small>Alle Fassungen und Formate zum Download</small></h1>
         </div>
         
         <form id="download" class="form-horizontal" method="get">
             <div class="control-group">
-                <label class="control-label" for="revision">Revision</label>
+                <label class="control-label" for="revision">Fassung</label>
                 <div class="controls">
                     <select name="revision" id="revision" class="span3"></select>
                 </div>

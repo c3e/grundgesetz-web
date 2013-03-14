@@ -35,6 +35,6 @@ Upload everything and have fun! :-)
 *   Vergleichen
     *   Nur Änderungen anzeigen; gesamter Text ist verwirrend und zu viel
 *   Herunterladen
-    *   Weitere Formate hinzufügen
+    *   Restliche Formate hinzufügen
 *   Deployment
     *   Less kompilieren

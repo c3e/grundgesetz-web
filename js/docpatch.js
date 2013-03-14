@@ -47,7 +47,64 @@ ks.ready(function() {
         ];
         
         $.each(formats, function() {
-            $('#format').append('<option value="' + this.ext + '">' + this.title + '</option>');
+            $('#format').append('<option value="' + this.ext + '" title="' + this.ext + '">' + this.title + '</option>');
+        });
+        
+        $('#format').append('<option disabled="disabled">&mdash;</option>');
+    
+        var formats = [
+            {
+                "title": "JSON",
+                "ext": "json"
+            },
+            {
+                "title": "DocBook",
+                "ext": "db"
+            },
+            {
+                "title": "Open Document",
+                "ext": "xml"
+            },
+            {
+                "title": "LaTeX",
+                "ext": "tex"
+            },
+            {
+                "title": "TeX Info",
+                "ext": "texi"
+            },
+            {
+                "title": "Man Page",
+                "ext": "gz"
+            },
+            {
+                "title": "Markdown",
+                "ext": "md"
+            },
+            {
+                "title": "RST",
+                "ext": "text"
+            },
+            {
+                "title": "Mediawiki",
+                "ext": "wiki"
+            },
+            {
+                "title": "Textile",
+                "ext": "textile"
+            },
+            {
+                "title": "RTF",
+                "ext": "rtf"
+            },
+            {
+                "title": "org mode (Emacs)",
+                "ext": "org"
+            }
+        ];
+        
+        $.each(formats, function() {
+            $('#format').append('<option value="' + this.ext + '" title="' + this.ext + '">' + this.title + '</option>');
         });
         
         $('#download').attr(
@@ -69,7 +126,7 @@ ks.ready(function() {
         
         $('#latest').attr(
             'title',
-            (meta[0].id + 1) + '. Fassung "' + meta[0].title + '" vom ' + $.datepicker.formatDate('dd.mm.yy', new Date(meta[0].announced)) + ' PDF-Format herunterladen'
+            (meta[0].id + 1) + '. Fassung "' + meta[0].title + '" vom ' + $.datepicker.formatDate('dd.mm.yy', new Date(meta[0].announced)) + ' als PDF-Format herunterladen'
         );
         
         var timelineData = {

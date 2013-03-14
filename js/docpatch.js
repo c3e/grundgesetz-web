@@ -3,7 +3,7 @@ ks.ready(function() {
         currentClass: 'current',
         changeHash: false,
         scrollSpeed: 750,
-        scrollOffset: -100
+        scrollOffset: 80
     });
     
     $.ajax({

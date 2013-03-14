@@ -1,6 +1,7 @@
 ks.ready(function() {
     var prefix = 'brd_grundgesetz_';
     var repoDir = 'grundgesetz-dev';
+    var dateFormat = 'dd.mm.yy';
     
     $('#topnav').onePageNav({
         currentClass: 'current',
@@ -17,7 +18,7 @@ ks.ready(function() {
         var announced;
 
         $.each(meta, function() {
-            announced = $.datepicker.formatDate('dd.mm.yy', new Date(this.announced));
+            announced = $.datepicker.formatDate(dateFormat, new Date(this.announced));
             
             $('#revision, #firstrevision, #secondrevision')
                 .append('<option value="' + this.id + '_' + announced + '">' + (this.id + 1) + '. vom ' + announced + ': ' + this.title + ')</option>');
@@ -126,7 +127,7 @@ ks.ready(function() {
         
         $('#latest').attr(
             'title',
-            (meta[0].id + 1) + '. Fassung "' + meta[0].title + '" vom ' + $.datepicker.formatDate('dd.mm.yy', new Date(meta[0].announced)) + ' als PDF-Format herunterladen'
+            (meta[0].id + 1) + '. Fassung "' + meta[0].title + '" vom ' + $.datepicker.formatDate(dateFormat, new Date(meta[0].announced)) + ' im PDF-Format herunterladen'
         );
         
         var timelineData = {
@@ -141,6 +142,36 @@ ks.ready(function() {
         
         var revisions = data.revisions;
         
+        formatMeta = function(revision) {
+            var formatted;
+            
+            formatted = "<table>";
+            
+            if (revision.passed) {
+                formatted += "<tr><th>Verabschiedet:</th><td>" + $.datepicker.formatDate(dateFormat, new Date(revision.passed)) + "</td></tr>";
+            }
+            
+            if (revision.date) {
+                formatted += "<tr><th>Gesetz vom:</th><td>" + $.datepicker.formatDate(dateFormat, new Date(revision.date)) + "</td></tr>";
+            }
+            
+            if (revision.announced) {
+                formatted += "<tr><th>Angekündigt:</th><td>" + $.datepicker.formatDate(dateFormat, new Date(revision.announced)) + "</td></tr>";
+            }
+            
+            if (revision.articles) {
+                
+            }
+            
+            //if (revision.initiative-of) {
+            //    formatted += "<tr><th>Initiative von:</th><td>" //+ revision.initiative-of + "</td></tr>";
+            //}
+            
+            formatted += "</table>";
+            
+            return formatted;
+        }
+        
         $.each(revisions, function() {
             var announced = new Date(this.announced);
 
@@ -148,7 +179,7 @@ ks.ready(function() {
                 "startDate": $.datepicker.formatDate('yy,m,d', announced),
                 "endDate": $.datepicker.formatDate('yy,m,d', announced),
                 "headline": this.title,
-                "text": "<table><tr><th>Angekündigt:</th><td>"+$.datepicker.formatDate('d.m.yy', announced)+"</td></tr></table>",
+                "text": formatMeta(this),
                 "asset": {
                     "media": "",
                     "credit": "",

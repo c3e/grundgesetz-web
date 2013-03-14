@@ -60,6 +60,11 @@ ks.ready(function() {
             'grundgesetz-dev/out/brd_grundgesetz_' + $('#revision option:first').val() + '.pdf'
         );
         
+        $('#latest').attr(
+            'title',
+            'Aktuelle Revision "' + meta[0].title + '" vom ' + $.datepicker.formatDate('dd.mm.yy', new Date(meta[0].announced)) + ' PDF-Format herunterladen'
+        );
+        
         var timelineData = {
             "timeline": {
                 "headline": data.title,

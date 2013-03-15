@@ -15,13 +15,10 @@ ks.ready(function() {
         dataType: "json"
     }).done(function(data) {
         var meta = data.revisions.reverse();
-        var announced;
 
         $.each(meta, function() {
-            announced = $.datepicker.formatDate(dateFormat, new Date(this.announced));
-            
             $('#revision, #firstrevision, #secondrevision')
-                .append('<option value="' + this.id + '_' + announced + '">' + (this.id + 1) + '. vom ' + announced + ': ' + this.title + ')</option>');
+                .append('<option value="' + this.id + '_' + this.announced + '">' + (this.id + 1) + '. vom ' + $.datepicker.formatDate(dateFormat, new Date(this.announced)) + ': ' + this.title + '</option>');
         });
     
         var formats = [

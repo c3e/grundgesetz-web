@@ -6,8 +6,7 @@
    // APPS
    // -------
 
-      @apps: "//pinesnotify, bootstrap, retina, jquery-scrollto, bootstrap/scrollspy, jquery-nav, universal, datepicker, timelinejs, diff-match-patch, //bootstrap/transition, //knockout, //updater"; 
-      // Name should match the app's folder name in Kickstrap/apps/.
+      @apps: "//pinesnotify, bootstrap, //retina, jquery-scrollto, bootstrap/scrollspy, jquery-nav, datepicker, timelinejs, diff-match-patch, //bootstrap/transition, //knockout, //updater";
 
    // WEBSITE SETTINGS
    // ----------------
@@ -15,7 +14,7 @@
       @rootDir: "/";
       //Root directory, leave a trailing slash.
 
-      @universalResources: "none"; // EXPERIMENTAL: CDN-Hosted Universal Resources.
+      @universalResources: "local"; // EXPERIMENTAL: CDN-Hosted Universal Resources.
 
    // DEVELOPER SETTINGS
    // ---------------
@@ -88,7 +87,7 @@
       @import "Kickstrap/bootstrap/less/hero-unit.less";
       @import "Kickstrap/bootstrap/less/utilities.less";
       @import "Kickstrap/bootstrap/less/media.less";
-      @import "Kickstrap/extras/ks-preview.less"; // TODO: Move this to the colorschemer app.
+      @import "Kickstrap/extras/ks-preview.less";
       //@import "Kickstrap/extras/retina.less";
       
       // Components: Responsive Media Queries

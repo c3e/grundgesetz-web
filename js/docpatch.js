@@ -135,32 +135,150 @@ ks.ready(function() {
     
     var revisions = data.revisions;
     
-    formatMeta = function(revision) {
-        var formatted;
-        
-        formatted = "<table>";
+    collectMetaData = function(revision) {
+        var collectedMetaData = [];
         
         if (revision.passed) {
-            formatted += "<tr><th>Verabschiedet:</th><td>" + $.datepicker.formatDate(dateFormat, new Date(revision.passed)) + "</td></tr>";
+            collectedMetaData.push({
+                key: 'Verabschiedet',
+                value: $.datepicker.formatDate(dateFormat, new Date(revision.passed))
+            });
         }
         
         if (revision.date) {
-            formatted += "<tr><th>Gesetz vom:</th><td>" + $.datepicker.formatDate(dateFormat, new Date(revision.date)) + "</td></tr>";
+            collectedMetaData.push({
+                key: 'Gesetz vom',
+                value: $.datepicker.formatDate(dateFormat, new Date(revision.date))
+            });
         }
         
         if (revision.announced) {
-            formatted += "<tr><th>Angekündigt:</th><td>" + $.datepicker.formatDate(dateFormat, new Date(revision.announced)) + "</td></tr>";
+            collectedMetaData.push({
+                key: 'Angekündigt',
+                value: $.datepicker.formatDate(dateFormat, new Date(revision.announced))
+            });
+        }
+        
+        if (revision.effectiveSince) {
+            collectedMetaData.push({
+                key: 'Inkraftgetreten am',
+                value: $.datepicker.formatDate(dateFormat, new Date(revision.effectiveSince))
+            });
         }
         
         if (revision.articles) {
+            var articles = [];
             
+            if (revision.articles.created) {
+                articles.push(
+                    'Artikel ' + revision.articles.created.join(', ') + ' hinzugefügt'
+                );
+            }
+            
+            if (revision.articles.updated) {
+                articles.push(
+                    'Artikel ' + revision.articles.updated.join(', ') + ' verändert'
+                );
+            }
+            
+            if (revision.articles.deleted) {
+                articles.push(
+                    'Artikel ' + revision.articles.deleted.join(', ') + ' entfernt'
+                );
+            }
+            
+            collectedMetaData.push({
+                key: 'Änderungen',
+                value: articles.join('; ')
+            });
         }
         
-        //if (revision.initiative-of) {
-        //    formatted += "<tr><th>Initiative von:</th><td>" //+ revision.initiative-of + "</td></tr>";
-        //}
+        if (revision.signedOffBy) {
+            var signedOffBy = [];
+            
+            $.each(revision.signedOffBy, function() {
+                signedOffBy.push(
+                    this.name + ' (' + this.role + ')'
+                );
+            });
+            
+            collectedMetaData.push({
+                key: 'Unterschreiber',
+                value: signedOffBy.join(', ')
+            });
+        }
         
-        formatted += "</table>";
+        if (revision.sources) {
+            var sources = [];
+            
+            $.each(revision.sources, function() {
+                sources.push(
+                    this.title + ', Seite ' + this.pages
+                );
+            });
+            
+            collectedMetaData.push({
+                key: 'Quellen',
+                value: sources.join(', ')
+            });
+        }
+        
+        if (revision.electionPeriod) {
+            collectedMetaData.push({
+                key: 'Wahlperiode',
+                value: revision.electionPeriod
+            });
+        }
+        
+        if (revision.votes) {
+            var votes = [];
+            
+            if (revision.votes.yes) {
+                votes.push(
+                    revision.votes.yes + ' Ja-Stimme' + (revision.votes.yes != 1 ? 'n' : '')
+                );
+            }
+            
+            if (revision.votes.no) {
+                votes.push(
+                    revision.votes.no + ' Nein-Stimme' + (revision.votes.no != 1 ? 'n' : '')
+                );
+            }
+            
+            if (revision.votes.abstentions) {
+                votes.push(
+                    revision.votes.abstentions + ' Enthaltunge' + (revision.votes.abstentions != 1 ? 'n' : '')
+                );
+            }
+            
+            collectedMetaData.push({
+                key: 'Abstimmung',
+                value: votes.join(', ')
+            });
+        }
+        
+        if (revision.initiativeOf) {
+            collectedMetaData.push({
+                key: 'Initiative von',
+                value: revision.initiativeOf
+            });
+        }
+        
+        return collectedMetaData;
+    }
+    
+    formatMeta = function(revision) {
+        var formatted;
+        
+        formatted = '<table>';
+        
+        var collectedMetaData = collectMetaData(revision);
+        
+        $.each(collectedMetaData, function() {
+            formatted += '<tr><th>' + this.key + ':</th><td>' + this.value + '</td></tr>';
+        });
+        
+        formatted += '</table>';
         
         return formatted;
     }

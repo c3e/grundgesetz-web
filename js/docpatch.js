@@ -252,7 +252,7 @@ window.fetchOrCache = function(key, url, type, async) {
                 value = response;
                 
                 if (type == 'json') {
-                    response = JSON.stringify(response, null, 2);
+                    response = JSON.stringify(response);
                 }
                 
                 localStorage.setItem(key, response);

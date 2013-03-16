@@ -51,7 +51,7 @@ ks.ready(function() {
         $('#format').append('<option value="' + this.ext + '" title="' + this.ext + '">' + this.title + '</option>');
     });
     
-    $('#format').append('<option disabled="disabled">&mdash;</option>');
+    $('#format').append('<option disabled="disabled">&mdash; Weitere Formate: &mdash;</option>');
 
     var formats = [
         {

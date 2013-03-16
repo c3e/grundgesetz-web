@@ -5,7 +5,6 @@ include Makefile.properties
 
 deploy :
 	@echo "Deploying..."
-	@lessc -x -O2 kickstrap.less > Kickstrap/css/kickstrap.min.css
 	@rsync --human-readable --progress --verbose --recursive --update --exclude=".git*" . $(host)
 
 build :
@@ -31,3 +30,7 @@ create :
 	@$(docpatch_create) textile
 	@$(docpatch_create) rtf
 	@$(docpatch_create) org
+
+less :
+	@echo "Compiling less..."
+	@lessc -x -O2 kickstrap.less > Kickstrap/css/kickstrap.min.css

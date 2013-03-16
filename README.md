@@ -26,8 +26,8 @@ Have fun! :-)
 ##  ToDo
 
 *   Zeitleiste
-    *   Meta-Daten ergänzen
     *   Historischen Kontext recherchieren und ergänzen
+*   Allgemeines zum Grundgesetz (mit entsprechenden Verweisen auf Wikipedia & Co.)
 *   Historie einzelner Artikel betrachten
 *   Vergleichen
     *   Nur Änderungen anzeigen; gesamter Text ist verwirrend und zu viel

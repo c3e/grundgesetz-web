@@ -198,7 +198,7 @@ ks.ready(function() {
             
             $.each(revision.signedOffBy, function() {
                 signedOffBy.push(
-                    this.name + ' (' + this.role + ')'
+                    ((this.uri) ? '<a href="' + this.uri + '" title="' + this.uri + '">' + this.name + '</a>' : this.name) + ' (' + this.role + ')'
                 );
             });
             
@@ -225,7 +225,7 @@ ks.ready(function() {
         
         if (revision.electionPeriod) {
             collectedMetaData.push({
-                key: 'Wahlperiode',
+                key: '<a href="http://de.wikipedia.org/wiki/Deutscher_Bundestag" title="Deutscher Bundestag (Wikipedia)">Legislaturperiode</a>',
                 value: revision.electionPeriod
             });
         }
@@ -247,7 +247,7 @@ ks.ready(function() {
             
             if (revision.votes.abstentions) {
                 votes.push(
-                    revision.votes.abstentions + ' Enthaltunge' + (revision.votes.abstentions != 1 ? 'n' : '')
+                    revision.votes.abstentions + ' Enthaltung' + (revision.votes.abstentions != 1 ? 'en' : '')
                 );
             }
             

@@ -26,8 +26,8 @@ ks.ready(function() {
 
     var formats = [
         {
-            "title": "PDF",
-            "ext": "pdf"
+            "title": "DocBook",
+            "ext": "db"
         },
         {
             "title": "eBook (EPUB)",
@@ -38,41 +38,16 @@ ks.ready(function() {
             "ext": "html"
         },
         {
-            "title": "Open Document Format (ODT)",
-            "ext": "odt"
-        },
-        {
-            "title": "Plain text (txt)",
-            "ext": "txt"
-        }
-    ];
-    
-    $.each(formats, function() {
-        $('#format').append('<option value="' + this.ext + '" title="' + this.ext + '">' + this.title + '</option>');
-    });
-    
-    $('#format').append('<option disabled="disabled">&mdash; Weitere Formate: &mdash;</option>');
-
-    var formats = [
-        {
             "title": "JSON",
             "ext": "json"
         },
         {
-            "title": "DocBook",
-            "ext": "db"
-        },
-        {
-            "title": "Open Document",
-            "ext": "xml"
+            "title": "Klartext (txt)",
+            "ext": "txt"
         },
         {
             "title": "LaTeX",
             "ext": "tex"
-        },
-        {
-            "title": "TeX Info",
-            "ext": "texi"
         },
         {
             "title": "Man Page",
@@ -83,30 +58,48 @@ ks.ready(function() {
             "ext": "md"
         },
         {
-            "title": "RST",
-            "ext": "text"
-        },
-        {
             "title": "Mediawiki",
             "ext": "wiki"
         },
         {
-            "title": "Textile",
-            "ext": "textile"
+            "title": "Open Document",
+            "ext": "xml"
+        },
+        {
+            "title": "Open Document Format (ODT)",
+            "ext": "odt"
+        },
+        {
+            "title": "org mode (Emacs)",
+            "ext": "org"
+        },
+        {
+            "title": "PDF",
+            "ext": "pdf"
+        },
+        {
+            "title": "RST",
+            "ext": "text"
         },
         {
             "title": "RTF",
             "ext": "rtf"
         },
         {
-            "title": "org mode (Emacs)",
-            "ext": "org"
+            "title": "TeX Info",
+            "ext": "texi"
+        },
+        {
+            "title": "Textile",
+            "ext": "textile"
         }
     ];
     
     $.each(formats, function() {
         $('#format').append('<option value="' + this.ext + '" title="' + this.ext + '">' + this.title + '</option>');
     });
+    
+    $('#format option[value="pdf"]').attr('selected', 'selected');
     
     $('#download').attr(
         'action',

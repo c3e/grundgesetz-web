@@ -1,7 +1,9 @@
+var prefix = 'brd_grundgesetz_';
+var repoDir = 'grundgesetz-dev';
+var dateFormat = 'dd.mm.yy';
+var meta;
+    
 ks.ready(function() {
-    var prefix = 'brd_grundgesetz_';
-    var repoDir = 'grundgesetz-dev';
-    var dateFormat = 'dd.mm.yy';
     
     $('#topnav').onePageNav({
         currentClass: 'current',
@@ -10,19 +12,19 @@ ks.ready(function() {
         scrollOffset: 80
     });
     
-    var data = window.fetchOrCache(
+    meta = window.fetchOrCache(
         'meta',
         repoDir + '/etc/meta.json',
         'json',
         false
     );
 
-    var meta = data.revisions.reverse();
-
-    $.each(meta, function() {
+    $.each(meta.revisions.reverse(), function() {
         $('#revision, #firstrevision, #secondrevision')
-            .append('<option value="' + this.id + '_' + this.announced + '">' + (this.id + 1) + '. vom ' + $.datepicker.formatDate(dateFormat, new Date(this.announced)) + ': ' + this.title + '</option>');
+            .append('<option value="' + this.id + '">' + (this.id + 1) + '. vom ' + $.datepicker.formatDate(dateFormat, new Date(this.announced)) + ': ' + this.title + '</option>');
     });
+    
+    meta.revisions.reverse();
 
     var formats = [
         {
@@ -107,33 +109,35 @@ ks.ready(function() {
     );
     
     $('#revision, #format').change(function() {
+        var revisionID = window.createRevisionID(meta.revisions[Number($('#revision').val())]);
+        
         $('#download').attr(
             'action',
-            repoDir + '/out/' + prefix + $('#revision').val() + '.' + $('#format').val()
+            repoDir + '/out/' + prefix + revisionID + '.' + $('#format').val()
         );
     });
     
     $('#latest').attr(
         'href',
-        repoDir + '/out/' + prefix + $('#revision option:first').val() + '.pdf'
+        repoDir + '/out/' + prefix + window.createRevisionID(meta.revisions[0]) + '.pdf'
     );
     
     $('#latest').attr(
         'title',
-        (meta[0].id + 1) + '. Fassung "' + meta[0].title + '" vom ' + $.datepicker.formatDate(dateFormat, new Date(meta[0].announced)) + ' im PDF-Format herunterladen'
+        (meta.revisions[0].id + 1) + '. Fassung "' + meta.revisions[0].title + '" vom ' + $.datepicker.formatDate(dateFormat, new Date(meta.revisions[0].announced)) + ' im PDF-Format herunterladen'
     );
     
     var timelineData = {
         "timeline": {
-            "headline": data.title,
+            "headline": meta.title,
             "type": "default",
-            "text": data.subject,
+            "text": meta.subject,
             "startDate": "1949,5,23",
             "date": []
         }
     };
     
-    var revisions = data.revisions;
+    var previousRevisionID;
     
     collectMetaData = function(revision) {
         var collectedMetaData = [];
@@ -189,7 +193,7 @@ ks.ready(function() {
             
             collectedMetaData.push({
                 key: 'Änderungen',
-                value: articles.join('; ')
+                value: '<a href="javascript:window.compareRevisions(\'' + previousRevisionID + '\', \'' + revision.id + '\')" title="">' + articles.join('; ') + '</a>'
             });
         }
         
@@ -264,6 +268,8 @@ ks.ready(function() {
             });
         }
         
+        previousRevisionID = revision.id;
+        
         return collectedMetaData;
     }
     
@@ -283,7 +289,7 @@ ks.ready(function() {
         return formatted;
     }
     
-    $.each(revisions, function() {
+    $.each(meta.revisions, function() {
         var announced = new Date(this.announced);
 
         timelineData.timeline.date.push({
@@ -311,44 +317,67 @@ ks.ready(function() {
     });
     
     $('#comparerevisions').click(function() {
-        var dmp = new diff_match_patch();
-        var firstText = '';
-        var secondText = '';
+        var firstRevision = Number($('#firstrevision').val());
+        var secondRevision = Number($('#secondrevision').val());
         
-        var firstRevision = $('#firstrevision').val();
-        if (firstRevision != '-1') {
-            firstText = window.fetchOrCache(
-                firstRevision,
-                repoDir + '/out/' + prefix + firstRevision + '.txt',
-                'text',
-                false
-            );
-        }
-        
-        var secondRevision = $('#secondrevision').val();
-        if (secondRevision != '-1') {
-            secondText = window.fetchOrCache(
-                secondRevision,
-                repoDir + '/out/' + prefix + secondRevision + '.txt',
-                'text',
-                false
-            );
-        }
-
-        dmp.Diff_Timeout = 1.0;
-        dmp.Diff_EditCost = 4.0;
-
-        var d = dmp.diff_main(firstText, secondText);
-        //dmp.diff_cleanupSemantic(d);
-        //dmp.diff_cleanupEfficiency(d);
-        var comparisionOutput = dmp.diff_prettyHtml(d);
-        
-        $('#compareModalLabel').html('Fassung &bdquo;<span class="highlightfirstrevision">' + $('#firstrevision').find(':selected').text() + '</span>&rdquo; verglichen mit Fassung &bdquo;<span class="highlightsecondrevision">' + $('#secondrevision').find(':selected').text() + '</span>&rdquo;');
-        $('#compareModal .modal-body').html(comparisionOutput);
-        
-        $('#compareModal').modal();
+        window.compareRevisions(firstRevision, secondRevision);
     });
 });
+    
+window.compareRevisions = function(firstRevision, secondRevision) {
+    var dmp = new diff_match_patch();
+    var firstText = '';
+    var secondText = '';
+    var firstRevisionTitle = '';
+    var secondRevisionTitle = '';
+
+    if (firstRevision != '-1') {
+        var firstRevisionID = window.createRevisionID(meta.revisions[firstRevision]);
+        
+        firstText = window.fetchOrCache(
+            firstRevisionID,
+            repoDir + '/out/' + prefix + firstRevisionID + '.txt',
+            'text',
+            false
+        );
+        
+        firstRevisionTitle = meta.revisions[firstRevision].title;
+    } else {
+        firstRevisionTitle = 'ohne Titel';
+    }
+    
+    if (secondRevision != '-1') {
+        var secondRevisionID = window.createRevisionID(meta.revisions[secondRevision]);
+        
+        secondText = window.fetchOrCache(
+            secondRevisionID,
+            repoDir + '/out/' + prefix + secondRevisionID + '.txt',
+            'text',
+            false
+        );
+        
+        secondRevisionTitle = meta.revisions[secondRevision].title;
+    } else {
+        secondRevisionTitle = 'ohne Titel';
+    }
+
+    dmp.Diff_Timeout = 1.0;
+    dmp.Diff_EditCost = 4.0;
+
+    var d = dmp.diff_main(firstText, secondText);
+    //dmp.diff_cleanupSemantic(d);
+    //dmp.diff_cleanupEfficiency(d);
+    var comparisionOutput = dmp.diff_prettyHtml(d);
+    
+    $('#compareModalLabel').html('Fassung &bdquo;<span class="highlightfirstrevision">' + firstRevisionTitle + '</span>&rdquo; verglichen mit Fassung &bdquo;<span class="highlightsecondrevision">' + secondRevisionTitle + '</span>&rdquo;');
+    $('#compareModal .modal-body').html(comparisionOutput);
+    
+    $('#compareModal').modal();
+}
+
+window.createRevisionID = function(revision) {
+    return revision.id + '_' + revision.announced;
+}
 
 window.fetchOrCache = function(key, url, type, async) {
     if (localStorage) {

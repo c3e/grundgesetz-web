@@ -1,7 +1,9 @@
-var prefix = 'brd_grundgesetz_';
-var repoDir = 'grundgesetz-dev';
-var dateFormat = 'dd.mm.yy';
-var meta;
+DocPatch = {
+    prefix: "brd_grundgesetz_",
+    repoDir: "grundgesetz-dev",
+    dateFormat: "dd.mm.yy",
+    meta: {}
+};
     
 ks.ready(function() {
     
@@ -12,19 +14,19 @@ ks.ready(function() {
         scrollOffset: 80
     });
     
-    meta = window.fetchOrCache(
+    DocPatch.meta = window.fetchOrCache(
         'meta',
-        repoDir + '/etc/meta.json',
+        DocPatch.repoDir + '/etc/meta.json',
         'json',
         false
     );
 
-    $.each(meta.revisions.reverse(), function() {
+    $.each(DocPatch.meta.revisions.reverse(), function() {
         $('#revision, #firstrevision, #secondrevision')
-            .append('<option value="' + this.id + '">' + (this.id + 1) + '. vom ' + $.datepicker.formatDate(dateFormat, new Date(this.announced)) + ': ' + this.title + '</option>');
+            .append('<option value="' + this.id + '">' + (this.id + 1) + '. vom ' + $.datepicker.formatDate(DocPatch.dateFormat, new Date(this.announced)) + ': ' + this.title + '</option>');
     });
     
-    meta.revisions.reverse();
+    DocPatch.meta.revisions.reverse();
 
     var formats = [
         {
@@ -105,33 +107,35 @@ ks.ready(function() {
     
     $('#download').attr(
         'action',
-        repoDir + '/out/' + prefix + $('#revision').val() + '.' + $('#format').val()
+        DocPatch.repoDir + '/out/' + DocPatch.prefix + window.createRevisionID(DocPatch.meta.revisions[Number($('#revision').val())]) + '.' + $('#format').val()
     );
-    
+
     $('#revision, #format').change(function() {
-        var revisionID = window.createRevisionID(meta.revisions[Number($('#revision').val())]);
+        var revisionID = window.createRevisionID(DocPatch.meta.revisions[Number($('#revision').val())]);
         
         $('#download').attr(
             'action',
-            repoDir + '/out/' + prefix + revisionID + '.' + $('#format').val()
+            DocPatch.repoDir + '/out/' + DocPatch.prefix + revisionID + '.' + $('#format').val()
         );
     });
     
+    var latest = DocPatch.meta.revisions.slice(-1)[0];
+    
     $('#latest').attr(
         'href',
-        repoDir + '/out/' + prefix + window.createRevisionID(meta.revisions[0]) + '.pdf'
+        DocPatch.repoDir + '/out/' + DocPatch.prefix + window.createRevisionID(latest) + '.pdf'
     );
     
     $('#latest').attr(
         'title',
-        (meta.revisions[0].id + 1) + '. Fassung "' + meta.revisions[0].title + '" vom ' + $.datepicker.formatDate(dateFormat, new Date(meta.revisions[0].announced)) + ' im PDF-Format herunterladen'
+        (latest.id + 1) + '. Fassung "' + latest.title + '" vom ' + $.datepicker.formatDate(DocPatch.dateFormat, new Date(latest.announced)) + ' im PDF-Format herunterladen'
     );
     
     var timelineData = {
         "timeline": {
-            "headline": meta.title,
+            "headline": DocPatch.meta.title,
             "type": "default",
-            "text": meta.subject,
+            "text": DocPatch.meta.subject,
             "startDate": "1949,5,23",
             "date": []
         }
@@ -141,32 +145,45 @@ ks.ready(function() {
     
     collectMetaData = function(revision) {
         var collectedMetaData = [];
+        var year;
         
         if (revision.passed) {
+            var passed = new Date(revision.passed);
+            year = $.datepicker.formatDate('yy', passed);
+            
             collectedMetaData.push({
                 key: 'Verabschiedet',
-                value: $.datepicker.formatDate(dateFormat, new Date(revision.passed))
+                value: '<a href="http://de.wikipedia.org/wiki/' + year + '" title="' + year + ' (Wikipedia)">' + $.datepicker.formatDate(DocPatch.dateFormat, passed) + '</a>'
             });
         }
         
         if (revision.date) {
+            var date = new Date(revision.date);
+            year = $.datepicker.formatDate('yy', date);
+            
             collectedMetaData.push({
                 key: 'Gesetz vom',
-                value: $.datepicker.formatDate(dateFormat, new Date(revision.date))
+                value: '<a href="http://de.wikipedia.org/wiki/' + year + '" title="' + year + ' (Wikipedia)">' + $.datepicker.formatDate(DocPatch.dateFormat, date) + '</a>'
             });
         }
         
         if (revision.announced) {
+            var announced = new Date(revision.announced);
+            year = $.datepicker.formatDate('yy', announced);
+            
             collectedMetaData.push({
                 key: 'Angekündigt',
-                value: $.datepicker.formatDate(dateFormat, new Date(revision.announced))
+                value: '<a href="http://de.wikipedia.org/wiki/' + year + '" title="' + year + ' (Wikipedia)">' + $.datepicker.formatDate(DocPatch.dateFormat, announced) + '</a>'
             });
         }
         
         if (revision.effectiveSince) {
+            var effectiveSince = new Date(revision.effectiveSince);
+            year = $.datepicker.formatDate('yy', effectiveSince);
+            
             collectedMetaData.push({
                 key: 'Inkraftgetreten am',
-                value: $.datepicker.formatDate(dateFormat, new Date(revision.effectiveSince))
+                value: '<a href="http://de.wikipedia.org/wiki/' + year + '" title="' + year + ' (Wikipedia)">' + $.datepicker.formatDate(DocPatch.dateFormat, effectiveSince) + '</a>'
             });
         }
         
@@ -227,10 +244,10 @@ ks.ready(function() {
             });
         }
         
-        if (revision.electionPeriod) {
+        if (revision.legislativeSession) {
             collectedMetaData.push({
                 key: '<a href="http://de.wikipedia.org/wiki/Deutscher_Bundestag" title="Deutscher Bundestag (Wikipedia)">Legislaturperiode</a>',
-                value: revision.electionPeriod
+                value: '<a href="' + revision.legislativeSession.uri + '" title="' + revision.legislativeSession.id + '. Bundestag (Wikipedia)">' + revision.legislativeSession.id + '. Bundestag</a>'
             });
         }
         
@@ -289,7 +306,7 @@ ks.ready(function() {
         return formatted;
     }
     
-    $.each(meta.revisions, function() {
+    $.each(DocPatch.meta.revisions, function() {
         var announced = new Date(this.announced);
 
         timelineData.timeline.date.push({
@@ -328,37 +345,37 @@ window.compareRevisions = function(firstRevision, secondRevision) {
     var dmp = new diff_match_patch();
     var firstText = '';
     var secondText = '';
-    var firstRevisionTitle = '';
-    var secondRevisionTitle = '';
+    var firstRevisionTitle = 'ohne Titel';
+    var secondRevisionTitle = 'ohne Titel';
+    var firstRevisionAnnounced = 'ohne Datum';
+    var secondRevisionAnnounced = 'ohne Datum';
 
     if (firstRevision != '-1') {
-        var firstRevisionID = window.createRevisionID(meta.revisions[firstRevision]);
+        var firstRevisionID = window.createRevisionID(DocPatch.meta.revisions[firstRevision]);
         
         firstText = window.fetchOrCache(
             firstRevisionID,
-            repoDir + '/out/' + prefix + firstRevisionID + '.txt',
+            DocPatch.repoDir + '/out/' + DocPatch.prefix + firstRevisionID + '.txt',
             'text',
             false
         );
-        
-        firstRevisionTitle = meta.revisions[firstRevision].title;
-    } else {
-        firstRevisionTitle = 'ohne Titel';
+
+        firstRevisionTitle = DocPatch.meta.revisions[firstRevision].title;
+        firstRevisionAnnounced = $.datepicker.formatDate(DocPatch.dateFormat, new Date(DocPatch.meta.revisions[firstRevision].announced));
     }
     
     if (secondRevision != '-1') {
-        var secondRevisionID = window.createRevisionID(meta.revisions[secondRevision]);
+        var secondRevisionID = window.createRevisionID(DocPatch.meta.revisions[secondRevision]);
         
         secondText = window.fetchOrCache(
             secondRevisionID,
-            repoDir + '/out/' + prefix + secondRevisionID + '.txt',
+            DocPatch.repoDir + '/out/' + DocPatch.prefix + secondRevisionID + '.txt',
             'text',
             false
         );
         
-        secondRevisionTitle = meta.revisions[secondRevision].title;
-    } else {
-        secondRevisionTitle = 'ohne Titel';
+        secondRevisionTitle = DocPatch.meta.revisions[secondRevision].title;
+        secondRevisionAnnounced = $.datepicker.formatDate(DocPatch.dateFormat, new Date(DocPatch.meta.revisions[secondRevision].announced));
     }
 
     dmp.Diff_Timeout = 1.0;
@@ -369,7 +386,8 @@ window.compareRevisions = function(firstRevision, secondRevision) {
     //dmp.diff_cleanupEfficiency(d);
     var comparisionOutput = dmp.diff_prettyHtml(d);
     
-    $('#compareModalLabel').html('Fassung &bdquo;<span class="highlightfirstrevision">' + firstRevisionTitle + '</span>&rdquo; verglichen mit Fassung &bdquo;<span class="highlightsecondrevision">' + secondRevisionTitle + '</span>&rdquo;');
+    $('#compareModalLabel').html('Fassung &bdquo;<span class="highlightfirstrevision">' + firstRevisionTitle + '</span>&rdquo; (' + firstRevisionAnnounced + ') verglichen mit Fassung &bdquo;<span class="highlightsecondrevision">' + secondRevisionTitle + '</span>&rdquo; (' + secondRevisionAnnounced + ')');
+
     $('#compareModal .modal-body').html(comparisionOutput);
     
     $('#compareModal').modal();

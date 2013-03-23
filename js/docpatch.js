@@ -339,7 +339,42 @@ ks.ready(function() {
         
         window.compareRevisions(firstRevision, secondRevision);
     });
+    
+    window.drawChangesPerYear();
 });
+
+window.drawChangesPerYear = function() {
+    var range = _.range(
+        Number($.datepicker.formatDate('yy', new Date(_.first(DocPatch.meta.revisions).announced))),
+        Number($.datepicker.formatDate('yy', new Date(_.last(DocPatch.meta.revisions).announced))) + 1
+    );
+    
+    var changesPerYear = {};
+    
+    $.each(range, function() {
+        console.log(this.valueOf());
+        changesPerYear[this.valueOf()] = 0;
+    });
+
+    $.each(DocPatch.meta.revisions, function() {
+        var year = Number($.datepicker.formatDate('yy', new Date(this.announced)));
+        changesPerYear[year]++;
+    });
+
+    var data = {
+        labels : range,
+        datasets : [
+            {
+                data : $.map(changesPerYear, function(value, key) { return value; })
+            }
+        ]
+    }
+
+    var options = {}
+    
+    var ctx = $("#changesPerYear").get(0).getContext("2d");
+    var chart = new Chart(ctx).Line(data, options);
+}
     
 window.compareRevisions = function(firstRevision, secondRevision) {
     var dmp = new diff_match_patch();

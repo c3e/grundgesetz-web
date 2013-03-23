@@ -156,31 +156,72 @@
             </div>
         </div>
     </section>
-    
+
     <section id="statistiken">
         <div class="page-header">
             <h1><i class="icon-bar-chart"></i> Statistiken <small>Nützliche Informationen rund um die verschiedenen Fassungen</small></h1>
         </div>
-        
+
         <ul class="nav nav-tabs" id="statisticsTab">
-            <li class="active"><a href="#actors" data-toggle="tab"><i class="icon-bar-chart"></i> Politiker</a></li>
-            <li><a href="#common" data-toggle="tab"><i class="icon-asterisk"></i> Allgemeines</a></li>
+            <li class="active"><a href="#common" data-toggle="tab"><i class="icon-asterisk"></i> Allgemeines</a></li>
+            <li><a href="#actors" data-toggle="tab"><i class="icon-group"></i> Politiker</a></li>
+            <li><a href="#revisions" data-toggle="tab"><i class="icon-folder-open"></i> Fassungen</a></li>
+            <li><a href="#legislativeSessions" data-toggle="tab"><i class="icon-share-alt"></i> Legislaturperioden</a></li>
         </ul>
-        
+
         <div class="tab-content">
-            <div class="tab-pane active" id="actors">
-                <p>Nähere Betrachtung derjenigen Politiker, die die einzelnen Fassungen des Grundgesetzes unterschrieben haben:</p>
-                
-                <!-- data table -->
-                <!-- chart.js -->
-            </div>
-            
             <div class="tab-pane active" id="common">
                 <p>Allgemeine Angaben zum Grundgesetz:</p>
-                
-                <!-- Anzahl Änderungen, Änderungen pro Jahr -->
-                <!-- data table -->
-                <!-- chart.js -->
+
+                <div class="row-fluid">
+                    <div class="span4">
+                        <!-- (data) table: Anzahl Änderungen, Änderungen pro Jahr -->
+                    </div>
+                    <div class="span8">
+                        <!-- chart.js: bar mit Änderungen pro Jahr -->
+                        <canvas id="changesPerYear" width="700" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-pane" id="actors">
+                <p>Nähere Betrachtung derjenigen Politiker, die die einzelnen Fassungen des Grundgesetzes unterschrieben haben:</p>
+
+                <div class="row-fluid">
+                    <div class="span6">
+                        <!-- data table: Name (mit Link), Rolle, Anzahl Unterschriften -->
+                    </div>
+                    <div class="span6">
+                        <!-- chart.js -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-pane" id="revisions">
+                <p>Angaben zu den Revisionen:</p>
+
+                <div class="row-fluid">
+                    <div class="span6">
+                        <!-- data table: Dauer von der Verabschiedung bis zum Inkrafttreten(?), Anzahl neuer/geänderter/gelöschter Artikel -->
+                    </div>
+                    <div class="span6">
+                        <!-- chart.js: Abstimmungsverhältnis -->
+                        <canvas id="resultOfTheVote" width="300" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-pane" id="legislativeSessions">
+                <p>Aktivitäten nach Legislaturperioden aufgeschlüsselt:</p>
+
+                <div class="row-fluid">
+                    <div class="span6">
+                        <!-- data table: Periode (mit Link), Anzahl Änderungen -->
+                    </div>
+                    <div class="span6">
+                        <!-- chart.js: bar -->
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -266,6 +307,8 @@
                     <li><a href="http://timeline.verite.co/" title="http://timeline.verite.co/">TimelineJS</a></li>
                     <li><a href="http://code.google.com/p/google-diff-match-patch/" title="http://code.google.com/p/google-diff-match-patch/">google-diff-match-patch</a></li>
                     <li><a href="https://github.com/davist11/jQuery-One-Page-Nav" title="https://github.com/davist11/jQuery-One-Page-Nav">jQuery-One-Page-Nav</a></li>
+                    <li><a href="http://www.datatables.net/" title="http://www.datatables.net/">DataTables</a></li>
+                    <li><a href="http://chartjs.org/" title="http://chartjs.org/">Chart.js</a></li>
                     <li>und viele mehr &hellip;</li>
                 </ul>
             </div>

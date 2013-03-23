@@ -340,7 +340,8 @@ ks.ready(function() {
         window.compareRevisions(firstRevision, secondRevision);
     });
     
-    window.drawChangesPerYear();
+    //window.drawChangesPerYear();
+    window.drawChangesPerPeriod();
 });
 
 window.drawChangesPerYear = function() {
@@ -352,7 +353,6 @@ window.drawChangesPerYear = function() {
     var changesPerYear = {};
     
     $.each(range, function() {
-        console.log(this.valueOf());
         changesPerYear[this.valueOf()] = 0;
     });
 
@@ -373,9 +373,44 @@ window.drawChangesPerYear = function() {
     var options = {}
     
     var ctx = $("#changesPerYear").get(0).getContext("2d");
-    var chart = new Chart(ctx).Line(data, options);
+    var chart = new Chart(ctx).Bar(data, options);
 }
+
+window.drawChangesPerPeriod = function() {
+    var range = _.range(
+        // Skip the first revision:
+        Number(DocPatch.meta.revisions[1].legislativeSession.id),
+        Number(_.last(DocPatch.meta.revisions).legislativeSession.id) + 1
+    );
+
+    var changesPerPeriod = {};
     
+    $.each(range, function() {
+        changesPerPeriod[this.valueOf()] = 0;
+    });
+
+    $.each(DocPatch.meta.revisions, function() {
+        if (this.legislativeSession) {
+            var year = Number(this.legislativeSession.id);
+            changesPerPeriod[year]++;
+        }
+    });
+
+    var data = {
+        labels : range,
+        datasets : [
+            {
+                data : $.map(changesPerPeriod, function(value, key) { return value; })
+            }
+        ]
+    }
+
+    var options = {}
+    
+    var ctx = $("#changesPerYear").get(0).getContext("2d");
+    var chart = new Chart(ctx).Bar(data, options);
+}
+
 window.compareRevisions = function(firstRevision, secondRevision) {
     var dmp = new diff_match_patch();
     var firstText = '';

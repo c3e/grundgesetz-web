@@ -106,7 +106,7 @@ ks.ready(function() {
                 DocPatch.drawChangesPerYear();
                 break;
             case 'actors':
-                
+                DocPatch.drawActorsTable();
                 break;
         }
     })

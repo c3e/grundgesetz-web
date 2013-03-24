@@ -69,7 +69,10 @@ DocPatch = {
             "title": "Textile",
             "ext": "textile"
         }
-    ]
+    ],
+    status: {
+        drawActorsTable: 0
+    }
 };
 
 DocPatch.calculateAge = function(dateString) {
@@ -401,4 +404,21 @@ DocPatch.formatMeta = function(revision) {
     formatted += '</table>';
     
     return formatted;
+}
+
+DocPatch.drawActorsTable = function() {
+    if (DocPatch.status.drawActorsTable === 0) {
+        $('#actorsTable').dataTable({
+            "aaData": [
+                [ "Vorname, Nachname", "Rolle 1, Rolle 2, Rolle 3", 23 ]
+            ],
+            "aoColumns": [
+                { "sTitle": "Name" },
+                { "sTitle": "Rollen" },
+                { "sTitle": "Unterschriften", "sClass": "right" }
+            ]
+        });
+        
+        DocPatch.status.drawActorsTable = 1;
+    }
 }

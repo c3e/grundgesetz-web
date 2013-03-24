@@ -1,5 +1,5 @@
-docpatch_build = cd grundgesetz-dev && docpatch build -v -s
-docpatch_create = cd grundgesetz-dev && docpatch create -v -t -r all -f
+docpatch_build = cd grundgesetz-dev && docpatch build --sign
+docpatch_create = cd grundgesetz-dev && docpatch create --toc --revision all --format
 
 include Makefile.properties
 
@@ -22,7 +22,6 @@ create :
 	@$(docpatch_create) docbook
 	@$(docpatch_create) opendocument
 	@$(docpatch_create) latex
-	@$(docpatch_create) texinfo
 	@$(docpatch_create) man
 	@$(docpatch_create) markdown
 	@$(docpatch_create) rst

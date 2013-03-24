@@ -167,6 +167,7 @@
             <li><a href="#actors" data-toggle="tab"><i class="icon-group"></i> Politiker</a></li>
             <li><a href="#revisions" data-toggle="tab"><i class="icon-folder-open"></i> Fassungen</a></li>
             <li><a href="#legislativeSessions" data-toggle="tab"><i class="icon-share-alt"></i> Legislaturperioden</a></li>
+            <li><a href="#years" data-toggle="tab"><i class="icon-time"></i> Jahresvergleich</a></li>
         </ul>
 
         <div class="tab-content">
@@ -175,10 +176,34 @@
 
                 <div class="row-fluid">
                     <div class="span4">
-                        <!-- (data) table: Anzahl Änderungen, Änderungen pro Jahr -->
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <th>Anzahl Änderungen</th>
+                                    <td id="countChanges"></td>
+                                </tr>
+                                <tr>
+                                    <th>Alter</th>
+                                    <td id="calculateAge"></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                     <div class="span8">
-                        <!-- chart.js: bar mit Änderungen pro Jahr -->
+                        <!-- TODO chart.js: any ideas? -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-pane" id="years">
+                <p>Jahresvergleich:</p>
+
+                <div class="row-fluid">
+                    <div class="span2">
+                        <!-- TODO (data) table: Anzahl Änderungen, Änderungen pro Jahr -->
+                        <table cellpadding="0" cellspacing="0" border="0" class="display" id="changesPerYearTable"></table>
+                    </div>
+                    <div class="span10">
                         <canvas id="changesPerYear" width="700" height="200"></canvas>
                     </div>
                 </div>
@@ -189,10 +214,10 @@
 
                 <div class="row-fluid">
                     <div class="span6">
-                        <!-- data table: Name (mit Link), Rolle, Anzahl Unterschriften -->
+                        <!-- TODO data table: Name (mit Link), Rolle, Anzahl Unterschriften -->
                     </div>
                     <div class="span6">
-                        <!-- chart.js -->
+                        <!-- TODO chart.js -->
                     </div>
                 </div>
             </div>
@@ -202,10 +227,10 @@
 
                 <div class="row-fluid">
                     <div class="span6">
-                        <!-- data table: Dauer von der Verabschiedung bis zum Inkrafttreten(?), Anzahl neuer/geänderter/gelöschter Artikel -->
+                        <!-- TODO data table: Dauer von der Verabschiedung bis zum Inkrafttreten(?), Anzahl neuer/geänderter/gelöschter Artikel -->
                     </div>
                     <div class="span6">
-                        <!-- chart.js: Abstimmungsverhältnis -->
+                        <!-- TODO chart.js: Abstimmungsverhältnis -->
                         <canvas id="resultOfTheVote" width="300" height="300"></canvas>
                     </div>
                 </div>
@@ -215,11 +240,25 @@
                 <p>Aktivitäten nach Legislaturperioden aufgeschlüsselt:</p>
 
                 <div class="row-fluid">
-                    <div class="span6">
-                        <!-- data table: Periode (mit Link), Anzahl Änderungen -->
+                    <div class="span4">
+                        <!-- TODO data table: Periode (mit Link), Anzahl Änderungen -->
                     </div>
-                    <div class="span6">
-                        <!-- chart.js: bar -->
+                    <div class="span8">
+                        <canvas id="changesPerPeriod" width="700" height="200"></canvas>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-pane" id="years">
+                <p>Jahresvergleich:</p>
+
+                <div class="row-fluid">
+                    <div class="span2">
+                        <!-- (data) table: Anzahl Änderungen, Änderungen pro Jahr -->
+                    </div>
+                    <div class="span10">
+                        <canvas id="changesPerYear" width="800" height="200"></canvas>
                     </div>
                 </div>
             </div>
@@ -323,7 +362,7 @@
 
 <script src="Kickstrap/js/jquery-1.8.3.min.js"></script>
 <script id="appList" src="Kickstrap/js/kickstrap.min.js"></script>
-<script src="js/docpatch.js"></script>
+<script src="js/ready.js"></script>
 
 </body>
 </html>

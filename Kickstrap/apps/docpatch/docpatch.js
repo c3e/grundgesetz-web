@@ -407,18 +407,59 @@ DocPatch.formatMeta = function(revision) {
 }
 
 DocPatch.drawActorsTable = function() {
-    if (DocPatch.status.drawActorsTable === 0) {
-        $('#actorsTable').dataTable({
-            "aaData": [
-                [ "Vorname, Nachname", "Rolle 1, Rolle 2, Rolle 3", 23 ]
-            ],
-            "aoColumns": [
-                { "sTitle": "Name" },
-                { "sTitle": "Rollen" },
-                { "sTitle": "Unterschriften", "sClass": "right" }
-            ]
-        });
-        
-        DocPatch.status.drawActorsTable = 1;
+    if (DocPatch.status.drawActorsTable === 1) {
+        return;
     }
+    
+    var actors = {};
+    
+    $.each(DocPatch.meta.revisions, function() {
+        if (this.signedOffBy) {
+            $.each(this.signedOffBy, function() {
+                if (actors[this.uri]) {
+                    actors[this.uri].number++;
+                    actors[this.uri].roles.push(this.role);
+                } else {
+                    actors[this.uri] = {};
+                    actors[this.uri].name = this.name;
+                    actors[this.uri].roles = [this.role];
+                    actors[this.uri].number = 1;
+                    actors[this.uri].uri = this.uri;
+                }
+            });
+        }
+    });
+
+    var entities = [];
+    
+    for (var i in actors) {
+        var roles = _.uniq(actors[i].roles);
+        
+        entities.push([
+            actors[i].name,
+            roles.join(', '),
+            actors[i].number,
+            actors[i].uri,
+        ]);
+    }
+    
+    // TODO There is an empty element at the end:
+    entities.slice(-1);
+    
+    $('#actorsTable').dataTable({
+        /*"sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
+        "sPaginationType": "bootstrap",
+        "oLanguage": {
+            "sLengthMenu": "_MENU_ records per page"
+        },*/
+        "aaData": entities,
+        "aoColumns": [
+            { "sTitle": "Name" },
+            { "sTitle": "Rollen" },
+            { "sTitle": "Unterschriften", "sClass": "right" },
+            { "sTitle": "Link" }
+        ]
+    });
+    
+    DocPatch.status.drawActorsTable = 1;
 }

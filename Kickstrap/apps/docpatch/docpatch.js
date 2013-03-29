@@ -1,91 +1,134 @@
-DocPatch = {
-    prefix: "brd_grundgesetz_",
-    repoDir: "grundgesetz-dev",
-    dateFormat: "dd.mm.yy",
-    meta: {},
-    previousRevisionID: 0,
-    formats: [
-        {
-            "title": "DocBook",
-            "ext": "db"
-        },
-        {
-            "title": "eBook (EPUB)",
-            "ext": "epub"
-        },
-        {
-            "title": "HTML",
-            "ext": "html"
-        },
-        {
-            "title": "JSON",
-            "ext": "json"
-        },
-        {
-            "title": "Klartext (txt)",
-            "ext": "txt"
-        },
-        {
-            "title": "LaTeX",
-            "ext": "tex"
-        },
-        {
-            "title": "Man Page",
-            "ext": "gz"
-        },
-        {
-            "title": "Markdown",
-            "ext": "md"
-        },
-        {
-            "title": "Mediawiki",
-            "ext": "wiki"
-        },
-        {
-            "title": "Open Document",
-            "ext": "xml"
-        },
-        {
-            "title": "Open Document Format (ODT)",
-            "ext": "odt"
-        },
-        {
-            "title": "org mode (Emacs)",
-            "ext": "org"
-        },
-        {
-            "title": "PDF",
-            "ext": "pdf"
-        },
-        {
-            "title": "RST",
-            "ext": "text"
-        },
-        {
-            "title": "RTF",
-            "ext": "rtf"
-        },
-        {
-            "title": "Textile",
-            "ext": "textile"
-        }
-    ],
-    status: {
-        drawActorsTable: 0
+/**
+ * DocPatch
+ */
+
+var DocPatch = {};
+
+/**
+ * Prefix used for created output files
+ */
+DocPatch.prefix = "brd_grundgesetz_";
+
+/**
+ * Base URI for the repository
+ */
+DocPatch.repoDir = "grundgesetz-dev";
+
+/**
+ * Standard date format
+ */
+DocPatch.dateFormat = "dd.mm.yy";
+
+/**
+ * Meta data
+ */
+DocPatch.meta = {};
+
+/**
+ * Supported formats
+ */
+DocPatch.formats = [
+    {
+        "title": "DocBook",
+        "ext": "db"
+    },
+    {
+        "title": "eBook (EPUB)",
+        "ext": "epub"
+    },
+    {
+        "title": "HTML",
+        "ext": "html"
+    },
+    {
+        "title": "JSON",
+        "ext": "json"
+    },
+    {
+        "title": "Klartext (txt)",
+        "ext": "txt"
+    },
+    {
+        "title": "LaTeX",
+        "ext": "tex"
+    },
+    {
+        "title": "Man Page",
+        "ext": "gz"
+    },
+    {
+        "title": "Markdown",
+        "ext": "md"
+    },
+    {
+        "title": "Mediawiki",
+        "ext": "wiki"
+    },
+    {
+        "title": "Open Document",
+        "ext": "xml"
+    },
+    {
+        "title": "Open Document Format (ODT)",
+        "ext": "odt"
+    },
+    {
+        "title": "org mode (Emacs)",
+        "ext": "org"
+    },
+    {
+        "title": "PDF",
+        "ext": "pdf"
+    },
+    {
+        "title": "RST",
+        "ext": "text"
+    },
+    {
+        "title": "RTF",
+        "ext": "rtf"
+    },
+    {
+        "title": "Textile",
+        "ext": "textile"
     }
+];
+
+/**
+ * Previous revision ID used at runtime
+ */
+DocPatch.previousRevisionID = 0;
+
+/**
+ * Status indicators used at runtime
+ */
+DocPatch.status = {
+    "drawActorsTable": 0
 };
 
+/**
+ * Calculates age.
+ *
+ * @param string dateString Date of "birth"
+ *
+ * @return int
+ */
 DocPatch.calculateAge = function(dateString) {
-    var today = new Date();
-    var birthDate = new Date(dateString);
-    var age = today.getFullYear() - birthDate.getFullYear();
-    var m = today.getMonth() - birthDate.getMonth();
+    var today = new Date(),
+        birthDate = new Date(dateString),
+        age = today.getFullYear() - birthDate.getFullYear(),
+        m = today.getMonth() - birthDate.getMonth();
+
     if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
         age--;
     }
+
     return age;
 }
 
+/**
+ * Draws changes per year as bar chart.
+ */
 DocPatch.drawChangesPerYear = function() {
     var range = _.range(
         Number($.datepicker.formatDate('yy', new Date(_.first(DocPatch.meta.revisions).announced))),
@@ -118,6 +161,9 @@ DocPatch.drawChangesPerYear = function() {
     var chart = new Chart(ctx).Bar(data, options);
 }
 
+/**
+ * Draws changes per legislative period as bar chart.
+ */
 DocPatch.drawChangesPerPeriod = function() {
     var range = _.range(
         // Skip the first revision:
@@ -153,6 +199,12 @@ DocPatch.drawChangesPerPeriod = function() {
     var chart = new Chart(ctx).Bar(data, options);
 }
 
+/**
+ * Compares two revisions in a modal.
+ *
+ * @param object firstRevision First revision, e. g. the older one
+ * @param object secondRevision Second revision, e. g. the newer one
+ */
 DocPatch.compareRevisions = function(firstRevision, secondRevision) {
     var dmp = new diff_match_patch();
     var firstText = '';
@@ -205,17 +257,34 @@ DocPatch.compareRevisions = function(firstRevision, secondRevision) {
     $('#compareModal').modal();
 }
 
+/**
+ * Creates unique revision identifier.
+ *
+ * @param object revision Revision
+ *
+ * @return string
+ */
 DocPatch.createRevisionID = function(revision) {
     return revision.id + '_' + revision.announced;
 }
 
-DocPatch.fetchOrCache = function(key, url, type, async) {
+/**
+ * Fetches data via AJAX and stores it in local storage if possbile. If data is already stored in local storage it will be re-used.
+ *
+ * @param string key Unique data identifier
+ * @param string uri Unique resource identifier
+ * @param string type MIME type
+ * @param bool async Make a asynchronous AJAX call or not.
+ *
+ * @return mixed Data
+ */
+DocPatch.fetchOrCache = function(key, uri, type, async) {
     if (localStorage) {
         var value = localStorage.getItem(key);
         
         if (!value) {
             $.ajax({
-                url: url,
+                url: uri,
                 dataType: type,
                 async: async
             }).done(function(response) {
@@ -234,7 +303,7 @@ DocPatch.fetchOrCache = function(key, url, type, async) {
         return value;
     } else {
         $.ajax({
-            url: url,
+            url: uri,
             dataType: type,
             async: async
         }).done(function(response) {
@@ -243,6 +312,13 @@ DocPatch.fetchOrCache = function(key, url, type, async) {
     }
 }
 
+/**
+ * Collects meta data for a revision. Output is formatted for being processed by DocPatch.formatMeta().
+ *
+ * @param object revision Revision
+ *
+ * @return string
+ */
 DocPatch.collectMetaData = function(revision) {
     var collectedMetaData = [];
     var year;
@@ -390,6 +466,13 @@ DocPatch.collectMetaData = function(revision) {
     return collectedMetaData;
 }
 
+/**
+ * Formats meta data for a revision. Used for the timeline.
+ *
+ * @param object revision Revision
+ *
+ * @return string HTML formatted output
+ */
 DocPatch.formatMeta = function(revision) {
     var formatted;
     
@@ -406,6 +489,9 @@ DocPatch.formatMeta = function(revision) {
     return formatted;
 }
 
+/**
+ * Draws table for statistics about actors.
+ */
 DocPatch.drawActorsTable = function() {
     if (DocPatch.status.drawActorsTable === 1) {
         return;

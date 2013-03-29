@@ -61,7 +61,7 @@ ks.ready(function() {
      */
     $('#revision, #format').change(function() {
         var revisionID = DocPatch.createRevisionID(DocPatch.meta.revisions[Number($('#revision').val())]);
-        
+
         $('#download').attr(
             'action',
             DocPatch.repoDir + '/out/' + DocPatch.prefix + revisionID + '.' + $('#format').val()
@@ -136,7 +136,7 @@ ks.ready(function() {
     $('#comparerevisions').click(function() {
         var firstRevision = Number($('#firstrevision').val());
         var secondRevision = Number($('#secondrevision').val());
-        
+
         DocPatch.compareRevisions(firstRevision, secondRevision);
     });
 
@@ -161,7 +161,7 @@ ks.ready(function() {
      * Counts revisions for statistics.
      */
     $('#countChanges').html(
-        DocPatch.meta.revisions.length -1
+        DocPatch.meta.revisions.length - 1
     );
 
     /**

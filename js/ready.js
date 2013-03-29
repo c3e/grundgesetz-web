@@ -1,12 +1,21 @@
+/**
+ * Will be called if Kickstrap is ready.
+ */
 ks.ready(function() {
-    
+
+    /**
+     * Configures OnePageNav.
+     */
     $('#topnav').onePageNav({
         currentClass: 'current',
         changeHash: false,
         scrollSpeed: 750,
         scrollOffset: 80
     });
-    
+
+    /**
+     * Makes *the* meta data available.
+     */
     DocPatch.meta = DocPatch.fetchOrCache(
         'meta',
         DocPatch.repoDir + '/etc/meta.json',
@@ -14,24 +23,42 @@ ks.ready(function() {
         false
     );
 
+    /**
+     * Fills up some fields with revision data.
+     */
     $.each(DocPatch.meta.revisions.reverse(), function() {
         $('#revision, #firstrevision, #secondrevision')
             .append('<option value="' + this.id + '">' + (this.id + 1) + '. vom ' + $.datepicker.formatDate(DocPatch.dateFormat, new Date(this.announced)) + ': ' + this.title + '</option>');
     });
-    
+
+    /**
+     * @todo Dirty hack...
+     */
     DocPatch.meta.revisions.reverse();
-    
+
+    /**
+     * Fills up field for created output formats
+     */
     $.each(DocPatch.formats, function() {
         $('#format').append('<option value="' + this.ext + '" title="' + this.ext + '">' + this.title + '</option>');
     });
-    
+
+    /**
+     * Defines PDF as default format.
+     */
     $('#format option[value="pdf"]').attr('selected', 'selected');
-    
+
+    /**
+     * Initiates button for downloading last revision in default format.
+     */
     $('#download').attr(
         'action',
         DocPatch.repoDir + '/out/' + DocPatch.prefix + DocPatch.createRevisionID(DocPatch.meta.revisions[Number($('#revision').val())]) + '.' + $('#format').val()
     );
 
+    /**
+     * Updates download button whenever revision or format is changed.
+     */
     $('#revision, #format').change(function() {
         var revisionID = DocPatch.createRevisionID(DocPatch.meta.revisions[Number($('#revision').val())]);
         
@@ -40,19 +67,26 @@ ks.ready(function() {
             DocPatch.repoDir + '/out/' + DocPatch.prefix + revisionID + '.' + $('#format').val()
         );
     });
-    
+
+    /**
+     * Initiates button on top of page for downloading last revision in default format.
+     */
+
     var latest = DocPatch.meta.revisions.slice(-1)[0];
-    
+
     $('#latest').attr(
         'href',
         DocPatch.repoDir + '/out/' + DocPatch.prefix + DocPatch.createRevisionID(latest) + '.pdf'
     );
-    
+
     $('#latest').attr(
         'title',
         (latest.id + 1) + '. Fassung "' + latest.title + '" vom ' + $.datepicker.formatDate(DocPatch.dateFormat, new Date(latest.announced)) + ' im PDF-Format herunterladen'
     );
-    
+
+    /**
+     * Initiates timeline data.
+     */
     var timelineData = {
         "timeline": {
             "headline": DocPatch.meta.title,
@@ -62,7 +96,10 @@ ks.ready(function() {
             "date": []
         }
     };
-    
+
+    /**
+     * Fills up timeline with revision data.
+     */
     $.each(DocPatch.meta.revisions, function() {
         var announced = new Date(this.announced);
 
@@ -79,6 +116,9 @@ ks.ready(function() {
         });
     });
 
+    /**
+     * Configures and builds timeline.
+     */
     createStoryJS({
         type: "timeline",
         width: "100%",
@@ -89,7 +129,10 @@ ks.ready(function() {
         js: "Kickstrap/apps/timelinejs/js/timeline-min.js",
         //font: "DroidSerif-DroidSans"
     });
-    
+
+    /**
+     * Compares two revisions.
+     */
     $('#comparerevisions').click(function() {
         var firstRevision = Number($('#firstrevision').val());
         var secondRevision = Number($('#secondrevision').val());
@@ -97,6 +140,9 @@ ks.ready(function() {
         DocPatch.compareRevisions(firstRevision, secondRevision);
     });
 
+    /**
+     * Fires events whenever tabs are clicked.
+     */
     $('a[data-toggle="tab"]').on('shown', function (e) {
         switch(e.target.href.split('#')[1]) {
             case 'legislativeSessions':
@@ -110,11 +156,17 @@ ks.ready(function() {
                 break;
         }
     })
-    
+
+    /**
+     * Counts revisions for statistics.
+     */
     $('#countChanges').html(
         DocPatch.meta.revisions.length -1
     );
-    
+
+    /**
+     * Calculates age of document for statistics.
+     */
     $('#calculateAge').html(DocPatch.calculateAge(
         DocPatch.meta.revisions[0].announced
     ) + ' Jahre');

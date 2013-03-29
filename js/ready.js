@@ -52,7 +52,7 @@ ks.ready(function() {
      * Initiates button for downloading last revision in default format.
      */
     $('#download').attr(
-        'action',
+        'href',
         DocPatch.repoDir + '/out/' + DocPatch.prefix + DocPatch.createRevisionID(DocPatch.meta.revisions[Number($('#revision').val())]) + '.' + $('#format').val()
     );
 
@@ -63,7 +63,7 @@ ks.ready(function() {
         var revisionID = DocPatch.createRevisionID(DocPatch.meta.revisions[Number($('#revision').val())]);
 
         $('#download').attr(
-            'action',
+            'href',
             DocPatch.repoDir + '/out/' + DocPatch.prefix + revisionID + '.' + $('#format').val()
         );
     });

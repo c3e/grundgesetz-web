@@ -1,1 +1,1 @@
-docpatch.js
+//docpatch.js, docpatch.min.js

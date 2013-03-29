@@ -161,9 +161,9 @@
         <ul class="nav nav-tabs" id="statisticsTab">
             <li class="active"><a href="#common" data-toggle="tab"><i class="icon-asterisk"></i> Allgemeines</a></li>
             <li><a href="#actors" data-toggle="tab"><i class="icon-group"></i> Politiker</a></li>
-            <li><a href="#revisions" data-toggle="tab"><i class="icon-folder-open"></i> Fassungen</a></li>
             <li><a href="#legislativeSessions" data-toggle="tab"><i class="icon-share-alt"></i> Legislaturperioden</a></li>
             <li><a href="#years" data-toggle="tab"><i class="icon-time"></i> Jahresvergleich</a></li>
+            <li><a href="#revisions" data-toggle="tab"><i class="icon-folder-open"></i> Fassungen</a></li>
             <li><a href="#articles" data-toggle="tab"><i class="icon-folder-open"></i> Artikel</a></li>
         </ul>
 
@@ -210,20 +210,6 @@
                 <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="actorsTable"></table>
             </div>
             
-            <div class="tab-pane" id="revisions">
-                <p>Angaben zu den Fassungen:</p>
-
-                <div class="row-fluid">
-                    <div class="span6">
-                        <!-- TODO data table: Dauer von der Verabschiedung bis zum Inkrafttreten(?), Anzahl neuer/geänderter/gelöschter Artikel -->
-                    </div>
-                    <div class="span6">
-                        <!-- TODO chart.js: Abstimmungsverhältnis -->
-                        <canvas id="resultOfTheVote" width="300" height="300"></canvas>
-                    </div>
-                </div>
-            </div>
-            
             <div class="tab-pane" id="legislativeSessions">
                 <p>Anzahl der Änderungen in den jeweiligen Legislaturperioden:</p>
                 
@@ -234,6 +220,31 @@
                 <p>Anzahl der Änderungen in den jeweiligen Jahren:</p>
                 
                 <canvas id="changesPerYear" width="700" height="200"></canvas>
+            </div>
+            
+            <div class="tab-pane" id="revisions">
+                <p>Abstimmungsverhältnis bei der Verabschiedung einer Gesetzesänderung im Bundestag:</p>
+
+                <div class="row-fluid">
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label" for="revisionStats">Fassung</label>
+                            <div class="controls">
+                                <select name="revisionStats" id="revisionStats" class="span12"></select>
+                            </div>
+                        </div>
+                        
+                        <ul id="resultOfTheVoteList"></ul>
+                        
+                        <div id="resultOfTheVoteAlert" class="alert info fade">
+                            Zu dieser Fassung existieren nicht genügend Daten.
+                        </div>
+                    </div>
+                    <div class="span6">
+                        
+                        <canvas id="resultOfTheVote" width="300" height="300"></canvas>
+                    </div>
+                </div>
             </div>
             
             <div class="tab-pane" id="articles">

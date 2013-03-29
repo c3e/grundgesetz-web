@@ -18,6 +18,8 @@ Type `docpatch help` for more information.
 
 Edit the Kickstrap configuration file `kickstrap.less` and adapt the root directory to your needs. Create and configure `Makefile.properties`. After that run:
 
+    make less
+    make uglifyjs
     make deploy
 
 Have fun! :-)
@@ -33,6 +35,4 @@ Have fun! :-)
     *   Nur Änderungen anzeigen; gesamter Text ist verwirrend und zu viel
 *   Herunterladen
     *   Restliche Formate hinzufügen
-*   Deployment
-    *   Less kompilieren
 *   Logo + Favicon

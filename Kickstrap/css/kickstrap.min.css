@@ -625,6 +625,19 @@ button.btn.btn-mini,input[type="submit"].btn.btn-mini{*padding-top:1px;*padding-
 .btn-link{border-color:transparent;cursor:pointer;color:#9c0001;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;}
 .btn-link:hover,.btn-link:focus{color:#830001;text-decoration:underline;background-color:transparent;}
 .btn-link[disabled]:hover,.btn-link[disabled]:focus{color:#333333;text-decoration:none;}
+.alert{padding:8px 35px 8px 14px;margin-bottom:26px;text-shadow:0 1px 0 rgba(255, 255, 255, 0.5);background-color:#fcf8e3;border:1px solid #fbeed5;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;}
+.alert,.alert h4{color:#c09853;}
+.alert h4{margin:0;}
+.alert .close{position:relative;top:-2px;right:-21px;line-height:26px;}
+.alert-success{background-color:#dff0d8;border-color:#d6e9c6;color:#468847;}
+.alert-success h4{color:#468847;}
+.alert-danger,.alert-error{background-color:#f2dede;border-color:#eed3d7;color:#b94a48;}
+.alert-danger h4,.alert-error h4{color:#b94a48;}
+.alert-info{background-color:#d9edf7;border-color:#bce8f1;color:#3a87ad;}
+.alert-info h4{color:#3a87ad;}
+.alert-block{padding-top:14px;padding-bottom:14px;}
+.alert-block>p,.alert-block>ul{margin-bottom:0;}
+.alert-block p+p{margin-top:5px;}
 .nav{margin-left:0;margin-bottom:26px;list-style:none;}
 .nav>li>a{display:block;}
 .nav>li>a:hover,.nav>li>a:focus{text-decoration:none;background-color:#eeeeee;}
@@ -836,6 +849,6 @@ div.subnav-fixed{top:60px;}
 .highlightsecondrevision{background:#e6ffe6;}
 .hugetext{max-height:30em;overflow:scroll;}
 #caching{ie8:"<script></script>";}
-#appList{content:"//pinesnotify, bootstrap, //retina, jquery-scrollto, bootstrap/scrollspy, jquery-nav, datepicker, timelinejs, diff-match-patch, //bootstrap/transition, //knockout, //updater, chartjs, underscore, docpatch, datatables";ie8:"//pinesnotify, bootstrap, //retina, jquery-scrollto, bootstrap/scrollspy, jquery-nav, datepicker, timelinejs, diff-match-patch, //bootstrap/transition, //knockout, //updater, chartjs, underscore, docpatch, datatables";}
-#appList::after{content:"//pinesnotify, bootstrap, //retina, jquery-scrollto, bootstrap/scrollspy, jquery-nav, datepicker, timelinejs, diff-match-patch, //bootstrap/transition, //knockout, //updater, chartjs, underscore, docpatch, datatables";}
+#appList{content:"//pinesnotify, bootstrap, //retina, jquery-scrollto, bootstrap/scrollspy, jquery-nav, datepicker, timelinejs, diff-match-patch, bootstrap/transition, //knockout, //updater, chartjs, underscore, docpatch, datatables";ie8:"//pinesnotify, bootstrap, //retina, jquery-scrollto, bootstrap/scrollspy, jquery-nav, datepicker, timelinejs, diff-match-patch, bootstrap/transition, //knockout, //updater, chartjs, underscore, docpatch, datatables";}
+#appList::after{content:"//pinesnotify, bootstrap, //retina, jquery-scrollto, bootstrap/scrollspy, jquery-nav, datepicker, timelinejs, diff-match-patch, bootstrap/transition, //knockout, //updater, chartjs, underscore, docpatch, datatables";}
 script#rootDir{content:"<script>setDir('/', 'root')br-setDir('local', 'universal')</script>";ie8:"<script>setDir('/', 'root')br-setDir('local', 'universal')</script>";}

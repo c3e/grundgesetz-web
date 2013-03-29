@@ -27,7 +27,7 @@ ks.ready(function() {
      * Fills up some fields with revision data.
      */
     $.each(DocPatch.meta.revisions.reverse(), function() {
-        $('#revision, #firstrevision, #secondrevision')
+        $('#revision, #firstrevision, #secondrevision, #revisionStats')
             .append('<option value="' + this.id + '">' + (this.id + 1) + '. vom ' + $.datepicker.formatDate(DocPatch.dateFormat, new Date(this.announced)) + ': ' + this.title + '</option>');
     });
 
@@ -154,11 +154,21 @@ ks.ready(function() {
             case 'actors':
                 DocPatch.drawActorsTable();
                 break;
+            case 'revisions':
+                DocPatch.drawResultOfTheVote();
+                break;
             case 'articles':
                 DocPatch.drawArticlesTable();
                 break;
         }
-    })
+    });
+    
+    /**
+     * Updates chart for result of the vote whenever revision is changed.
+     */
+    $('#revisionStats').change(function() {
+        DocPatch.drawResultOfTheVote();
+    });
 
     /**
      * Counts revisions for statistics.

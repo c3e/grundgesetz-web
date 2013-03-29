@@ -146,11 +146,11 @@ DocPatch.drawChangesPerYear = function() {
                 data : $.map(changesPerYear, function(value, key) { return value; })
             }
         ]
-    }
+    };
 
-    var options = {}
+    var options = {};
     
-    var ctx = $("#changesPerYear").get(0).getContext("2d");
+    var ctx = $('#changesPerYear').get(0).getContext('2d');
     var chart = new Chart(ctx).Bar(data, options);
 }
 
@@ -184,12 +184,70 @@ DocPatch.drawChangesPerPeriod = function() {
                 data : $.map(changesPerPeriod, function(value, key) { return value; })
             }
         ]
-    }
+    };
 
-    var options = {}
+    var options = {};
     
-    var ctx = $("#changesPerPeriod").get(0).getContext("2d");
+    var ctx = $('#changesPerPeriod').get(0).getContext('2d');
     var chart = new Chart(ctx).Bar(data, options);
+}
+
+DocPatch.drawResultOfTheVote = function() {
+    var revision = DocPatch.meta.revisions[Number($('#revisionStats').val())];
+    
+    // Reset:
+    $('#resultOfTheVoteAlert').removeClass('in');
+    $('#resultOfTheVote').hide();
+    $('#resultOfTheVoteList').hide();
+    
+    if (!revision.votes) {
+        $('#resultOfTheVoteAlert').addClass('in');
+        return;
+    }
+    
+    var yes = revision.votes.yes || 0,
+        no = revision.votes.no || 0,
+        abstentions = revision.votes.abstentions || 0,
+        notVoted = revision.votes.notVoted || 0,
+        invalid = revision.votes.invalid || 0,
+        sum = yes + no + abstentions + notVoted + invalid;
+    
+    var data = [
+        {
+            value: yes,
+            color: "#468847"
+        },
+        {
+            value: no,
+            color: "#B94A48"
+        },
+        {
+            value: abstentions,
+            color: "#F89406"
+        },
+        {
+            value: notVoted,
+            color: "#3A87AD"
+        },
+        {
+            value: invalid,
+            color: "#999999"
+        }  
+    ];
+    
+    var options = {};
+    
+    var ctx = $('#resultOfTheVote').fadeIn().get(0).getContext('2d');
+    var chart = new Chart(ctx).Pie(data, options);
+    
+    $('#resultOfTheVoteList').html(
+        '<li><span class="badge badge-success">' + yes + '</span> ja</li>' +
+        '<li><span class="badge badge-important">' + no + '</span> nein</li>' +
+        '<li><span class="badge badge-warning">' + abstentions + '</span> enthalten</li>' +
+        '<li><span class="badge badge-info">' + notVoted + '</span> nicht abgestimmt</li>' +
+        '<li><span class="badge">' + invalid + '</span> ungültig</li>' +
+        '<li><strong>' + sum + '</strong> insgesamt</li>'
+    ).fadeIn();;
 }
 
 /**

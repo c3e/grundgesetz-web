@@ -181,11 +181,23 @@
                             <tbody>
                                 <tr>
                                     <th>Anzahl Änderungen</th>
-                                    <td id="countChanges"></td>
+                                    <td id="numberOfChanges"></td>
                                 </tr>
                                 <tr>
-                                    <th>Alter</th>
-                                    <td id="calculateAge"></td>
+                                    <th>Alter (Jahre)</th>
+                                    <td id="age"></td>
+                                </tr>
+                                <tr>
+                                    <th>Überdauerte Legislaturperioden</th>
+                                    <td id="numberOfLegislativeSessions"></td>
+                                </tr>
+                                <tr>
+                                    <th>Änderungen pro Legislaturperiode</th>
+                                    <td id="numberOfChangesPerLegislativeSessions"></td>
+                                </tr>
+                                <tr>
+                                    <th>Änderungen pro Jahr</th>
+                                    <td id="numberOfChangesPerYear"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -225,30 +237,18 @@
             
             <div class="tab-pane" id="legislativeSessions">
                 <p>Aktivitäten nach Legislaturperioden aufgeschlüsselt:</p>
-
-                <div class="row-fluid">
-                    <div class="span4">
-                        <!-- TODO data table: Periode (mit Link), Anzahl Änderungen -->
-                    </div>
-                    <div class="span8">
-                        <canvas id="changesPerPeriod" width="700" height="200"></canvas>
-                        <p></p>
-                    </div>
-                </div>
+                
+                <canvas id="changesPerPeriod" width="700" height="200"></canvas>
+                
+                <p>Tabelle: Anzahl der Änderungen in den jeweiligen Legislaturperioden</p>
             </div>
             
             <div class="tab-pane" id="years">
                 <p>Jahresvergleich:</p>
-
-                <div class="row-fluid">
-                    <div class="span2">
-                        <!-- TODO (data) table: Anzahl Änderungen, Änderungen pro Jahr -->
-                        <table cellpadding="0" cellspacing="0" border="0" class="display" id="changesPerYearTable"></table>
-                    </div>
-                    <div class="span10">
-                        <canvas id="changesPerYear" width="700" height="200"></canvas>
-                    </div>
-                </div>
+                
+                <canvas id="changesPerYear" width="700" height="200"></canvas>
+                
+                <p>Tabelle: Anzahl der Änderungen in den jeweiligen Jahren</p>
             </div>
             
             <div class="tab-pane" id="articles">

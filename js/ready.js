@@ -160,14 +160,42 @@ ks.ready(function() {
     /**
      * Counts revisions for statistics.
      */
-    $('#countChanges').html(
-        DocPatch.meta.revisions.length - 1
-    );
+    DocPatch.numberOfChanges = DocPatch.meta.revisions.length - 1;
+    $('#numberOfChanges').html(DocPatch.numberOfChanges);
 
     /**
      * Calculates age of document for statistics.
      */
-    $('#calculateAge').html(DocPatch.calculateAge(
+    DocPatch.age = DocPatch.calculateAge(
         DocPatch.meta.revisions[0].announced
-    ) + ' Jahre');
+    );
+    $('#age').html(DocPatch.age);
+
+    /**
+     * Counts legislative sessions for statistics.
+     */
+    DocPatch.numberOfLegislativeSessions = latest.legislativeSession.id;
+    $('#numberOfLegislativeSessions').html(DocPatch.numberOfLegislativeSessions);
+
+    /**
+     * Calculates changes per legislative session for statistics.
+     */
+    DocPatch.changesPerLegislativeSessions = DocPatch.numberOfChanges / DocPatch.numberOfLegislativeSessions;
+    $('#numberOfChangesPerLegislativeSessions').html(
+        Number(DocPatch.changesPerLegislativeSessions.toFixed(2))
+    ).attr(
+        'title',
+        DocPatch.changesPerLegislativeSessions
+    );
+
+    /**
+     * Calculates changes per year for statistics.
+     */
+    DocPatch.changesPerYear = DocPatch.numberOfChanges / DocPatch.age;
+    $('#numberOfChangesPerYear').html(
+        Number(DocPatch.changesPerYear.toFixed(2))
+    ).attr(
+        'title',
+        DocPatch.changesPerYear
+    );
 });

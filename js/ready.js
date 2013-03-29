@@ -154,6 +154,9 @@ ks.ready(function() {
             case 'actors':
                 DocPatch.drawActorsTable();
                 break;
+            case 'articles':
+                DocPatch.drawArticlesTable();
+                break;
         }
     })
 

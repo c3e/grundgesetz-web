@@ -210,19 +210,12 @@
             
             <div class="tab-pane" id="actors">
                 <p>Nähere Betrachtung derjenigen Politiker, die die einzelnen Fassungen des Grundgesetzes unterschrieben haben:</p>
-
-                <div class="row-fluid">
-                    <div class="span8">
-                        <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="actorsTable"></table>
-                    </div>
-                    <div class="span4">
-                        <!-- TODO chart.js: Verhältnis männlich/weiblich -->
-                    </div>
-                </div>
+                
+                <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="actorsTable"></table>
             </div>
             
             <div class="tab-pane" id="revisions">
-                <p>Angaben zu den Revisionen:</p>
+                <p>Angaben zu den Fassungen:</p>
 
                 <div class="row-fluid">
                     <div class="span6">
@@ -236,32 +229,21 @@
             </div>
             
             <div class="tab-pane" id="legislativeSessions">
-                <p>Aktivitäten nach Legislaturperioden aufgeschlüsselt:</p>
+                <p>Anzahl der Änderungen in den jeweiligen Legislaturperioden:</p>
                 
                 <canvas id="changesPerPeriod" width="700" height="200"></canvas>
-                
-                <p>Tabelle: Anzahl der Änderungen in den jeweiligen Legislaturperioden</p>
             </div>
             
             <div class="tab-pane" id="years">
-                <p>Jahresvergleich:</p>
+                <p>Anzahl der Änderungen in den jeweiligen Jahren:</p>
                 
                 <canvas id="changesPerYear" width="700" height="200"></canvas>
-                
-                <p>Tabelle: Anzahl der Änderungen in den jeweiligen Jahren</p>
             </div>
             
             <div class="tab-pane" id="articles">
-                <p>Vergleich von Artikeln:</p>
+                <p>Änderungshistorie einzelner Artikel:</p>
 
-                <div class="row-fluid">
-                    <div class="span6">
-                        <!-- TODO (data) table: Artikel-Nummer, Anzahl Änderungen -->
-                    </div>
-                    <div class="span6">
-                        <!-- TODO chart.js -->
-                    </div>
-                </div>
+                <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="articlesTable"></table>
             </div>
         </div>
     </section>

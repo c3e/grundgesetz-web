@@ -100,13 +100,6 @@ DocPatch.formats = [
 DocPatch.previousRevisionID = 0;
 
 /**
- * Status indicators used at runtime
- */
-DocPatch.status = {
-    "drawActorsTable": 0
-};
-
-/**
  * Calculates age.
  *
  * @param string dateString Date of "birth"
@@ -493,12 +486,16 @@ DocPatch.formatMeta = function(revision) {
  * Draws table for statistics about actors.
  */
 DocPatch.drawActorsTable = function() {
-    if (DocPatch.status.drawActorsTable === 1) {
+    if (!DocPatch.drawActorsTable) {
+        DocPatch.drawActorsTable = 0;
+    }
+
+    if (DocPatch.drawActorsTable === 1) {
         return;
     }
-    
+
     var actors = {};
-    
+
     $.each(DocPatch.meta.revisions, function() {
         if (this.signedOffBy) {
             $.each(this.signedOffBy, function() {
@@ -517,7 +514,7 @@ DocPatch.drawActorsTable = function() {
     });
 
     var entities = [];
-    
+
     for (var i in actors) {
         var roles = _.uniq(actors[i].roles);
         
@@ -527,10 +524,10 @@ DocPatch.drawActorsTable = function() {
             actors[i].number
         ]);
     }
-    
+
     // TODO There is an empty element at the end:
     entities.slice(-1);
-    
+
     $('#actorsTable').dataTable({
         /*"sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
         "sPaginationType": "bootstrap",
@@ -544,6 +541,98 @@ DocPatch.drawActorsTable = function() {
             { "sTitle": "Unterschriften", "sClass": "right" }
         ]
     });
+
+    DocPatch.drawActorsTable = 1;
+}
+
+/**
+ * Draws table for statistics about articles.
+ */
+DocPatch.drawArticlesTable = function() {
+    if (!DocPatch.drawArticlesTable) {
+        DocPatch.drawArticlesTable = 0;
+    }
+
+    if (DocPatch.drawArticlesTable === 1) {
+        return;
+    }
+
+    var articles = {};
+
+    $.each(DocPatch.meta.revisions, function() {
+        var version = this.id + 1;
+
+        if (this.articles) {
+            $.each(this.articles, function(key, value) {
+                $.each(value, function() {
+                    if (!articles[this]) {
+                        articles[this] = {};
+                        articles[this].numberOfChanges = 0;
+                        articles[this].history = {};
+                    }
+
+                    articles[this].numberOfChanges++;
+
+                    switch (key) {
+                        case 'created':
+                            articles[this].history.created = version;
+                            break;
+                        case 'updated':
+                            if (!articles[this].history.updated) {
+                                articles[this].history.updated = [];
+                            }
+                            articles[this].history.updated.push(version);
+                            break;
+                        case 'deleted':
+                            articles[this].history.deleted = version;
+                            break;
+                    } //switch
+                }); //each value
+            });
+        }
+    });
+
+    var entities = [];
     
-    DocPatch.status.drawActorsTable = 1;
+    $.each(articles, function(key, value) {
+        var history = [];
+
+        if (value.history.created) {
+            history.push('hinzugefügt in Fassung ' + value.history.created);
+        }
+        
+        if (value.history.updated) {
+            if (value.history.updated.length === 1) {
+                history.push('geändert in Fassung ' + value.history.updated.join(', '));
+            } else {
+                history.push('geändert in Fassungen ' + value.history.updated.join(', '));
+            }
+        }
+        
+        if (value.history.deleted) {
+            history.push('aufgehoben in Fassung ' + value.history.deleted);
+        }
+        
+        entities.push([
+            key,
+            value.numberOfChanges,
+            history.join(', ')
+        ]);
+    });
+
+    $('#articlesTable').dataTable({
+        /*"sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
+        "sPaginationType": "bootstrap",
+        "oLanguage": {
+            "sLengthMenu": "_MENU_ records per page"
+        },*/
+        "aaData": entities,
+        "aoColumns": [
+            { "sTitle": "Artikelnummer" },
+            { "sTitle": "Anzahl Änderungen", "sClass": "right" },
+            { "sTitle": "Historie" }
+        ]
+    });
+
+    DocPatch.drawArticlesTable = 1;
 }

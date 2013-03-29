@@ -33,3 +33,7 @@ create :
 less :
 	@echo "Compiling less..."
 	@lessc -x -O2 kickstrap.less > Kickstrap/css/kickstrap.min.css
+
+uglifyjs :
+	@echo "Compressing docpatch.js..."
+	@uglifyjs Kickstrap/apps/docpatch/docpatch.js --output Kickstrap/apps/docpatch/docpatch.min.js --compress

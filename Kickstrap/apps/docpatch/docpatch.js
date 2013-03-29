@@ -522,10 +522,9 @@ DocPatch.drawActorsTable = function() {
         var roles = _.uniq(actors[i].roles);
         
         entities.push([
-            actors[i].name,
+            '<a href="' + actors[i].uri + '" title="' + actors[i].uri + '">' + actors[i].name + '</a>',
             roles.join(', '),
-            actors[i].number,
-            actors[i].uri,
+            actors[i].number
         ]);
     }
     
@@ -542,8 +541,7 @@ DocPatch.drawActorsTable = function() {
         "aoColumns": [
             { "sTitle": "Name" },
             { "sTitle": "Rollen" },
-            { "sTitle": "Unterschriften", "sClass": "right" },
-            { "sTitle": "Link" }
+            { "sTitle": "Unterschriften", "sClass": "right" }
         ]
     });
     

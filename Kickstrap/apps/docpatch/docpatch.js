@@ -2,7 +2,7 @@
  * DocPatch
  */
 
-/*global $, Chart, createStoryJS, localStorage, diff_match_patch */
+/*global $, Chart, createStoryJS, localStorage, diff_match_patch, d3 */
 
 var DocPatch = function (options) {
 
@@ -574,11 +574,11 @@ var DocPatch = function (options) {
             entities = [],
             i;
 
-        if (!that.drawActorsTable) {
-            that.drawActorsTable = 0;
+        if (!that.actorsTableDrawn) {
+            that.actorsTableDrawn = 0;
         }
 
-        if (that.drawActorsTable === 1) {
+        if (that.actorsTableDrawn === 1) {
             return;
         }
 
@@ -626,7 +626,7 @@ var DocPatch = function (options) {
             ]
         });
 
-        that.drawActorsTable = 1;
+        that.actorsTableDrawn = 1;
     };
 
     /**
@@ -636,11 +636,11 @@ var DocPatch = function (options) {
         var articles = {},
             entities = [];
 
-        if (!that.drawArticlesTable) {
-            that.drawArticlesTable = 0;
+        if (!that.articlesTableDrawn) {
+            that.articlesTableDrawn = 0;
         }
 
-        if (that.drawArticlesTable === 1) {
+        if (that.articlesTableDrawn === 1) {
             return;
         }
 
@@ -717,7 +717,109 @@ var DocPatch = function (options) {
             ]
         });
 
-        that.drawArticlesTable = 1;
+        that.articlesTableDrawn = 1;
+    };
+    
+    /**
+     * Draws word cloud.
+     */
+    this.drawWordCloud = function () {
+        var fill = d3.scale.category20(),
+            chosenWords = [],
+            lastRevisionID = that.createRevisionID(latest),
+            blackList,
+            progress = 0;
+
+        if (!that.wordCloudDrawn) {
+            that.wordCloudDrawn = 0;
+        }
+
+        if (that.wordCloudDrawn === 1) {
+            return;
+        }
+
+        // TODO This is German only.
+        blackList = [
+            'in', 'im', 'am', 'an', 'vor', 'auf', 'durch', 'zu', 'von', 'zum', 'aus', 'mit', 'ohne', 'zur', 'nach', 'über', 'unter', 'so', 'um', 'vom', 'bei', 'hin', 'für', 'gegen', 'hierauf', 'dort', 'hier',
+            'der', 'die', 'das', 'den', 'dem', 'des', 'dieser', 'diese', 'dieses', 'deren', 'dessen', 'denen', 'jeder', 'jede', 'jedes', 'jeden',
+            'er', 'sie', 'es',
+            'anderer', 'andere', 'anderes', 'anderen',
+            'und', 'oder', 'nicht', 'nur',
+            'sich',
+            'bestimmt', 'bestimmte', 'bestimmter', 'bestimmtes', 'ganz', 'ganzen', 'ganzes', 'ganzer',
+            'ist', 'sind', 'hat', 'haben', 'wird', 'werden',
+            'als', 'so', 'bis', 'je',
+            'wer', 'wie', 'was', 'weshalb', 'warum', 'welches', 'wessen', 'wo', 'wann',
+            'daß', 'dass', 'wegen', 'deshalb', 'wenn', 'aber', 'auch', 'weder', 'noch', 'sondern', 'darum', 'soweit', 'damit', 'wieder', 'dadurch', 'sowie',
+            'seiner', 'sein', 'seinen', 'seines', 'ihrer', 'ihr', 'ihre', 'ihren',
+            'einen', 'ein', 'einem', 'eines', 'eine', 'einer',
+            'kann', 'können', 'muss', 'müssen', 'darf', 'dürfen', 'soll', 'sollen', 'will', 'wollen',
+            'Artikel', 'Art', 'Absatz', 'Gesetz', 'Abs', 'Satz'
+        ];
+
+        String.prototype.removeBlackWords = function () {
+            var index, removed = this, exp;
+
+            for (index = 0; index < blackList.length; index += 1) {
+                exp = new RegExp('\\b' + blackList[index] + '\\b', 'igm');
+
+                removed = removed.replace(exp, '');
+            }
+
+            return removed;
+        };
+
+        chosenWords = that.fetchOrCache(
+            lastRevisionID,
+            that.repoDir + '/out/' + that.prefix + lastRevisionID + '.txt',
+            'text',
+            false
+        ).slice(0, 10000).replace(/([0-9\[\]\(\),;\.\-="]+)/igm, '').replace(/\b[:alpha:]{1,2}\b/g, '').removeBlackWords().split(' ');
+        
+        $('#wordCloudLoading progress').attr('value', 0).attr('max', chosenWords.length);
+        $('#wordCloudLoading span').html(progress + '/' + chosenWords.length);
+
+        d3.layout.cloud()
+            .size([2342, 1200])
+            .timeInterval(10)
+            .words(chosenWords.map(function (d) {
+                    return {
+                        text: d, size: 10 + Math.random() * 90
+                    };
+            }))
+            .rotate(function () { return ~~(Math.random() * 2) * 90; })
+            .font("Impact")
+            .fontSize(function (d) { return d.size; })
+            .on('word', function () {
+                progress += 1;
+                $('#wordCloudLoading progress').attr('value', progress);
+                $('#wordCloudLoading span').html(progress + '/' + chosenWords.length);
+            })
+            .on("end", draw)
+            .start();
+
+        that.wordCloudDrawn = 1;
+
+        function draw (words) {
+            d3.select("#wordCloudImage").insert("svg")
+                .attr("width", 979)
+                .attr("height", 600)
+            .append("g")
+                .attr("transform", "translate(150,150)")
+            .selectAll("text")
+                .data(words)
+            .enter().append("text")
+                .style("font-size", function (d) { return d.size + "px"; })
+                .style("font-family", "Impact")
+                .style("fill", function (d, i) { return fill(i); })
+                .attr("text-anchor", "middle")
+                .attr("transform", function (d) {
+                return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+                })
+                .text(function (d) { return d.text; });
+
+            $('#wordCloudLoading').fadeOut();
+        }
     };
 
     /**
@@ -866,6 +968,9 @@ var DocPatch = function (options) {
             break;
         case 'articles':
             that.drawArticlesTable();
+            break;
+        case 'wordcloud':
+            that.drawWordCloud();
             break;
         }
     });

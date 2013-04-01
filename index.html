@@ -31,6 +31,8 @@
     <script src="Kickstrap/js/less-1.3.3.min.js"></script>-->
     <link rel="stylesheet" type="text/css" href="Kickstrap/css/kickstrap.min.css">
     <!--[if IE]><script src="Kickstrap/js/html5shiv.js"></script><![endif]-->
+    <!-- TODO Move d3 to Kickstrap apps. -->
+    <script src="Kickstrap/apps/universal/d3/d3.min.js"></script>
 </head>
 
 <body data-spy="scroll" data-target=".navbar">
@@ -165,6 +167,7 @@
             <li><a href="#years" data-toggle="tab"><i class="icon-time"></i> Jahresvergleich</a></li>
             <li><a href="#revisions" data-toggle="tab"><i class="icon-folder-open"></i> Fassungen</a></li>
             <li><a href="#articles" data-toggle="tab"><i class="icon-folder-open"></i> Artikel</a></li>
+            <li><a href="#wordcloud" data-toggle="tab"><i class="icon-folder-open"></i> Wortwolke</a></li>
         </ul>
 
         <div class="tab-content">
@@ -252,6 +255,11 @@
 
                 <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="articlesTable"></table>
             </div>
+            
+            <div class="tab-pane" id="wordcloud">
+                <p id="wordCloudLoading" class="text-center"><img src="Kickstrap/apps/timelinejs/css/loading.gif" alt="loading animation"/> Bitte warten &hellip; <progress value="" max="" /> <span></span></p>
+                <div id="wordCloudImage"></div>
+            </div>
         </div>
     </section>
     
@@ -336,6 +344,7 @@
                     <li><a href="https://github.com/davist11/jQuery-One-Page-Nav" title="https://github.com/davist11/jQuery-One-Page-Nav">jQuery-One-Page-Nav</a></li>
                     <li><a href="http://www.datatables.net/" title="http://www.datatables.net/">DataTables</a></li>
                     <li><a href="http://chartjs.org/" title="http://chartjs.org/">Chart.js</a></li>
+                    <li><a href="http://d3js.org/" title="http://d3js.org/">d3</a> und <a href="https://github.com/jasondavies/d3-cloud" title="https://github.com/jasondavies/d3-cloud">d3-cloud</a></li>
                     <li>und viele mehr &hellip;</li>
                 </ul>
             </div>

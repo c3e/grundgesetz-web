@@ -810,7 +810,7 @@ var DocPatch = function (options) {
         // Determine number of occurrences in "words":
         maxCount = words[0][1];  // relies on sorting!
         
-        $('#wordCloudLoading progress').attr('value', 0).attr('max', max);
+        $('#wordCloudLoading progress').attr('value', 0).attr('max', words.length);
         $('#wordCloudLoading span').html(progress + '/' + max);
 
         d3.layout.cloud()

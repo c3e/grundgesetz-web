@@ -796,8 +796,7 @@ var DocPatch = function (options) {
             .timeInterval(10)
             .words(words.map(function (d) {
                 return {
-                    //text: d, size: 10 + wordList[d] * 90
-                    text: d, size: 10 + Math.random() * 50
+                    text: d, size: 10 + Number('0.' + wordList[d]) * 90
                 };
             }))
             .rotate(function () { return ~~(Math.random() * 2) * 90; })

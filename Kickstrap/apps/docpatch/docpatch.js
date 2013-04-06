@@ -803,7 +803,6 @@ var DocPatch = function (options) {
             break;
           }
         }
-        console.log(max);
         words = words.slice(0, max - 1);
 
 

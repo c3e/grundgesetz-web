@@ -792,25 +792,22 @@ var DocPatch = function (options) {
         //   }
         // };
 
+        var m = 3;
         // Transform wordList into pairs and sort by frequency:
-        words = _.sortBy(_.pairs(wordList),function (p) {
-          return -p[1];
+        words = _.reject(_.pairs(wordList),function (p) {
+          return (p[1] < m);
         });
 
-        var m = 3; // only keep words that occur at least m times
-        for (max=0; max < words.length; max++){
-          if (words[max][1] < m){
-            break;
+        // Determine number of occurrences in "words":
+        maxCount = 0;  // relies on sorting!
+        for (var i=0; i < words.length; i++){
+          if (words[i][1] > maxCount){
+            maxCount = words[i][1];
           }
         }
-        words = words.slice(0, max - 1);
-
-
-        // Determine number of occurrences in "words":
-        maxCount = words[0][1];  // relies on sorting!
         
         $('#wordCloudLoading progress').attr('value', 0).attr('max', words.length);
-        $('#wordCloudLoading span').html(progress + '/' + max);
+        $('#wordCloudLoading span').html(progress + '/' + words.length);
 
         d3.layout.cloud()
             .size([cloudWidth, cloudHeight])
@@ -829,7 +826,7 @@ var DocPatch = function (options) {
             .on('word', function () {
                 progress += 1;
                 $('#wordCloudLoading progress').attr('value', progress);
-                $('#wordCloudLoading span').html(progress + '/' + max);
+                $('#wordCloudLoading span').html(progress + '/' + words.length);
             })
             .on('end', draw)
             .start();

@@ -773,8 +773,11 @@ var DocPatch = function (options) {
         while (match = regExp.exec(text)) {
             // Blacklist is lower-case:
             word = match[0].toLowerCase();
-            // Omit words in stopword list:
-            if (!(word in isBlack)) {
+            if ( // Omit
+                // - words in stopword list:
+                (!(word in isBlack)) &&
+                // - and roman numerals:
+                (!((word.length>=1) && (/^x{0,3}i?v?i{0,3}$/i.exec(word))))) {
                 if (word in wordList) {
                     wordList[word] += 1;
                 } else {
@@ -790,9 +793,20 @@ var DocPatch = function (options) {
         // };
 
         // Transform wordList into pairs and sort by frequency:
-        words = _.pairs(wordList).sort(function (p, q) {
-          return p[1] < q[1];
+        words = _.sortBy(_.pairs(wordList),function (p) {
+          return -p[1];
         });
+        console.log(words);
+
+        var m = 3; // only keep words that occur at least m times
+        for (max=0; max < words.length; max++){
+          if (words[max][1] < m){
+            break;
+          }
+        }
+        console.log(max);
+        words = words.slice(0, max - 1);
+
 
         // Determine number of occurrences in "words":
         _.each(words, function (p) {

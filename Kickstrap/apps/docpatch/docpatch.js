@@ -797,8 +797,12 @@ var DocPatch = function (options) {
         words = words.slice(0, max);
 
         // Determine number of occurrences in "words"
-        _.map(words, function(p){
-          wordCount += p[1];
+        var maxCount = 0;
+        _.each(words, function(p){
+          if (p[1] > maxCount){
+            maxCount = p[1];
+          }
+          // wordCount += p[1];
         });
         
         $('#wordCloudLoading progress').attr('value', 0).attr('max', max);
@@ -815,7 +819,7 @@ var DocPatch = function (options) {
             .words(_.map(words, function (d) {
                 return {
                     text: d[0],
-                    size: 10 + d[1]/wordCount * 140 // not yet optimal!
+                    size: 10 + (d[1])/(maxCount) * 90
                 };
             }))
             .rotate(function () { return ~~(Math.random() * 2) * 90; })

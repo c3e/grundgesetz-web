@@ -22,6 +22,7 @@ am
 an
 andere
 anderen
+anderer
 andern
 anders
 au
@@ -576,3 +577,13 @@ zweiter
 zweites
 zwischen
 zwölf
+
+artikel
+artikels
+absatz
+absätze
+absatzes
+abs
+satz
+sätze
+satzes

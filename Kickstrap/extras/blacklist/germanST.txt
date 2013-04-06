@@ -587,3 +587,4 @@ abs
 satz
 sätze
 satzes
+soweit

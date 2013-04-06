@@ -780,28 +780,29 @@ var DocPatch = function (options) {
             }
         }
 
-        // Normalize:
         $.each(_.keys(wordList), function (k) {
             wordList[k] = wordList[k] / wordCount;
         });
 
-        // Finish:
-        words = _.keys(wordList).slice(0, max);
+        words = _.keys(wordList);
+        max = words.length / 2;
 
-        $('#wordCloudLoading progress').attr('value', 0).attr('max', max);
+        $('#wordCloudLoading progress').attr('value', progress).attr('max', max);
         $('#wordCloudLoading span').html(progress + '/' + max);
 
         d3.layout.cloud()
-            .size([2342, 1200])
+            //.size([2342, 1200])
+            .size([979, 600])
             .timeInterval(10)
             .words(words.map(function (d) {
                 return {
-                    text: d, size: 10 + Number('0.' + wordList[d]) * 90
+                    text: d, size: 10 + Number('0.' + wordList[d]) * 50
                 };
             }))
             .rotate(function () { return ~~(Math.random() * 2) * 90; })
-            .font('Impact')
+            .font('Helvetica Neue')
             .fontSize(function (d) { return d.size; })
+            .padding(1)
             .on('word', function () {
                 progress += 1;
                 $('#wordCloudLoading progress').attr('value', progress);
@@ -822,7 +823,7 @@ var DocPatch = function (options) {
                 .data(words)
             .enter().append("text")
                 .style("font-size", function (d) { return d.size + "px"; })
-                .style("font-family", "Impact")
+                .style("font-family", 'Helvetica Neue')
                 .style("fill", function (d, i) { return fill(i); })
                 .attr("text-anchor", "middle")
                 .attr("transform", function (d) {

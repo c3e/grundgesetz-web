@@ -796,7 +796,6 @@ var DocPatch = function (options) {
         words = _.sortBy(_.pairs(wordList),function (p) {
           return -p[1];
         });
-        console.log(words);
 
         var m = 3; // only keep words that occur at least m times
         for (max=0; max < words.length; max++){
@@ -809,12 +808,7 @@ var DocPatch = function (options) {
 
 
         // Determine number of occurrences in "words":
-        _.each(words, function (p) {
-          if (p[1] > maxCount){
-            maxCount = p[1];
-          }
-          // wordCount += p[1];
-        });
+        maxCount = words[0][1];  // relies on sorting!
         
         $('#wordCloudLoading progress').attr('value', 0).attr('max', max);
         $('#wordCloudLoading span').html(progress + '/' + max);

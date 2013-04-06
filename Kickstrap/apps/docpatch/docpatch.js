@@ -2,7 +2,7 @@
  * DocPatch
  */
 
-/*global $, Chart, createStoryJS, localStorage, diff_match_patch, d3 */
+/*global $, Chart, createStoryJS, localStorage, diff_match_patch, d3, XRegExp */
 
 var DocPatch = function (options) {
 
@@ -725,10 +725,20 @@ var DocPatch = function (options) {
      */
     this.drawWordCloud = function () {
         var fill = d3.scale.category20(),
-            chosenWords = [],
+            words = [],
             lastRevisionID = that.createRevisionID(latest),
             blackList,
-            progress = 0;
+            progress = 0,
+            // Number of words to draw:
+            max = 100,
+            // Associative array (word type => frequency):
+            wordList = {},
+            // Number of word tokens:
+            wordCount = 0,
+            isBlack = {},
+            match,
+            word,
+            regExp = XRegExp('[\\p{L}\\d\\-]*\\p{L}{2,}[\\p{L}\\d\\-]+', 'igm');
 
         if (!that.wordCloudDrawn) {
             that.wordCloudDrawn = 0;
@@ -737,65 +747,66 @@ var DocPatch = function (options) {
         if (that.wordCloudDrawn === 1) {
             return;
         }
-
-        // TODO This is German only.
-        blackList = [
-            'in', 'im', 'am', 'an', 'vor', 'auf', 'durch', 'zu', 'von', 'zum', 'aus', 'mit', 'ohne', 'zur', 'nach', 'über', 'unter', 'so', 'um', 'vom', 'bei', 'hin', 'für', 'gegen', 'hierauf', 'dort', 'hier',
-            'der', 'die', 'das', 'den', 'dem', 'des', 'dieser', 'diese', 'dieses', 'deren', 'dessen', 'denen', 'jeder', 'jede', 'jedes', 'jeden',
-            'er', 'sie', 'es',
-            'anderer', 'andere', 'anderes', 'anderen',
-            'und', 'oder', 'nicht', 'nur',
-            'sich',
-            'bestimmt', 'bestimmte', 'bestimmter', 'bestimmtes', 'ganz', 'ganzen', 'ganzes', 'ganzer',
-            'ist', 'sind', 'hat', 'haben', 'wird', 'werden',
-            'als', 'so', 'bis', 'je',
-            'wer', 'wie', 'was', 'weshalb', 'warum', 'welches', 'wessen', 'wo', 'wann',
-            'daß', 'dass', 'wegen', 'deshalb', 'wenn', 'aber', 'auch', 'weder', 'noch', 'sondern', 'darum', 'soweit', 'damit', 'wieder', 'dadurch', 'sowie',
-            'seiner', 'sein', 'seinen', 'seines', 'ihrer', 'ihr', 'ihre', 'ihren',
-            'einen', 'ein', 'einem', 'eines', 'eine', 'einer',
-            'kann', 'können', 'muss', 'müssen', 'darf', 'dürfen', 'soll', 'sollen', 'will', 'wollen',
-            'Artikel', 'Art', 'Absatz', 'Gesetz', 'Abs', 'Satz'
-        ];
-
-        String.prototype.removeBlackWords = function () {
-            var index, removed = this, exp;
-
-            for (index = 0; index < blackList.length; index += 1) {
-                exp = new RegExp('\\b' + blackList[index] + '\\b', 'igm');
-
-                removed = removed.replace(exp, '');
-            }
-
-            return removed;
-        };
-
-        chosenWords = that.fetchOrCache(
+        
+        var text = that.fetchOrCache(
             lastRevisionID,
             that.repoDir + '/out/' + that.prefix + lastRevisionID + '.txt',
             'text',
             false
-        ).slice(0, 10000).replace(/([0-9\[\]\(\),;\.\-="]+)/igm, '').replace(/\b[:alpha:]{1,2}\b/g, '').removeBlackWords().split(' ');
+        );
+
+        // TODO This is German only.
+        blackList = that.fetchOrCache(
+            'germanST',
+            'Kickstrap/extras/blacklist/germanST.txt',
+            'text',
+            false
+        ).split("\r\n");
         
-        $('#wordCloudLoading progress').attr('value', 0).attr('max', chosenWords.length);
-        $('#wordCloudLoading span').html(progress + '/' + chosenWords.length);
+        _.each(blackList, function(w){
+            isBlack[w] = true;
+        });
+        
+        while (match = regExp.exec(text)) {
+            word = match[0];
+            // Omit words in stopword list:
+            if (!(word in isBlack)) {
+                wordCount += 1;
+                if (word in wordList) {
+                    wordList[word]++;
+                } else {
+                    wordList[word] = 1;
+                }
+            }
+        }
+        // Normalize:
+        $.each(_.keys(wordList), function (k) {
+            wordList[k] = wordList[k] / wordCount;
+        });
+
+        // Finish:
+        words = _.keys(wordList).slice(0, max);
+        
+        $('#wordCloudLoading progress').attr('value', 0).attr('max', max);
+        $('#wordCloudLoading span').html(progress + '/' + max);
 
         d3.layout.cloud()
             .size([2342, 1200])
             .timeInterval(10)
-            .words(chosenWords.map(function (d) {
-                    return {
-                        text: d, size: 10 + Math.random() * 90
-                    };
+            .words(words.map(function (d) {
+                return {
+                    text: d, size: 10 + Math.random() * 50
+                };
             }))
             .rotate(function () { return ~~(Math.random() * 2) * 90; })
-            .font("Impact")
+            .font('Impact')
             .fontSize(function (d) { return d.size; })
             .on('word', function () {
                 progress += 1;
                 $('#wordCloudLoading progress').attr('value', progress);
-                $('#wordCloudLoading span').html(progress + '/' + chosenWords.length);
+                $('#wordCloudLoading span').html(progress + '/' + max);
             })
-            .on("end", draw)
+            .on('end', draw)
             .start();
 
         that.wordCloudDrawn = 1;

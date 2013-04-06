@@ -849,6 +849,6 @@ div.subnav-fixed{top:60px;}
 .highlightsecondrevision{background:#e6ffe6;}
 .hugetext{max-height:30em;overflow:scroll;}
 #caching{ie8:"<script></script>";}
-#appList{content:"//pinesnotify, bootstrap, //retina, jquery-scrollto, bootstrap/scrollspy, jquery-nav, datepicker, timelinejs, diff-match-patch, bootstrap/transition, //knockout, //updater, chartjs, underscore, docpatch, datatables";ie8:"//pinesnotify, bootstrap, //retina, jquery-scrollto, bootstrap/scrollspy, jquery-nav, datepicker, timelinejs, diff-match-patch, bootstrap/transition, //knockout, //updater, chartjs, underscore, docpatch, datatables";}
-#appList::after{content:"//pinesnotify, bootstrap, //retina, jquery-scrollto, bootstrap/scrollspy, jquery-nav, datepicker, timelinejs, diff-match-patch, bootstrap/transition, //knockout, //updater, chartjs, underscore, docpatch, datatables";}
+#appList{content:"//pinesnotify, bootstrap, //retina, jquery-scrollto, bootstrap/scrollspy, jquery-nav, datepicker, timelinejs, diff-match-patch, bootstrap/transition, //knockout, //updater, chartjs, underscore, docpatch, datatables, xregexp";ie8:"//pinesnotify, bootstrap, //retina, jquery-scrollto, bootstrap/scrollspy, jquery-nav, datepicker, timelinejs, diff-match-patch, bootstrap/transition, //knockout, //updater, chartjs, underscore, docpatch, datatables, xregexp";}
+#appList::after{content:"//pinesnotify, bootstrap, //retina, jquery-scrollto, bootstrap/scrollspy, jquery-nav, datepicker, timelinejs, diff-match-patch, bootstrap/transition, //knockout, //updater, chartjs, underscore, docpatch, datatables, xregexp";}
 script#rootDir{content:"<script>setDir('/', 'root')br-setDir('local', 'universal')</script>";ie8:"<script>setDir('/', 'root')br-setDir('local', 'universal')</script>";}

@@ -761,7 +761,7 @@ var DocPatch = function (options) {
             'Kickstrap/extras/blacklist/germanST.txt',
             'text',
             false
-        ).split("\r\n");
+        ).split("\n");
         
         _.each(blackList, function(w){
             isBlack[w] = true;
@@ -792,7 +792,8 @@ var DocPatch = function (options) {
         words = _.pairs(wordList).sort(function(p, q){
           return p[1] < q[1];
         });
-        // Take only max words:
+
+        max = words.length / 2;
         words = words.slice(0, max);
 
         // Determine number of occurrences in "words"
@@ -804,7 +805,7 @@ var DocPatch = function (options) {
         $('#wordCloudLoading span').html(progress + '/' + max);
 
 
-        var cloudWidth = 1200;
+        var cloudWidth = 979;
         var cloudHeight = 600;
 
         d3.layout.cloud()
@@ -818,8 +819,9 @@ var DocPatch = function (options) {
                 };
             }))
             .rotate(function () { return ~~(Math.random() * 2) * 90; })
-            .font('Impact')
+            .font('Helvetica Neue')
             .fontSize(function (d) { return d.size; })
+            .padding(1)
             .on('word', function () {
                 progress += 1;
                 $('#wordCloudLoading progress').attr('value', progress);
@@ -840,7 +842,7 @@ var DocPatch = function (options) {
                 .data(words)
             .enter().append("text")
                 .style("font-size", function (d) { return d.size + "px"; })
-                .style("font-family", "Impact")
+                .style("font-family", "Helvetica Neue")
                 .style("fill", function (d, i) { return fill(i); })
                 .attr("text-anchor", "middle")
                 .attr("transform", function (d) {

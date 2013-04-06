@@ -730,7 +730,7 @@ var DocPatch = function (options) {
             blackList,
             progress = 0,
             // Number of words to draw:
-            max = 100,
+            max = 200,
             // Associative array (word type => frequency):
             wordList = {},
             // Number of word tokens:
@@ -738,7 +738,7 @@ var DocPatch = function (options) {
             isBlack = {},
             match,
             word,
-            regExp = XRegExp('[\\p{L}\\d\\-]*\\p{L}{2,}[\\p{L}\\d\\-]+', 'igm');
+            regExp = XRegExp('[\\p{L}\\d\\-]*\\p{L}{2,}[\\p{L}\\d\\-]*', 'igm');
 
         if (!that.wordCloudDrawn) {
             that.wordCloudDrawn = 0;
@@ -747,7 +747,7 @@ var DocPatch = function (options) {
         if (that.wordCloudDrawn === 1) {
             return;
         }
-
+        
         var text = that.fetchOrCache(
             lastRevisionID,
             that.repoDir + '/out/' + that.prefix + lastRevisionID + '.txt',
@@ -761,17 +761,19 @@ var DocPatch = function (options) {
             'Kickstrap/extras/blacklist/germanST.txt',
             'text',
             false
-        ).split("\n");
-
-        _.each(blackList, function (w) {
+        ).split("\r\n");
+        
+        _.each(blackList, function(w){
             isBlack[w] = true;
         });
-
+        console.log(isBlack);
+        
         while (match = regExp.exec(text)) {
-            word = match[0];
+            word = match[0].toLowerCase(); // blacklist is lower-case
+            // word = match[0]; 
             // Omit words in stopword list:
             if (!(word in isBlack)) {
-                wordCount += 1;
+                // wordCount += 1;
                 if (word in wordList) {
                     wordList[word]++;
                 } else {
@@ -779,30 +781,45 @@ var DocPatch = function (options) {
                 }
             }
         }
+        // // Normalize to full word count (too small!):
+        // for (var k in wordList){
+        //   if (wordList.hasOwnProperty(k)){
+        //     wordList[k] = wordList[k] / wordCount;
+        //   }
+        // };
 
-        $.each(_.keys(wordList), function (k) {
-            wordList[k] = wordList[k] / wordCount;
+        // Finish: transform wordList into pairs and sort by frequency:
+        words = _.pairs(wordList).sort(function(p, q){
+          return p[1] < q[1];
         });
+        // Take only max words:
+        words = words.slice(0, max);
 
-        words = _.keys(wordList);
-        max = words.length / 2;
-
-        $('#wordCloudLoading progress').attr('value', progress).attr('max', max);
+        // Determine number of occurrences in "words"
+        _.map(words, function(p){
+          wordCount += p[1];
+        });
+        
+        $('#wordCloudLoading progress').attr('value', 0).attr('max', max);
         $('#wordCloudLoading span').html(progress + '/' + max);
 
+
+        var cloudWidth = 1200;
+        var cloudHeight = 600;
+
         d3.layout.cloud()
-            //.size([2342, 1200])
-            .size([979, 600])
+            .size([cloudWidth, cloudHeight])
+            // .size([2342, 1200])
             .timeInterval(10)
-            .words(words.map(function (d) {
+            .words(_.map(words, function (d) {
                 return {
-                    text: d, size: 10 + Number('0.' + wordList[d]) * 50
+                    text: d[0],
+                    size: 10 + d[1]/wordCount * 140 // not yet optimal!
                 };
             }))
             .rotate(function () { return ~~(Math.random() * 2) * 90; })
-            .font('Helvetica Neue')
+            .font('Impact')
             .fontSize(function (d) { return d.size; })
-            .padding(1)
             .on('word', function () {
                 progress += 1;
                 $('#wordCloudLoading progress').attr('value', progress);
@@ -815,15 +832,15 @@ var DocPatch = function (options) {
 
         function draw (words) {
             d3.select("#wordCloudImage").insert("svg")
-                .attr("width", 979)
-                .attr("height", 600)
+                .attr("width", cloudWidth)
+                .attr("height", cloudHeight)
             .append("g")
                 .attr("transform", "translate(150,150)")
             .selectAll("text")
                 .data(words)
             .enter().append("text")
                 .style("font-size", function (d) { return d.size + "px"; })
-                .style("font-family", 'Helvetica Neue')
+                .style("font-family", "Impact")
                 .style("fill", function (d, i) { return fill(i); })
                 .attr("text-anchor", "middle")
                 .attr("transform", function (d) {

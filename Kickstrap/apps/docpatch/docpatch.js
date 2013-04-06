@@ -2,7 +2,9 @@
  * DocPatch
  */
 
-/*global $, Chart, createStoryJS, localStorage, diff_match_patch, d3, XRegExp */
+/*global $, _, Chart, createStoryJS, localStorage, diff_match_patch, d3, XRegExp */
+// Because of underscore.js:
+/*jslint nomen: true */
 
 var DocPatch = function (options) {
 
@@ -572,7 +574,8 @@ var DocPatch = function (options) {
     this.drawActorsTable = function () {
         var actors = {},
             entities = [],
-            i;
+            i,
+            roles;
 
         if (!that.actorsTableDrawn) {
             that.actorsTableDrawn = 0;
@@ -600,7 +603,7 @@ var DocPatch = function (options) {
         });
 
         for (i in actors) {
-            var roles = _.uniq(actors[i].roles);
+            roles = _.uniq(actors[i].roles);
 
             entities.push([
                 '<a href="' + actors[i].uri + '" title="' + actors[i].uri + '">' + actors[i].name + '</a>',
@@ -719,29 +722,28 @@ var DocPatch = function (options) {
 
         that.articlesTableDrawn = 1;
     };
-    
+
     /**
      * Draws word cloud.
      */
     this.drawWordCloud = function () {
-        var fill = d3.scale.category20(),
+        var cloudWidth = 979,
+            cloudHeight = 600,
+            // Only keep words that occur at least n times:
+            minOccurrence = 7,
+            fill = d3.scale.category20(),
             words = [],
-            lastRevisionID = that.createRevisionID(latest),
+            lastRevisionID = that.createRevisionID(that.latest),
             blackList,
             progress = 0,
-            // Number of words to draw:
-            max = 200,
+            max,
             // Associative array (word type => frequency):
             wordList = {},
-            // Number of word tokens:
-            //wordCount = 0,
-            isBlack = {},
             match,
             word,
-            regExp = XRegExp('[\\p{L}\\d\\-]*\\p{L}{2,}[\\p{L}\\d\\-]*', 'igm'),
+            regExp = new XRegExp('[\\p{L}\\d\\-]*\\p{L}{2,}[\\p{L}\\d\\-]*', 'igm'),
             maxCount = 0,
-            cloudWidth = 979,
-            cloudHeight = 600;
+            text;
 
         if (!that.wordCloudDrawn) {
             that.wordCloudDrawn = 0;
@@ -750,8 +752,8 @@ var DocPatch = function (options) {
         if (that.wordCloudDrawn === 1) {
             return;
         }
-        
-        var text = that.fetchOrCache(
+
+        text = that.fetchOrCache(
             lastRevisionID,
             that.repoDir + '/out/' + that.prefix + lastRevisionID + '.txt',
             'text',
@@ -766,18 +768,14 @@ var DocPatch = function (options) {
             false
         ).split("\n");
 
-        _.each(blackList, function(w){
-            isBlack[w] = true;
-        });
-
         while (match = regExp.exec(text)) {
             // Blacklist is lower-case:
             word = match[0].toLowerCase();
-            if ( // Omit
+            if (// Omit
                 // - words in stopword list:
-                (!(word in isBlack)) &&
+                (!_.contains(blackList, word)) &&
                 // - and roman numerals:
-                (!((word.length>=1) && (/^x{0,3}i?v?i{0,3}$/i.exec(word))))) {
+                (!((word.length >= 1) && (/^x{0,3}i?v?i{0,3}$/i.exec(word))))) {
                 if (word in wordList) {
                     wordList[word] += 1;
                 } else {
@@ -785,25 +783,18 @@ var DocPatch = function (options) {
                 }
             }
         }
-        // // Normalize to full word count (too small!):
-        // for (var k in wordList){
-        //   if (wordList.hasOwnProperty(k)){
-        //     wordList[k] = wordList[k] / wordCount;
-        //   }
-        // };
 
-        var m = 3;
-        // Transform wordList into pairs and sort by frequency:
-        words = _.reject(_.pairs(wordList),function (p) {
-          return (p[1] < m);
+        // only allow words that occur minOccurrence times
+        words = _.reject(_.pairs(wordList), function (p) {
+            return (p[1] < minOccurrence);
         });
 
         // Determine number of occurrences in "words":
         maxCount = 0;  // relies on sorting!
         for (var i=0; i < words.length; i++){
-          if (words[i][1] > maxCount){
-            maxCount = words[i][1];
-          }
+            if (words[i][1] > maxCount){
+                maxCount = words[i][1];
+            }
         }
         
         $('#wordCloudLoading progress').attr('value', 0).attr('max', words.length);
@@ -811,48 +802,54 @@ var DocPatch = function (options) {
 
         d3.layout.cloud()
             .size([cloudWidth, cloudHeight])
-            // .size([2342, 1200])
             .timeInterval(10)
             .words(_.map(words, function (d) {
                 return {
                     text: d[0],
-                    size: 10 + (d[1])/(maxCount) * 90
+                    size: 10 + (d[1]) / (maxCount) * 90
                 };
             }))
-            .rotate(function () { return ~~(Math.random() * 2) * 90; })
+            .rotate(function () {
+                return ~~(Math.random() * 2) * 90;
+            })
             .font('Helvetica Neue')
-            .fontSize(function (d) { return d.size; })
+            .fontSize(function (d) {
+                return d.size;
+            })
             .padding(1)
             .on('word', function () {
                 progress += 1;
                 $('#wordCloudLoading progress').attr('value', progress);
                 $('#wordCloudLoading span').html(progress + '/' + words.length);
             })
-            .on('end', draw)
+            .on('end', function (words) {
+                d3.select('#wordCloudImage')
+                    .insert('svg')
+                    .attr('width', cloudWidth)
+                    .attr('height', cloudHeight)
+                    .append('g')
+                    .attr('transform', 'translate(500,300)')
+                    .selectAll('text')
+                    .data(words)
+                    .enter().append('text')
+                    .style('font-size', function (d) {
+                        return d.size + 'px';
+                    })
+                    .style('font-family', 'Helvetica Neue')
+                    .style('fill', function (d, i) {
+                        return fill(i);
+                    })
+                    .attr('text-anchor', 'middle')
+                    .attr('transform', function (d) {
+                        return 'translate(' + [d.x, d.y] + ')rotate(' + d.rotate + ')';
+                    })
+                    .text(function (d) { return d.text; });
+
+                $('#wordCloudLoading').fadeOut();
+            })
             .start();
 
         that.wordCloudDrawn = 1;
-
-        function draw (words) {
-            d3.select("#wordCloudImage").insert("svg")
-                .attr("width", cloudWidth)
-                .attr("height", cloudHeight)
-            .append("g")
-                .attr("transform", "translate(150,150)")
-            .selectAll("text")
-                .data(words)
-            .enter().append("text")
-                .style("font-size", function (d) { return d.size + "px"; })
-                .style("font-family", "Helvetica Neue")
-                .style("fill", function (d, i) { return fill(i); })
-                .attr("text-anchor", "middle")
-                .attr("transform", function (d) {
-                return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
-                })
-                .text(function (d) { return d.text; });
-
-            $('#wordCloudLoading').fadeOut();
-        }
     };
 
     /**
@@ -914,22 +911,22 @@ var DocPatch = function (options) {
      * Initiates button on top of page for downloading last revision in default format.
      */
 
-    var latest = this.meta.revisions.slice(-1)[0];
+    this.latest = this.meta.revisions.slice(-1)[0];
 
     $('#latest').attr(
         'href',
-        this.repoDir + '/out/' + this.prefix + this.createRevisionID(latest) + '.pdf'
+        this.repoDir + '/out/' + this.prefix + this.createRevisionID(this.latest) + '.pdf'
     );
 
     $('#latest').attr(
         'title',
-        (latest.id + 1) + '. Fassung "' + latest.title + '" vom ' + $.datepicker.formatDate(this.dateFormat, new Date(latest.announced)) + ' im PDF-Format herunterladen'
+        (this.latest.id + 1) + '. Fassung "' + this.latest.title + '" vom ' + $.datepicker.formatDate(this.dateFormat, new Date(this.latest.announced)) + ' im PDF-Format herunterladen'
     );
 
     /**
      * Initiates timeline data.
      */
-    var timelineData = {
+    this.timelineData = {
         "timeline": {
             "headline": this.meta.title,
             "type": "default",
@@ -945,7 +942,7 @@ var DocPatch = function (options) {
     $.each(this.meta.revisions, function () {
         var announced = new Date(this.announced);
 
-        timelineData.timeline.date.push({
+        that.timelineData.timeline.date.push({
             "startDate": $.datepicker.formatDate('yy,m,d', announced),
             "endDate": $.datepicker.formatDate('yy,m,d', announced),
             "headline": this.title,
@@ -965,10 +962,10 @@ var DocPatch = function (options) {
         type: "timeline",
         width: "100%",
         height: "600",
-        source: timelineData,
+        source: this.timelineData,
         lang: "de",
         css: "Kickstrap/apps/timelinejs/css/timeline.css",
-        js: "Kickstrap/apps/timelinejs/js/timeline-min.js",
+        js: "Kickstrap/apps/timelinejs/js/timeline-min.js"
         //font: "DroidSerif-DroidSans"
     });
 
@@ -1032,7 +1029,7 @@ var DocPatch = function (options) {
     /**
      * Counts legislative sessions for statistics.
      */
-    this.numberOfLegislativeSessions = latest.legislativeSession.id;
+    this.numberOfLegislativeSessions = this.latest.legislativeSession.id;
     $('#numberOfLegislativeSessions').html(this.numberOfLegislativeSessions);
 
     /**
@@ -1058,3 +1055,7 @@ var DocPatch = function (options) {
     );
 
 };
+
+/* 
+ * vim: sw=4 et
+ * */

@@ -734,11 +734,14 @@ var DocPatch = function (options) {
             // Associative array (word type => frequency):
             wordList = {},
             // Number of word tokens:
-            wordCount = 0,
+            //wordCount = 0,
             isBlack = {},
             match,
             word,
-            regExp = XRegExp('[\\p{L}\\d\\-]*\\p{L}{2,}[\\p{L}\\d\\-]*', 'igm');
+            regExp = XRegExp('[\\p{L}\\d\\-]*\\p{L}{2,}[\\p{L}\\d\\-]*', 'igm'),
+            maxCount = 0,
+            cloudWidth = 979,
+            cloudHeight = 600;
 
         if (!that.wordCloudDrawn) {
             that.wordCloudDrawn = 0;
@@ -762,20 +765,18 @@ var DocPatch = function (options) {
             'text',
             false
         ).split("\n");
-        
+
         _.each(blackList, function(w){
             isBlack[w] = true;
         });
-        console.log(isBlack);
-        
+
         while (match = regExp.exec(text)) {
-            word = match[0].toLowerCase(); // blacklist is lower-case
-            // word = match[0]; 
+            // Blacklist is lower-case:
+            word = match[0].toLowerCase();
             // Omit words in stopword list:
             if (!(word in isBlack)) {
-                // wordCount += 1;
                 if (word in wordList) {
-                    wordList[word]++;
+                    wordList[word] += 1;
                 } else {
                     wordList[word] = 1;
                 }
@@ -788,17 +789,13 @@ var DocPatch = function (options) {
         //   }
         // };
 
-        // Finish: transform wordList into pairs and sort by frequency:
-        words = _.pairs(wordList).sort(function(p, q){
+        // Transform wordList into pairs and sort by frequency:
+        words = _.pairs(wordList).sort(function (p, q) {
           return p[1] < q[1];
         });
 
-        max = words.length / 2;
-        words = words.slice(0, max);
-
-        // Determine number of occurrences in "words"
-        var maxCount = 0;
-        _.each(words, function(p){
+        // Determine number of occurrences in "words":
+        _.each(words, function (p) {
           if (p[1] > maxCount){
             maxCount = p[1];
           }
@@ -807,10 +804,6 @@ var DocPatch = function (options) {
         
         $('#wordCloudLoading progress').attr('value', 0).attr('max', max);
         $('#wordCloudLoading span').html(progress + '/' + max);
-
-
-        var cloudWidth = 979;
-        var cloudHeight = 600;
 
         d3.layout.cloud()
             .size([cloudWidth, cloudHeight])

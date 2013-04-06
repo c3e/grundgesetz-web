@@ -747,7 +747,7 @@ var DocPatch = function (options) {
         if (that.wordCloudDrawn === 1) {
             return;
         }
-        
+
         var text = that.fetchOrCache(
             lastRevisionID,
             that.repoDir + '/out/' + that.prefix + lastRevisionID + '.txt',
@@ -761,12 +761,12 @@ var DocPatch = function (options) {
             'Kickstrap/extras/blacklist/germanST.txt',
             'text',
             false
-        ).split("\r\n");
-        
-        _.each(blackList, function(w){
+        ).split("\n");
+
+        _.each(blackList, function (w) {
             isBlack[w] = true;
         });
-        
+
         while (match = regExp.exec(text)) {
             word = match[0];
             // Omit words in stopword list:
@@ -779,6 +779,7 @@ var DocPatch = function (options) {
                 }
             }
         }
+
         // Normalize:
         $.each(_.keys(wordList), function (k) {
             wordList[k] = wordList[k] / wordCount;
@@ -786,7 +787,7 @@ var DocPatch = function (options) {
 
         // Finish:
         words = _.keys(wordList).slice(0, max);
-        
+
         $('#wordCloudLoading progress').attr('value', 0).attr('max', max);
         $('#wordCloudLoading span').html(progress + '/' + max);
 
@@ -795,6 +796,7 @@ var DocPatch = function (options) {
             .timeInterval(10)
             .words(words.map(function (d) {
                 return {
+                    //text: d, size: 10 + wordList[d] * 90
                     text: d, size: 10 + Math.random() * 50
                 };
             }))

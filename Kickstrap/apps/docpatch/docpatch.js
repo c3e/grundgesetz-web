@@ -736,7 +736,6 @@ var DocPatch = function (options) {
             lastRevisionID = that.createRevisionID(that.latest),
             blackList,
             progress = 0,
-            max,
             // Associative array (word type => frequency):
             wordList = {},
             match,

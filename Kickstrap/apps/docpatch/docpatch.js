@@ -224,14 +224,16 @@ var DocPatch = function (options) {
      */
     this.drawResultOfTheVote = function () {
         var revision = that.meta.revisions[Number($('#revisionStats').val())],
-            yes = (revision.votes && revision.votes.yes) || 0,
-            no = (revision.votes && revision.votes.no) || 0,
-            abstentions = (revision.votes && revision.votes.abstentions) || 0,
-            notVoted = (revision.votes && revision.votes.notVoted) || 0,
-            invalid = (revision.votes && revision.votes.invalid) || 0,
-            sum = yes + no + abstentions + notVoted + invalid,
+            yes = (revision.votes && revision.votes.yes),
+            no = (revision.votes && revision.votes.no),
+            abstentions = (revision.votes && revision.votes.abstentions),
+            notVoted = (revision.votes && revision.votes.notVoted),
+            invalid = (revision.votes && revision.votes.invalid),
+            sum = 0,
+            result = [],
             ctx,
-            chart;
+            chart,
+            calculateResult;
 
         // Reset:
         $('#resultOfTheVoteAlert').removeClass('in');
@@ -242,31 +244,39 @@ var DocPatch = function (options) {
             $('#resultOfTheVoteAlert').addClass('in');
             return;
         }
+        
+        /**
+         * Calculate result:
+         */
+        
+        calculateResult = function (number, color) {
+            if (number) {
+                result.push({
+                    value: number,
+                    color: color
+                });
+                
+                sum += number;
+            } else if (isNaN(number)) {
+                number = 'k.&nbsp;A.';
+            }
+            
+            return number;
+        }
+        
+        yes = calculateResult(yes, "#468847");
+        no = calculateResult(no, "#B94A48");
+        abstentions = calculateResult(abstentions, "#F89406");
+        notVoted = calculateResult(notVoted, "#3A87AD");
+        invalid = calculateResult(invalid, "#999999");
+        
+        /**
+         * Render HTML:
+         */
 
         ctx = $('#resultOfTheVote').fadeIn().get(0).getContext('2d');
 
-        chart = new Chart(ctx).Pie([
-            {
-                value: yes,
-                color: "#468847"
-            },
-            {
-                value: no,
-                color: "#B94A48"
-            },
-            {
-                value: abstentions,
-                color: "#F89406"
-            },
-            {
-                value: notVoted,
-                color: "#3A87AD"
-            },
-            {
-                value: invalid,
-                color: "#999999"
-            }
-        ]);
+        chart = new Chart(ctx).Pie(result);
 
         $('#resultOfTheVoteList').html(
             '<li><span class="badge badge-success">' + yes + '</span> ja</li>' +

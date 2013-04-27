@@ -104,6 +104,29 @@ var DocPatch = function (options) {
      * Previous revision ID used at runtime
      */
     this.previousRevisionID = 0;
+    
+    /**
+     * i18n
+     */
+    this.i18n = {
+        "dataTables": {
+            "sProcessing": "Bitte warten ...",
+            "sLengthMenu": "_MENU_ Einträge anzeigen",
+            "sZeroRecords": "Keine Einträge vorhanden",
+            "sInfo": "_START_ bis _END_ von _TOTAL_ Einträgen",
+            "sInfoEmpty": "0 bis 0 von 0 Einträgen",
+            "sInfoFiltered": "(gefiltert von _MAX_  Einträgen)",
+            "sInfoPostFix": "",
+            "sSearch": "Suchen",
+            "sUrl": "",
+            "oPaginate": {
+                "sFirst": "Erster",
+                "sPrevious": "Zurück",
+                "sNext": "Nächster",
+                "sLast": "Letzter"
+            }
+        }
+    };
 
     var that = this;
 
@@ -617,16 +640,14 @@ var DocPatch = function (options) {
 
         $('#actorsTable').dataTable({
             /*"sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
-            "sPaginationType": "bootstrap",
-            "oLanguage": {
-                "sLengthMenu": "_MENU_ records per page"
-            },*/
+            "sPaginationType": "bootstrap",*/
             "aaData": entities,
             "aoColumns": [
                 { "sTitle": "Name" },
                 { "sTitle": "Rollen" },
                 { "sTitle": "Unterschriften", "sClass": "right" }
-            ]
+            ],
+            "oLanguage": that.i18n.dataTables
         });
 
         that.actorsTableDrawn = 1;
@@ -708,16 +729,14 @@ var DocPatch = function (options) {
 
         $('#articlesTable').dataTable({
             /*"sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
-            "sPaginationType": "bootstrap",
-            "oLanguage": {
-                "sLengthMenu": "_MENU_ records per page"
-            },*/
+            "sPaginationType": "bootstrap",*/
             "aaData": entities,
             "aoColumns": [
                 { "sTitle": "Artikelnummer" },
                 { "sTitle": "Anzahl Änderungen", "sClass": "right" },
                 { "sTitle": "Historie" }
-            ]
+            ],
+            "oLanguage": that.i18n.dataTables
         });
 
         that.articlesTableDrawn = 1;

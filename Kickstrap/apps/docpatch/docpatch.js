@@ -741,7 +741,7 @@ var DocPatch = function (options) {
             wordList = {},
             match,
             word,
-            regExp = XRegExp('[\\p{L}\\d\\-]*\\p{L}{2,}[\\p{L}\\d\\-]*', 'igm'),
+            regExp = new XRegExp('[\\p{L}\\d\\-]*\\p{L}{2,}[\\p{L}\\d\\-]*', 'igm'),
             maxCount = 0,
             text;
 
@@ -784,24 +784,21 @@ var DocPatch = function (options) {
             }
         }
 
-        // Transform wordList into pairs and sort by frequency:
-        words = _.sortBy(_.pairs(wordList), function (p) {
-            return -p[1];
+        // only allow words that occur minOccurrence times
+        words = _.reject(_.pairs(wordList), function (p) {
+            return (p[1] < minOccurrence);
         });
 
-        for (max = 0; max < words.length; max += 1) {
-            if (words[max][1] < minOccurrence) {
-                break;
+        // Determine number of occurrences in "words":
+        maxCount = 0;  // relies on sorting!
+        for (var i=0; i < words.length; i++){
+            if (words[i][1] > maxCount){
+                maxCount = words[i][1];
             }
         }
-
-        words = words.slice(0, max - 1);
-
-        // Determine number of occurrences in "words":
-        maxCount = words[0][1]; // relies on sorting!
-
-        $('#wordCloudLoading progress').attr('value', 0).attr('max', max);
-        $('#wordCloudLoading span').html(progress + '/' + max);
+        
+        $('#wordCloudLoading progress').attr('value', 0).attr('max', words.length);
+        $('#wordCloudLoading span').html(progress + '/' + words.length);
 
         d3.layout.cloud()
             .size([cloudWidth, cloudHeight])
@@ -823,7 +820,7 @@ var DocPatch = function (options) {
             .on('word', function () {
                 progress += 1;
                 $('#wordCloudLoading progress').attr('value', progress);
-                $('#wordCloudLoading span').html(progress + '/' + max);
+                $('#wordCloudLoading span').html(progress + '/' + words.length);
             })
             .on('end', function (words) {
                 d3.select('#wordCloudImage')
@@ -968,7 +965,7 @@ var DocPatch = function (options) {
         source: this.timelineData,
         lang: "de",
         css: "Kickstrap/apps/timelinejs/css/timeline.css",
-        js: "Kickstrap/apps/timelinejs/js/timeline-min.js",
+        js: "Kickstrap/apps/timelinejs/js/timeline-min.js"
         //font: "DroidSerif-DroidSans"
     });
 
@@ -1058,3 +1055,7 @@ var DocPatch = function (options) {
     );
 
 };
+
+/* 
+ * vim: sw=4 et
+ * */

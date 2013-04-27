@@ -48,7 +48,7 @@
             </a>
 
             <a class="brand" href="/" title="Grundgesetz für die Bundesrepublik Deutschland">DocPatch</a>
-            
+
             <nav class="nav-collapse collapse">
                 <ul id="topnav" class="nav">
                     <li><a href="#hauptseite" title="Hauptseite [H]" accesskey="h"><i class="icon-home"></i> Hauptseite</a></li>
@@ -101,7 +101,7 @@
             <a class="btn" href="#docpatch" title="Was ist DocPatch und wer steht dahinter?">Das ist DocPatch &raquo;</a>
         </div>
     </div>
-    
+
     <section id="zeitleiste">
         <div class="page-header">
             <h1><i class="icon-time"></i> Zeitleiste <small>Alle Fassungen im Überblick</small></h1>
@@ -109,7 +109,7 @@
 
         <div id="timeline-embed"></div>
     </section>
-    
+
     <section id="vergleichen">
         <div class="page-header">
             <h1><i class="icon-file"></i> Vergleichen <small>Fassungen miteinander vergleichen</small></h1>
@@ -142,7 +142,7 @@
                 </div>
             </div>
         </form>
-        
+
         <div id="compareModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="compareModalLabel" aria-hidden="true">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -201,30 +201,31 @@
                             </tbody>
                         </table>
                     </div>
+
                     <div class="span8">
                         <!-- TODO chart.js: any ideas? -->
                     </div>
                 </div>
             </div>
-            
+
             <div class="tab-pane" id="actors">
                 <p>Nähere Betrachtung derjenigen Politiker, die die einzelnen Fassungen des Grundgesetzes unterschrieben haben:</p>
-                
+
                 <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="actorsTable"></table>
             </div>
-            
+
             <div class="tab-pane" id="legislativeSessions">
                 <p>Anzahl der Änderungen in den jeweiligen Legislaturperioden:</p>
-                
+
                 <canvas id="changesPerPeriod" width="700" height="200"></canvas>
             </div>
-            
+
             <div class="tab-pane" id="years">
                 <p>Anzahl der Änderungen in den jeweiligen Jahren:</p>
-                
+
                 <canvas id="changesPerYear" width="700" height="200"></canvas>
             </div>
-            
+
             <div class="tab-pane" id="revisions">
                 <p>Abstimmungsverhältnis bei der Verabschiedung einer Gesetzesänderung im Bundestag:</p>
 
@@ -236,38 +237,38 @@
                                 <select name="revisionStats" id="revisionStats" class="span12"></select>
                             </div>
                         </div>
-                        
+
                         <ul id="resultOfTheVoteList"></ul>
-                        
+
                         <div id="resultOfTheVoteAlert" class="alert info fade">
                             Zu dieser Fassung existieren nicht genügend Daten.
                         </div>
                     </div>
+
                     <div class="span6">
-                        
                         <canvas id="resultOfTheVote" width="300" height="300"></canvas>
                     </div>
                 </div>
             </div>
-            
+
             <div class="tab-pane" id="articles">
                 <p>Änderungshistorie einzelner Artikel:</p>
 
                 <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="articlesTable"></table>
             </div>
-            
+
             <div class="tab-pane" id="wordcloud">
                 <p id="wordCloudLoading" class="text-center"> <img src="Kickstrap/apps/timelinejs/css/loading.gif" alt="loading animation"/> Bitte warten &hellip; <progress value="" max="" /></progress> <span></span></p>
                 <div id="wordCloudImage"></div>
             </div>
         </div>
     </section>
-    
+
     <section id="herunterladen">
         <div class="page-header">
             <h1><i class="icon-download"></i> Herunterladen <small>Alle Fassungen und Formate zum Download</small></h1>
         </div>
-        
+
         <div class="control-group">
             <label class="control-label" for="revision">Fassung</label>
             <div class="controls">
@@ -281,33 +282,57 @@
                 <select name="format" id="format" class="span3"></select>
             </div>
         </div>
-        
+
         <div class="control-group">
             <div class="controls">
                 <a id="download" class="btn btn-large btn-success" href="#"><i class="icon-download icon-large"></i> Download</a>
             </div>
         </div>
     </section>
-    
+
     <section id="mitmachen">
         <div class="page-header">
             <h1><i class="icon-wrench"></i> Mitmachen <small>Hilf mit!</small></h1>
         </div>
 
-        <p>Wir sind ständig auf der Suche nach Menschen und Maschinen, die uns tatkräftig unterstützen möchten &ndash; sei es durch kreative Mithilfe, Spenden von Dienst- oder Sachleistungen. Melde Dich, wenn Du Dich für die &bdquo;Befreiung Deiner Grundrechte&rdquo; interessierst!
-        
-        <p>Hast Du eine tolle Idee, was wir unbedingt umsetzen sollten? Hast Du einen Fehler gefunden? Hast Du Vorschläge, wie wir etwas besser machen können? Wir benutzen den <a href="https://github.com/bheisig/grundgesetz-dev/issues" title="https://github.com/bheisig/grundgesetz-dev/issues">GitHub-eigenen Issue Tracker</a> für jegliche Anfragen solcher Art.</p>
+        <div class="row-fluid">
+            <div class="span4">
+                <p class="lead">Technikaffin? Entdecke spielerisch unsere Verfassung!</p>
+
+                <ul class="unstyled">
+                    <li><span class="badge badge-inverse">✔</span> Alle Fassungen des Grundgesetzes als Commits unter Versionskontrolle</li>
+                    <li><span class="badge badge-inverse">✔</span> Transformation von Markup in beliebige andere Formate mit Templates</li>
+                    <li><span class="badge badge-inverse">✔</span> Metadaten im JSON-Format</li>
+                    <li><span class="badge badge-inverse">✔</span> Patches, Diffs, Scripte und vieles mehr</li>
+                </ul>
+
+                <a href="https://github.com/bheisig/grundgesetz-dev" title="https://github.com/bheisig/grundgesetz-dev" class="btn btn-large btn-primary"><i class="icon-github icon-large"></i> Fork me on GitHub &raquo;</a>
+            </div>
+
+            <div class="span8">
+                <p>Wir sind auf der Suche nach Menschen und Maschinen, die uns tatkräftig unterstützen möchten &ndash; sei es durch kreative Mithilfe, Spenden von Dienst- oder Sachleistungen. Melde Dich, wenn Du Dich für die &bdquo;Befreiung Deiner Grundrechte&rdquo; interessierst!
+
+                <p>Hast Du eine tolle Idee, was wir unbedingt umsetzen sollten? Hast Du einen Fehler gefunden? Hast Du Vorschläge, wie wir etwas besser machen können? Wir benutzen den <a href="https://github.com/bheisig/grundgesetz-dev/issues" title="https://github.com/bheisig/grundgesetz-dev/issues">GitHub-eigenen Issue Tracker</a> für jegliche Anfragen solcher Art.</p>
+            </div>
+        </div>
     </section>
-    
+
     <section id="docpatch">
         <div class="page-header">
             <h1><i class="icon-group"></i> Über uns <small>Was ist DocPatch und wer steht dahinter?</small></h1>
         </div>
-        
-        <img src="img/docpatch_gg_logo_transparent_noborder.svg" alt="Logo für DocPatch" class="pull-left" style="width: 250px; margin: 0 1em 1em 0;">
+
+        <blockquote class="pull-right">
+            <p>Alle Informationen müssen frei sein.</p>
+            <small>Chaos Computer Club: <a href="https://www.ccc.de/de/hackerethik"><cite title="Hackerethik">Hackerethik</cite></a></small>
+        </blockquote>
+
+        <img src="img/docpatch_gg_logo_transparent_noborder.svg" alt="Logo für DocPatch" id="docpatch-logo" class="pull-left">
 
         <p>Dieses Projekt ist Teil der Open-Data-Bewegung und unterliegt der <a href="http://opendefinition.org/okd/" title="http://opendefinition.org/okd/">Open Definition</a>. Unser <strong>Ziel</strong> ist, öffentliche Daten leicht zugänglich zu machen; unser <strong>Weg</strong> ist, freie Software und freie Formate für unsere Arbeit zu verwenden; unsere <strong>Idee</strong> ist, das Grundgesetz für die Bundesrepublik Deutschland als <em>das</em> Beispiel für öffentliche Daten wie Verfassungen und Gesetzestexte von unfreien Formaten zu "befreien" und umfassend zu erschließen.</p>
+
         <p>Gesetzestexte sind wie Software: der &bdquo;Quelltext&rdquo; ist gut strukturiert mit einfacher Syntax und Änderungen sind auch nichts anderes als Patches, um Fehler zu beseitigen oder neuen Anforderungen zu genügen. Das jedenfalls dachten wir uns vor einiger Zeit. Wie wäre es, ein Gesetz wie ein Stück Software zu behandeln, zu versionieren und zu patchen? Softwareentwickler benutzen dafür Versionskontrollsysteme wie <a href="http://git-scm.com/" title="http://git-scm.com/"><code>git</code></a>. Damit kann man nachvollziehen, wer wann was und warum geändert hat. Als Syntax nahmen wir das leicht verständliche und weit verbreitete <a href="http://daringfireball.net/projects/markdown/" title="http://daringfireball.net/projects/markdown/"><code>markdown</code></a>, das sich wie einfacher Text liest. Um die Gesetzestexte in schöne Formate konvertieren zu können, entschieden wir uns für das mächtige <a href="http://johnmacfarlane.net/pandoc/index.html" title="http://johnmacfarlane.net/pandoc/index.html"><code>pandoc</code></a>, das unser verwendetes <code>markdown</code> mit sinnvoller Syntax anreichert. Die Patches haben wir dem kleinen, aber feinen Tool <a href="http://savannah.nongnu.org/projects/quilt" title="http://savannah.nongnu.org/projects/quilt"><code>quilt</code></a> erstellt. Den letzten Schliff gaben wir dem Projekt mit der selbst geschriebenen Software <a href="https://github.com/bheisig/DocPatch" title="https://github.com/bheisig/DocPatch"><code>DocPatch</code></a>.</p>
+
         <p>Wir beschränken uns nicht auf den reinen Text und die Änderungen, sondern gehen einen Schritt weiter: Mit Hilfe von weiteren strukturierten Daten (&bdquo;Metadaten&rdquo;) stellen wir den Text als solches und alle Änderungen in einen größeren Kontext: Wann wurde eine Änderung verabschiedet? Wer hat sie initiiert, wer unterschrieben? Das sind alles Fragen, die wir versuchen zu beantworten.</p>
     </section>
 </div>
@@ -318,8 +343,8 @@
         <div class="row-fluid">
             <div class="span4">
                 <p>Wer mit uns in Kontakt treten möchte, möge sich bitte direkt an <a href="http://benjamin.heisig.name/" title="http://benjamin.heisig.name/">Benjamin Heisig</a> wenden oder indirekt die üblichen Kommunikationskanäle der foobar bemühen:</p>
-                
-                <a href="http://die-foobar.de/" title="foobar e.&nbsp;V."><img id="foobarlogo" src="img/foobar.png" alt="Logo foobar e.&nbsp;V." class="img-rounded pull-right"></a>
+
+                <a href="http://die-foobar.de/" title="foobar e.&nbsp;V."><img id="foobar-logo" src="img/foobar.png" alt="Logo des foobar e.&nbsp;V." class="img-rounded pull-right"></a>
 
                 <address>
                     <strong>foobar e.&nbsp;V.</strong><br />
@@ -330,15 +355,15 @@
                     <i class="icon-phone"></i> +49 201 75915275<br />
                     <a href="https://twitter.com/foobareV" title="Twitter"><i class="icon-twitter"></i> @foobareV</a>
                 </address>
-                
+
                 <p>Der Hackerspace foobar ist Heimat des <a href="http://chaospott.de/" title="http://chaospott.de/">Chaospott Essen</a>, ein Erfa-Kreis des <a href="http://ccc.de/" title="http://ccc.de/">Chaos Computer Club e.&nbsp;V.</a></p>
             </div>
 
             <div class="span4">
                 <p>Der <a href="https://github.com/bheisig/docpatch-web" title="https://github.com/bheisig/docpatch-web"><i class="icon-github"></i> Quellcode dieser Webseite</a> steht unter der <a href="http://www.gnu.org/licenses/agpl-3.0" title="http://www.gnu.org/licenses/agpl-3.0">GNU Affero General Public License, Version 3 (AGPLv3)</a>.</p>
-                
+
                 <p>Diese Webseite wäre ohne den Einsatz von folgender Open Source Software nicht möglich gewesen:</p>
-                
+
                 <ul>
                     <li><a href="http://getkickstrap.com/" title="http://getkickstrap.com/">Kickstrap</a></li>
                     <li><a href="http://timeline.verite.co/" title="http://timeline.verite.co/">TimelineJS</a></li>

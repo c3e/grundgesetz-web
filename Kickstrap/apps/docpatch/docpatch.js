@@ -40,11 +40,13 @@ var DocPatch = function (options) {
         },
         {
             "title": "eBook (EPUB)",
-            "ext": "epub"
+            "ext": "epub",
+            "emphasize": true
         },
         {
             "title": "HTML",
-            "ext": "html"
+            "ext": "html",
+            "emphasize": true
         },
         {
             "title": "JSON",
@@ -52,7 +54,8 @@ var DocPatch = function (options) {
         },
         {
             "title": "Klartext (txt)",
-            "ext": "txt"
+            "ext": "txt",
+            "emphasize": true
         },
         {
             "title": "LaTeX",
@@ -84,7 +87,8 @@ var DocPatch = function (options) {
         },
         {
             "title": "PDF",
-            "ext": "pdf"
+            "ext": "pdf",
+            "emphasize": true
         },
         {
             "title": "RST",
@@ -907,7 +911,15 @@ var DocPatch = function (options) {
      * Fills up field for created output formats
      */
     $.each(this.formats, function () {
-        $('#format').append('<option value="' + this.ext + '" title="' + this.ext + '">' + this.title + '</option>');
+        var emphasize = '';
+        
+        if (this.emphasize) {
+            emphasize = ' style="font-weight: bold;"';
+        }
+        
+        $('#format').append(
+            '<option value="' + this.ext + '" title="' + this.ext + '"' + emphasize + '>' + this.title + '</option>'
+        );
     });
 
     /**

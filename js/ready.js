@@ -1,3 +1,5 @@
+var docpatch = {};
+
 ks.ready(function () {
     /**
      * Configures OnePageNav.
@@ -12,7 +14,7 @@ ks.ready(function () {
     /**
      * Configures and initiates DocPatch.
      */
-    var docpatch = new DocPatch({
+    docpatch = new DocPatch({
         prefix: "brd_grundgesetz_",
         repoDir: "grundgesetz-dev",
         dateFormat: "dd.mm.yy"

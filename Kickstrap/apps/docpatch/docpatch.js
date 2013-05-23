@@ -507,7 +507,7 @@ var DocPatch = function (options) {
             });
 
             collectedMetaData.push({
-                key: 'Unterschreiber',
+                key: 'Unterzeichner',
                 value: signedOffBy.join(', ')
             });
         }

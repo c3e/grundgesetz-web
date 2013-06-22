@@ -1,7 +1,6 @@
 @import url('http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic');
-script#caching{content:"<script class=\"extras\" type=\"text/javascript\">consoleLog('Style caching enabled.')br-consoleLog('if you expected something different, try typing \"clearCache()\"')br-</script>";}
+script#caching{content:"<script class=\"extras\" type=\"text/javascript\">localStorage.clear()br-consoleLog('You are currently NOT caching your styles.', 'warn')br-</script>";}
 .hidden{display:none;}
-script#caching{content:"<script class=\"extras\" type=\"text/javascript\">consoleLog('Style caching enabled.')br-consoleLog('if you expected something different, try typing \"clearCache()\"')br-</script>";}
 article,aside,details,figcaption,figure,footer,header,hgroup,nav,section{display:block;}
 audio,canvas,video{display:inline-block;*display:inline;*zoom:1;}
 audio:not([controls]){display:none;}

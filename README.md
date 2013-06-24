@@ -28,23 +28,21 @@ Have fun! :-)
 
 ##  ToDo
 
-*   Improve HTML Meta Data
-    *   og and twitter meta data don't seem to be working
-    *   date is missing
 *   Better social media integration
     *   http://www.heise.de/extras/socialshareprivacy/
 *   Write some words about terms of use/privacy policy.
-*   Zeitleiste
+*   Timeline
     *   Historischen Kontext recherchieren und ergänzen
+    *   Styling
 *   Allgemeines zum Grundgesetz (mit entsprechenden Verweisen auf Wikipedia & Co.)
-*   Vergleichen
+*   Compaare revisions
     *   Nur Änderungen anzeigen; gesamter Text ist verwirrend und zu viel
 *   Accessability
-*   Fehler
+*   Bugs
     *   Auf der Hauptseite sind oben unter "Entdecken" die drei Buttons "Zeitleiste", "Vergleichen" und "Statistiken". Alle drei springen zwar zum vorgesehenen Anker, aber nicht zu der ganz korrekten Position auf dem Bildschirm (vgl. "Entdecken" im Drop-down-Menue). [46halbe]
     *   Beim Skalieren der Zeitleiste springt man leider zurueck zu dem zuletzt ausgewaehlten Beitrag, ich faende es schoener, wenn man da bleiben koennte, wo der Marker grade ist. Muss man halt ganz schoen weit scrollen manchmal.. [46halbe]
     *   Bei der oberen Ansicht der Zeitleiste sind manchmal bei der seitlichen Vor- und Rueckschau am rechten/linken Rand bei den Pfeilen die Formatierungen karp0tt, teilweise abgeschnitten und so (vgl. Eintrag 30.12.1954, Vorschau 28.12.1955) [46halbe]
-    *   Bei "Statistiken und dem Reiter "Artikel" ist die Sortierreihenfolge ein bisschen lustig. :} Ich denke, die Artikel sollten wie im Grundgesetz sortiert sein, nicht wie bei Zaehlen nach Nummern. [46halbe]
     *   Bei n < 100 Artikel springt die naechste Anzeige nach oben, das sollte wohl nicht so gemeint sein. Bei n=100 geht der Sprung ans Seitenende. [46halbe]
     *   Zeitleiste unter Safari funktioniert nicht richtig.
     *   Ältere Firefox-Versionen (getestet mit 13.0.1) zeigen nicht alle Einträge in den Dropdown-Menüs.
+*   l10n/i18n

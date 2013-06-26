@@ -108,7 +108,7 @@ var DocPatch = function (options) {
      * Previous revision ID used at runtime
      */
     this.previousRevisionID = 0;
-    
+
     /**
      * i18n
      */
@@ -248,32 +248,32 @@ var DocPatch = function (options) {
             $('#resultOfTheVoteAlert').addClass('in');
             return;
         }
-        
+
         /**
          * Calculate result:
          */
-        
+
         calculateResult = function (number, color) {
             if (number) {
                 result.push({
                     value: number,
                     color: color
                 });
-                
+
                 sum += number;
             } else if (isNaN(number)) {
                 number = 'k.&nbsp;A.';
             }
-            
+
             return number;
-        }
-        
+        };
+
         yes = calculateResult(yes, "#468847");
         no = calculateResult(no, "#B94A48");
         abstentions = calculateResult(abstentions, "#F89406");
         notVoted = calculateResult(notVoted, "#3A87AD");
         invalid = calculateResult(invalid, "#999999");
-        
+
         /**
          * Render HTML:
          */
@@ -747,11 +747,11 @@ var DocPatch = function (options) {
             "sPaginationType": "bootstrap",*/
             "aaData": entities,
             "aoColumns": [
-                // { "sTitle": "Artikelnummer", "sType" : "numeric" },
-                { "sTitle": "Artikelnummer",
-                    "sSortDataType" : "artikel",
-                    "sType" : "artikel" 
-                },
+                { "sTitle": "Artikelnummer", "sType" : "numeric" },
+                // { "sTitle": "Artikelnummer",
+                //     "sSortDataType" : "artikel",
+                //     "sType" : "artikel"
+                // },
                 { "sTitle": "Anzahl Änderungen", "sClass": "right" },
                 { "sTitle": "Historie" }
             ],
@@ -833,7 +833,7 @@ var DocPatch = function (options) {
                 maxCount = words[i][1];
             }
         }
-        
+
         $('#wordCloudLoading progress').attr('value', 0).attr('max', words.length);
         $('#wordCloudLoading span').html(progress + '/' + words.length);
 
@@ -917,11 +917,11 @@ var DocPatch = function (options) {
      */
     $.each(this.formats, function () {
         var emphasize = '';
-        
+
         if (this.emphasize) {
             emphasize = ' style="font-weight: bold;"';
         }
-        
+
         $('#format').append(
             '<option value="' + this.ext + '" title="' + this.ext + '"' + emphasize + '>' + this.title + '</option>'
         );
@@ -1101,6 +1101,6 @@ var DocPatch = function (options) {
 
 };
 
-/* 
+/*
  * vim: sw=4 et
  * */

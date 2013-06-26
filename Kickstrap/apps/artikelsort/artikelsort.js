@@ -1,10 +1,10 @@
 /* Artikelsort (plugin for DataTables, defines sort type "artikel")
- * 
+ *
  *
  * Sort strings such as article numbers in laws:
  *   "12" < "12a" < "123" < "123a" < "124"
  */
-"use strict";
+
 (function () {
     var article_re = /(\d+)([a-z]*)/;
     function get_components(s) {

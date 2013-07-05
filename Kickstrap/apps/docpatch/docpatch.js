@@ -747,11 +747,11 @@ var DocPatch = function (options) {
             "sPaginationType": "bootstrap",*/
             "aaData": entities,
             "aoColumns": [
-                { "sTitle": "Artikelnummer", "sType" : "numeric" },
-                // { "sTitle": "Artikelnummer",
-                //     "sSortDataType" : "artikel",
-                //     "sType" : "artikel"
-                // },
+                // { "sTitle": "Artikelnummer", "sType" : "numeric" },
+                { "sTitle": "Artikelnummer",
+                    "sSortDataType" : "artikel",
+                    "sType" : "artikel"
+                },
                 { "sTitle": "Anzahl Änderungen", "sClass": "right" },
                 { "sTitle": "Historie" }
             ],

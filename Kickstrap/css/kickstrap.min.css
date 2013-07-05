@@ -1,4 +1,3 @@
-@import url('http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic');
 script#caching{content:"<script class=\"extras\" type=\"text/javascript\">consoleLog('Style caching enabled.')br-consoleLog('if you expected something different, try typing \"clearCache()\"')br-</script>";}
 .hidden{display:none;}
 script#caching{content:"<script class=\"extras\" type=\"text/javascript\">consoleLog('Style caching enabled.')br-consoleLog('if you expected something different, try typing \"clearCache()\"')br-</script>";}

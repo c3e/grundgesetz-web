@@ -1,5 +1,8 @@
 var docpatch = {};
 
+// Crude hack to fire ready function anyway:
+ks.opts.readyOverride = true;
+
 ks.ready(function () {
     /**
      * Configures OnePageNav.

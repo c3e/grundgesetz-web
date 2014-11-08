@@ -1,5 +1,6 @@
 script#caching{content:"<script class=\"extras\" type=\"text/javascript\">consoleLog('Style caching enabled.')br-consoleLog('if you expected something different, try typing \"clearCache()\"')br-</script>";}
 .hidden{display:none;}
+script#console{content:"<script class=\"extras\">ks.opts.console=(ks.opts.console||true)</script>";ie8:"<script class=\"extras\">ks.opts.console=(ks.opts.console||true)</script>";}
 script#caching{content:"<script class=\"extras\" type=\"text/javascript\">consoleLog('Style caching enabled.')br-consoleLog('if you expected something different, try typing \"clearCache()\"')br-</script>";}
 article,aside,details,figcaption,figure,footer,header,hgroup,nav,section{display:block;}
 audio,canvas,video{display:inline-block;*display:inline;*zoom:1;}
@@ -844,7 +845,7 @@ body{padding-top:90px;}
 #footer{background-color:#333333;border-top:0.1em solid #252525;height:100%;margin-top:6em;padding:2em 0;color:#ffffff;}
 #footer a{color:#999999;}
 #footer a:hover{color:#ffffff;}
-#foobar-logo{background:#999999;padding:0.5em;}
+#chaospott-logo{background:#999999;padding:0.5em;width:150px;height:auto;}
 #docpatch-logo{width:250px;margin:0 2em 2em 0;}
 .highlightfirstrevision{background:#ffe6e6;}
 .highlightsecondrevision{background:#e6ffe6;}

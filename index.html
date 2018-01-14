@@ -64,8 +64,7 @@
 <body data-spy="scroll" data-target=".navbar">
 
 
-<nav class="navbar navbar-dark fixed-top bg-dark">
-    <nav class="navbar-inner">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
         <section class="container">
             <a title="Hauptmenü" class="btn btn-navbar" data-toggle="collapse" data-target="#navbarCollapse">
                 <span class="icon-bar"></span>
@@ -75,26 +74,25 @@
 
             <a class="navbar-brand" href="/" title="Grundgesetz für die Bundesrepublik Deutschland">DocPatch</a>
 
-            <nav class="navbar-collapse collapse">
-                <ul id="topnav" class="navbar-nav">
-                    <li><a href="#hauptseite" title="Hauptseite [H]" accesskey="h"><i class="icon-home"></i> Hauptseite</a></li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-share"></i> Entdecken <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#zeitleiste" title="Alle Fassungen im Überblick [Z]" accesskey="z"><i class="icon-time"></i> Zeitleiste</a></li>
-                            <li><a href="#vergleichen" title="Fassungen miteinander vergleichen [R]" accesskey="r"><i class="icon-file"></i> Vergleichen</a></li>
-                            <li><a href="#statistiken" title="Nützliche Informationen rund um die verschiedenen Fassungen [S]" accesskey="s"><i class="icon-bar-chart"></i> Statistiken</a></li>
-                            <li><a href="#herunterladen" title="Alle Fassungen und Formate zum Download [D]" accesskey="d"><i class="icon-download"></i> Herunterladen</a></li>
-                        </ul>
+            <div class="navbar-collapse collapse">
+                <ul id="topnav" class="navbar-nav mr-auto">
+                    <li class="nav-item"><a class="nav-link" href="#hauptseite" title="Hauptseite [H]" accesskey="h"><i class="icon-home"></i> Hauptseite</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-share"></i> Entdecken <b class="caret"></b></a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#zeitleiste" title="Alle Fassungen im Überblick [Z]" accesskey="z"><i class="icon-time"></i> Zeitleiste</a>
+                            <a class="dropdown-item" href="#vergleichen" title="Fassungen miteinander vergleichen [R]" accesskey="r"><i class="icon-file"></i> Vergleichen</a>
+                            <a class="dropdown-item" href="#statistiken" title="Nützliche Informationen rund um die verschiedenen Fassungen [S]" accesskey="s"><i class="icon-bar-chart"></i> Statistiken</a>
+                            <a class="dropdown-item" href="#herunterladen" title="Alle Fassungen und Formate zum Download [D]" accesskey="d"><i class="icon-download"></i> Herunterladen</a>
+                        </div>
                     </li>
-                    <li><a href="#mitmachen" title="Hilf mit! [M]" accesskey="m"><i class="icon-wrench"></i> Mitmachen</a></li>
-                    <li><a href="#docpatch" title="Was ist DocPatch und wer steht dahinter? [U]" accesskey="u"><i class="icon-group"></i> Über uns</a></li>
+                    <li><a class="nav-link" href="#mitmachen" title="Hilf mit! [M]" accesskey="m"><i class="icon-wrench"></i> Mitmachen</a></li>
+                    <li><a class="nav-link" href="#docpatch" title="Was ist DocPatch und wer steht dahinter? [U]" accesskey="u"><i class="icon-group"></i> Über uns</a></li>
                 </ul>
 
                 <a id="latest" class="btn btn-success pull-right" href="#"><i class="icon-download"></i> Neuste Fassung (PDF)</a>
-            </nav>
+            </div>
         </section>
-    </nav>
 </nav>
 
 

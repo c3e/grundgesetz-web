@@ -13,3 +13,5 @@
 *.kate-swp
 /nbproject/
 /.idea/
+
+server

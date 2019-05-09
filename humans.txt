@@ -3,7 +3,7 @@
 
 /* TEAM */
   Owner and maintainer: foobar e. V.
-  Contact: http://die-foorbar.de/
+  Contact: https://chaospott.de/
   From: Essen, Germany
 
 /* SITE */
